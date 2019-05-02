@@ -1,5 +1,6 @@
-﻿@page "/prova"
+﻿@page "/chat"
 @using Blazor.Extensions
+@inherits ASP.NETCoreWebApplication.Client.Components.ChatComponent
 
 <h1>Prova</h1>
 
@@ -7,13 +8,14 @@
     <input type="text" id="message" class="form-control" bind="@Message" />
     <input type="button" id="sendMessage" value="Send" class="btn btn-primary" onclick="@SendMessage"/>
     <ul id="discussion">
-        @foreach (var message in messages)
+        @foreach (var message in Messages)
         {
             <li>@message</li>
         }
     </ul>
 </div>
 
+@*
 @functions {
     HubConnection connection;
     string Message = "";
@@ -39,3 +41,4 @@
         Message = "";
     }
 }
+*@

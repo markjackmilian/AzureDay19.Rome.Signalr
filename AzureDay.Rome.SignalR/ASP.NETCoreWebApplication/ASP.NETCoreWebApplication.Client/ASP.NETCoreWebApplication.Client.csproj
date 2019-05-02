@@ -16,4 +16,8 @@
         <ProjectReference Include="..\ASP.NETCoreWebApplication.Shared\ASP.NETCoreWebApplication.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\Impl" />
+    </ItemGroup>
+
 </Project>
