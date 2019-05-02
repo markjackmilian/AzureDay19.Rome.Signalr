@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
 using System.Net.Mime;
+using ASP.NETCoreWebApplication.Server.Hubs;
 
 namespace ASP.NETCoreWebApplication.Server
 {
@@ -25,6 +26,8 @@ namespace ASP.NETCoreWebApplication.Server
                     WasmMediaTypeNames.Application.Wasm,
                 });
             });
+            
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +40,7 @@ namespace ASP.NETCoreWebApplication.Server
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSignalR(routes => routes.MapHub<ChatHub>("/chathub"));
             app.UseMvc(routes => { routes.MapRoute(name: "default", template: "{controller}/{action}/{id?}"); });
 
             app.UseBlazor<Client.Startup>();

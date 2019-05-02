@@ -6,14 +6,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App"/>
-        <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="0.7.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2"/>
+        <PackageReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="0.7.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ASP.NETCoreWebApplication.Client\ASP.NETCoreWebApplication.Client.csproj"/>
-        <ProjectReference Include="..\ASP.NETCoreWebApplication.Shared\ASP.NETCoreWebApplication.Shared.csproj"/>
+        <ProjectReference Include="..\ASP.NETCoreWebApplication.Client\ASP.NETCoreWebApplication.Client.csproj" />
+        <ProjectReference Include="..\ASP.NETCoreWebApplication.Shared\ASP.NETCoreWebApplication.Shared.csproj" />
     </ItemGroup>
 
 </Project>
