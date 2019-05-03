@@ -31,20 +31,24 @@ namespace ASP.NETCoreWebApplication.Client.Components
 
         protected override async Task OnInitAsync()
         {
-            this.ChatHub.OnMessagereceived += (sender, tuple) =>
-            {
-                this.Messages.Add(tuple.Item2);
-                this.StateHasChanged();
-            };
+            this.ChatHub.OnMessagereceived += this.OnChatHubOnOnMessagereceived;
             
             await this.ChatHub.Start();
             await base.OnInitAsync();
         }
-
+       
         public async void Dispose()
         {
             Console.WriteLine("Disposato");
             await this.ChatHub.Stop();
+            this.ChatHub.OnMessagereceived -= this.OnChatHubOnOnMessagereceived;
+
+        }
+        
+        private void OnChatHubOnOnMessagereceived(object sender, Tuple<string, string> tuple)
+        {
+            this.Messages.Add(tuple.Item2);
+            this.StateHasChanged();
         }
     }
 }
