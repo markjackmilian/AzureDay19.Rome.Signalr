@@ -39,6 +39,10 @@
     <Reference Include="Bridge, Version=17.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bridge.Core.17.2.0\lib\net40\Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Bridge.AspNetCore.SignalR.Client, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bridge.AspNetCore.SignalR.Client.2.0.0-alpha2\lib\net452\Bridge.AspNetCore.SignalR.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Bridge.Html5, Version=17.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bridge.Html5.17.2.0\lib\net40\Bridge.Html5.dll</HintPath>
     </Reference>
@@ -56,6 +60,10 @@
     </Reference>
     <Reference Include="Bridge.Spaf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Bridge.Spaf.18.1.1\lib\net45\Bridge.Spaf.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Bridge.Newtonsoft.Json.1.2.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Retyped.Core, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Retyped.Core.1.6.6733\lib\net40\Retyped.Core.dll</HintPath>
@@ -77,6 +85,7 @@
     <Compile Include="CustomRoutesConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpafApp.cs" />
+    <Compile Include="ViewModels\ChatViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bridge.json" />
