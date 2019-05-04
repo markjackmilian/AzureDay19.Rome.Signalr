@@ -9,11 +9,15 @@
         <PackageReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="0.7.0" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" />
+        <PackageReference Include="Microsoft.Azure.SignalR" Version="1.0.9" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\ASP.NETCoreWebApplication.Client\ASP.NETCoreWebApplication.Client.csproj" />
         <ProjectReference Include="..\ASP.NETCoreWebApplication.Shared\ASP.NETCoreWebApplication.Shared.csproj" />
     </ItemGroup>
+    <PropertyGroup>
+        <UserSecretsId>project-C4B1925E-3BB8-4A28-8DEF-1C0F340A1303</UserSecretsId>
+    </PropertyGroup>
 
 </Project>

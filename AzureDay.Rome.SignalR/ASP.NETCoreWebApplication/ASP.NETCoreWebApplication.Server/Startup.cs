@@ -27,7 +27,7 @@ namespace ASP.NETCoreWebApplication.Server
                 });
             });
             
-            services.AddSignalR();
+            services.AddSignalR().AddAzureSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

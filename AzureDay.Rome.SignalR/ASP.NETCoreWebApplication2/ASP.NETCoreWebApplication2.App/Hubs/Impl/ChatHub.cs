@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using ASP.NETCoreWebApplication1.App.Hubs;
 using Blazor.Extensions;
-using Microsoft.AspNetCore.Builder;
 
-namespace ASP.NETCoreWebApplication.Client.Hubs.Impl
+namespace ASP.NETCoreWebApplication2.App.Hubs.Impl
 {
     class ChatHub : IChatHub
     {
@@ -11,8 +11,7 @@ namespace ASP.NETCoreWebApplication.Client.Hubs.Impl
 
         public ChatHub()
         {
-            new AzureSignalRApplicationBuilderExtensions
-            this._connection =  new HubConnectionBuilder().WithUrl("chathub").Build();
+            this._connection = new HubConnectionBuilder().WithUrl("chathub").Build();
             this._connection.On<string, string>("broadcastMessage", this.OnBroadcastMessage);
         }
 
@@ -31,11 +30,13 @@ namespace ASP.NETCoreWebApplication.Client.Hubs.Impl
         public Task Start()
         {            
             return this._connection.StartAsync();
+
         }
 
         public Task Stop()
         {
             return this._connection.StopAsync();
+
         }
     }
 }
