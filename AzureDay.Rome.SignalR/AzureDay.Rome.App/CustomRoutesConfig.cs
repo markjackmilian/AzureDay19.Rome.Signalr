@@ -13,7 +13,7 @@ namespace Bridge.Spaf
                 new PageDescriptor
                 {
                     CanBeDirectLoad = ()=>true,
-                    HtmlLocation = ()=>"pages/home.html", // yout html location
+                    HtmlLocation = ()=>"pages/chat.html", // yout html location
                     Key = SpafApp.HomeId,
                     //PageController = () => SpafApp.Container.Resolve<HomeViewModel>()
                 },
