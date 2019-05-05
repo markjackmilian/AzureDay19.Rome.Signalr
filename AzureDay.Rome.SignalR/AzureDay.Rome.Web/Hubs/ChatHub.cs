@@ -7,20 +7,20 @@ namespace AzureDay.Rome.Web.Hubs
     {
         public void BroadcastMessage(string name, string message)
         {
-            Clients.All.SendAsync("broadcastMessage", name, message);
+            this.Clients.All.SendAsync("broadcastMessage", name, message);
         }
 
         public void Echo(string name, string message)
         {
-            Clients.Client(Context.ConnectionId).SendAsync("echo", name, message + " (echo from server)");
+            this.Clients.Client(this.Context.ConnectionId).SendAsync("echo", name, message + " (echo from server)");
         }
         
         
-//        public override Task OnConnectedAsync()
-//        {
-//            this.Clients.All.SendAsync("broadcastMessage", "system", $"{this.Context.ConnectionId} joined the conversation");
-//            return base.OnConnectedAsync();
-//        }
+        public override Task OnConnectedAsync()
+        {
+            this.Clients.All.SendAsync("broadcastMessage", "system", $"{this.Context.ConnectionId} joined the conversation");
+            return base.OnConnectedAsync();
+        }
 //        public void Send(string name, string message)
 //        {
 //            this.Clients.All.SendAsync("broadcastMessage", name, message);

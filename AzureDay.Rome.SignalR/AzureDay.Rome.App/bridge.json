@@ -38,7 +38,7 @@
   // If true, all files within the "output"
   // folder location will be deleted on Build.
   //    ** USE WITH CAUTION **
-  "cleanOutputFolderBeforeBuild": false,
+  "cleanOutputFolderBeforeBuild": true,
 
   // Set to true to enable bridge.report.log generation.
   // Default is false.
