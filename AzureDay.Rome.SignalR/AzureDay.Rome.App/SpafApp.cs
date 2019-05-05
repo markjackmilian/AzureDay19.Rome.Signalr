@@ -6,6 +6,8 @@ using Bridge.Ioc;
 using Bridge.Messenger;
 using Bridge.Navigation;
 using Bridge.Spaf.Attributes;
+using Bridge.Spaf.Hubs;
+using Bridge.Spaf.Hubs.Impl;
 
 namespace Bridge.Spaf
 {
@@ -36,6 +38,8 @@ namespace Bridge.Spaf
             RegisterAllViewModels();
 
             // register custom resource, services..
+            Container.RegisterSingleInstance<IChatHub, ChatHub>();
+
 
         }
 
