@@ -15,7 +15,7 @@ namespace Bridge.Spaf.ViewModels
 
         public override void OnLoad(Dictionary<string, object> parameters)
         {
-            Console.WriteLine("Ciao!");
+            //Console.WriteLine("Ciao!");
 
 //            this.Message = knockout.ko.observable.Self<string>();
 //            

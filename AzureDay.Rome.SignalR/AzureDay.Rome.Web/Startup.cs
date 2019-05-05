@@ -17,7 +17,7 @@ namespace AzureDay.Rome.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSignalR();
+            services.AddSignalR().AddAzureSignalR("Endpoint=https://ad19rome.service.signalr.net;AccessKey=Bg10eic8ZTchRNePpKh9VSHI4uZFczpt5pHCq+QTdXg=;Version=1.0;");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,8 +33,13 @@ namespace AzureDay.Rome.Web
             
             app.UseMvc();
             app.UseFileServer();
-            
-            app.UseSignalR(routes =>
+//            
+//            app.UseSignalR(routes =>
+//            {
+//                routes.MapHub<ChatHub>("/chat");
+//            });
+//            
+            app.UseAzureSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chat");
             });

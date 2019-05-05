@@ -1,18 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NETCoreWebApplication.Server", "ASP.NETCoreWebApplication\ASP.NETCoreWebApplication.Server\ASP.NETCoreWebApplication.Server.csproj", "{AF894EF3-6E3D-429B-A0C8-42C2D3EE0362}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NETCoreWebApplication.Client", "ASP.NETCoreWebApplication\ASP.NETCoreWebApplication.Client\ASP.NETCoreWebApplication.Client.csproj", "{D77421F6-9DC5-466E-B99F-8F30D0742A0F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NETCoreWebApplication.Shared", "ASP.NETCoreWebApplication\ASP.NETCoreWebApplication.Shared\ASP.NETCoreWebApplication.Shared.csproj", "{B007CDDD-FB4F-4EAA-8591-3F64CC8F4F2F}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{64A4E686-DA9E-4E7F-9DA5-6F8D9C384B12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.App", "AzureDay.Rome.App\AzureDay.Rome.App.csproj", "{A429653F-60F3-4A97-A008-83C8081EE23E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.Web", "AzureDay.Rome.Web\AzureDay.Rome.Web.csproj", "{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.Api", "AzureDay.Rome.Api\AzureDay.Rome.Api.csproj", "{32B29DAC-682A-48A2-9788-C3EDAD2942BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,18 +12,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AF894EF3-6E3D-429B-A0C8-42C2D3EE0362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF894EF3-6E3D-429B-A0C8-42C2D3EE0362}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF894EF3-6E3D-429B-A0C8-42C2D3EE0362}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF894EF3-6E3D-429B-A0C8-42C2D3EE0362}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D77421F6-9DC5-466E-B99F-8F30D0742A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D77421F6-9DC5-466E-B99F-8F30D0742A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D77421F6-9DC5-466E-B99F-8F30D0742A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D77421F6-9DC5-466E-B99F-8F30D0742A0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B007CDDD-FB4F-4EAA-8591-3F64CC8F4F2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B007CDDD-FB4F-4EAA-8591-3F64CC8F4F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B007CDDD-FB4F-4EAA-8591-3F64CC8F4F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B007CDDD-FB4F-4EAA-8591-3F64CC8F4F2F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A429653F-60F3-4A97-A008-83C8081EE23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A429653F-60F3-4A97-A008-83C8081EE23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A429653F-60F3-4A97-A008-83C8081EE23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -40,14 +20,9 @@ Global
 		{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32B29DAC-682A-48A2-9788-C3EDAD2942BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32B29DAC-682A-48A2-9788-C3EDAD2942BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32B29DAC-682A-48A2-9788-C3EDAD2942BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32B29DAC-682A-48A2-9788-C3EDAD2942BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A429653F-60F3-4A97-A008-83C8081EE23E} = {64A4E686-DA9E-4E7F-9DA5-6F8D9C384B12}
 		{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC} = {64A4E686-DA9E-4E7F-9DA5-6F8D9C384B12}
-		{32B29DAC-682A-48A2-9788-C3EDAD2942BE} = {64A4E686-DA9E-4E7F-9DA5-6F8D9C384B12}
 	EndGlobalSection
 EndGlobal
