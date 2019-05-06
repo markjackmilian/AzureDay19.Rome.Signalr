@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Bridge.Spaf.Hubs;
 using Retyped;
@@ -53,12 +54,15 @@ namespace Bridge.Spaf.ViewModels
         {
             this._top+=10;
             this._moveItHub.SendTop(this._top);
+            Console.WriteLine($"Top: {this._top}");
         }
 
         public void AddTenLeft()
         {
             this._left+=10;
             this._moveItHub.SendLeft(this._left);
+            Console.WriteLine($"Left: {this._left}");
+
         }
 
         

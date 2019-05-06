@@ -1,10 +1,22 @@
-<script src="../js/koExtensions.js"></script>
 <div id="moveIt">
+    <div id="myTop" class="w3-container w3-top w3-theme w3-large">
+        <p><i class="fa fa-bars w3-button w3-red w3-hide-large w3-xlarge" onclick="w3_open()"></i>
+            <span id="myIntro" class="w3-hide">SignlaR make pages alive!</span></p>
+    </div>
+
+
+    <header class="w3-container w3-theme" style="padding:64px 32px">
+        <h1 class="w3-xxxlarge">Move It</h1>
+    </header>
     <div style="height: 600px; background: lightgray">
         <div class="square resizable" data-bind="style:{top: Top, left: Left}" ></div>
     </div>
-    <button data-bind="click:AddTen">Add 10</button>
-    <button data-bind="click:AddTenLeft">Add 10 left</button>
+    
+    <label>Top</label>
+    <button class="w3-button w3-circle w3-teal" data-bind="click:AddTen">+</button>
+
+    <label>Left</label>
+    <button class="w3-button w3-circle w3-teal" data-bind="click:AddTenLeft">+</button>
 </div>
 
 <style>
