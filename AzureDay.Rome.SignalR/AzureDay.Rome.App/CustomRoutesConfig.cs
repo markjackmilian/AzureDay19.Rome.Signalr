@@ -14,16 +14,23 @@ namespace Bridge.Spaf
                 new PageDescriptor
                 {
                     CanBeDirectLoad = ()=>true,
-                    HtmlLocation = ()=>"pages/chat.html", // yout html location
+                    HtmlLocation = ()=>"pages/chat.html", 
                     Key = SpafApp.HomeId,
                     PageController = () => SpafApp.Container.Resolve<ChatViewModel>()
+                },
+                new PageDescriptor
+                {
+                    CanBeDirectLoad = ()=>true,
+                    HtmlLocation = ()=>"pages/moveIt.html", 
+                    Key = SpafApp.MoveItId,
+                    PageController = () => SpafApp.Container.Resolve<MoveItViewModel>()
                 },
               
             };
         }
 
         public override jQuery Body { get; } = jQuery.Select("#pageBody");
-        public override string HomeId { get; } = SpafApp.HomeId;
+        public override string HomeId { get; } = SpafApp.MoveItId;
         public override bool DisableAutoSpafAnchorsOnNavigate { get; } = true;
 
     }

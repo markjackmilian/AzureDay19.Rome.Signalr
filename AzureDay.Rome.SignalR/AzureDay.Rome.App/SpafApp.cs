@@ -48,7 +48,8 @@ namespace Bridge.Spaf
 
 
         public static string HomeId => "home";
-       
+        public static string MoveItId => "moveIt";
+
         #endregion
 
         #region MESSAGES

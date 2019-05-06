@@ -29,60 +29,13 @@ namespace Bridge.Spaf.ViewModels
         public override void OnLoad(Dictionary<string, object> parameters)
         {
             this._chatHub.Start();
-
-//            this.Message = knockout.ko.observable.Self<string>();
-//            
-//            var hubConnection = new HubConnectionBuilder().WithUrl("/chat").Build();
-//
-//            // Setup on data received event handler
-//            hubConnection.On("Send", new Action<string>((data) =>
-//            {
-//                // Log the received data to the console
-//                Console.WriteLine(data);
-//            }));
-            
-            
-//            connection.start()
-//                .then(function () {
-//                onConnected(connection);
-//            })
-//            .catch(function (error) {
-//                console.error(error.message);
-//            });
-
-            // Setup on connection close handler
-//            hubConnection.OnClose((error) => 
-//            {
-//                // Log the error
-//                Console.WriteLine(error.Message);
-//            });
-
-//            // Start the connection
-//            hubConnection.Start().Then(() =>
-//            {
-//                Console.WriteLine("yeahhhh");
-//            }, o =>
-//                {
-//                    Console.WriteLine("rejected");
-//                }
-////                onfulfilled: () =>
-////                {
-////                    // Send a message
-////                    hubConnection.Invoke("send", "Hello");
-////                }, 
-////                onrejected: null
-//                    
-//                    ).Catch(o =>
-//            {
-//                Console.WriteLine("noooo");
-//                Console.WriteLine(o);
-//            });
-
-            // Stop the connection
-            //hubConnection.Stop();
-            
-            
             base.OnLoad(parameters);
+        }
+
+        public override void OnLeave()
+        {
+            this._chatHub.Stop();
+            base.OnLeave();
         }
 
         public void Send()
