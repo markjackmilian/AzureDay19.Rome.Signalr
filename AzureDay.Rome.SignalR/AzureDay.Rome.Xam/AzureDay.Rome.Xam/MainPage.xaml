@@ -4,17 +4,24 @@
              xmlns:local="clr-namespace:AzureDay.Rome.Xam"
              x:Class="AzureDay.Rome.Xam.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <BoxView HeightRequest="30" WidthRequest="30" BackgroundColor="Red" VerticalOptions="Start" HorizontalOptions="Start" x:Name="BoxView" />
+        
+        <StackLayout Grid.Row="1">
         
         
-        <Button Text="Add 10 Top" Clicked="AddTopButton_Clicked"/>
-        <Button Text="Add 10 Left" Clicked="AddLeftButton_Clicked"/>
-        <Button Text="Reset" Clicked="ResetButton_Clicked"/>
+            <Button Text="Add 10 Top" Clicked="AddTopButton_Clicked"/>
+            <Button Text="Add 10 Left" Clicked="AddLeftButton_Clicked"/>
+            <Button Text="Reset" Clicked="ResetButton_Clicked"/>
         
-    </StackLayout>
+        </StackLayout>
+    </Grid>
+
+   
 
 </ContentPage>

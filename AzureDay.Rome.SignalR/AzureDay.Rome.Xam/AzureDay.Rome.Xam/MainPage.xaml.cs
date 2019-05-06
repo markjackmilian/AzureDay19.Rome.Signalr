@@ -27,6 +27,9 @@ namespace AzureDay.Rome.Xam
             this.hubConnection = new HubConnectionBuilder()
                 .WithUrl($"http://{ip}:5000/moveIt")
                 .Build();
+
+            this.hubConnection.On<int>("updateTop", (top) => { this.BoxView.TranslationY = top; });
+            this.hubConnection.On<int>("updateLeft", (left) => { this.BoxView.TranslationX = left; });
             
             this.hubConnection.StartAsync().ConfigureAwait(false);
         }
