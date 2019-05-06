@@ -6,6 +6,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.App", "AzureD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.Web", "AzureDay.Rome.Web\AzureDay.Rome.Web.csproj", "{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.Xam", "AzureDay.Rome.Xam\AzureDay.Rome.Xam\AzureDay.Rome.Xam.csproj", "{B53594B7-DD2B-47CA-A8C2-EC1E3720E999}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.Xam.Android", "AzureDay.Rome.Xam\AzureDay.Rome.Xam.Android\AzureDay.Rome.Xam.Android.csproj", "{4E4128D3-2E78-4AF1-9C1A-193BF58B5240}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.Xam.iOS", "AzureDay.Rome.Xam\AzureDay.Rome.Xam.iOS\AzureDay.Rome.Xam.iOS.csproj", "{7EF56BA3-B345-41AB-8E28-A1E106E516EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +26,18 @@ Global
 		{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B53594B7-DD2B-47CA-A8C2-EC1E3720E999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B53594B7-DD2B-47CA-A8C2-EC1E3720E999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B53594B7-DD2B-47CA-A8C2-EC1E3720E999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B53594B7-DD2B-47CA-A8C2-EC1E3720E999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E4128D3-2E78-4AF1-9C1A-193BF58B5240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E4128D3-2E78-4AF1-9C1A-193BF58B5240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E4128D3-2E78-4AF1-9C1A-193BF58B5240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E4128D3-2E78-4AF1-9C1A-193BF58B5240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EF56BA3-B345-41AB-8E28-A1E106E516EB}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{7EF56BA3-B345-41AB-8E28-A1E106E516EB}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{7EF56BA3-B345-41AB-8E28-A1E106E516EB}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{7EF56BA3-B345-41AB-8E28-A1E106E516EB}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A429653F-60F3-4A97-A008-83C8081EE23E} = {64A4E686-DA9E-4E7F-9DA5-6F8D9C384B12}

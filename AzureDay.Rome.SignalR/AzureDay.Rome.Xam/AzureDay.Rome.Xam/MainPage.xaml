@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AzureDay.Rome.Xam"
+             x:Class="AzureDay.Rome.Xam.MainPage">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Label Text="Welcome to Xamarin.Forms!" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+        
+        
+        <Button Text="Add 10 Top" Clicked="AddTopButton_Clicked"/>
+        <Button Text="Add 10 Left" Clicked="AddLeftButton_Clicked"/>
+        <Button Text="Reset" Clicked="AddLeftButton_Clicked"/>
+        
+    </StackLayout>
+
+</ContentPage>
