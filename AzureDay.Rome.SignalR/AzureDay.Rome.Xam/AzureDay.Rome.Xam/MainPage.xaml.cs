@@ -17,7 +17,7 @@ namespace AzureDay.Rome.Xam
 
         public MainPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             
             // localhost for UWP/iOS or special IP for Android
             var ip = "localhost";
@@ -28,22 +28,11 @@ namespace AzureDay.Rome.Xam
                 .WithUrl($"http://{ip}:5000/moveIt")
                 .Build();
             
-            this.hubConnection.StartAsync();
+            this.hubConnection.StartAsync().ConfigureAwait(false);
         }
         
         
-        async Task Connect()
-        {
-            try
-            {                
-                await this.hubConnection.StartAsync();
-            }
-            catch (Exception ex)
-            {
-                // Something has gone wrong
-            }
-        }
-
+       
         private async void AddTopButton_Clicked(object sender, EventArgs e)
         {
             try
@@ -81,7 +70,7 @@ namespace AzureDay.Rome.Xam
                 this._left = 0;
                 this._top = 0;
                 await this.hubConnection.SendAsync("sendLeft", this._left);
-                await this.hubConnection.SendAsync("sendTop", this._left);
+                await this.hubConnection.SendAsync("sendTop", this._top);
             }
             catch (Exception exception)
             {

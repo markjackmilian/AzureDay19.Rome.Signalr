@@ -18,8 +18,8 @@ namespace AzureDay.Rome.Xam.Android
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+            Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            this.LoadApplication(new App());
         }
     }
 }

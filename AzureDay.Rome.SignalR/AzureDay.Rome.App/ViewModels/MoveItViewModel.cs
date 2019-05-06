@@ -21,8 +21,8 @@ namespace Bridge.Spaf.ViewModels
             this.Top = knockout.ko.observable.Self<string>($"{this._top}px");
             this.Left = knockout.ko.observable.Self<string>($"{this._left}px");
             
-            this._moveItHub.OnLeftChanged += MoveItHubOnOnLeftChanged;
-            this._moveItHub.OnTopChanged += MoveItHubOnOnTopChanged;
+            this._moveItHub.OnLeftChanged += this.MoveItHubOnOnLeftChanged;
+            this._moveItHub.OnTopChanged += this.MoveItHubOnOnTopChanged;
         }
 
         private void MoveItHubOnOnTopChanged(object sender, int e)

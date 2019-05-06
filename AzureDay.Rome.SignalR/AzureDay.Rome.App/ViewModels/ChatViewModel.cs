@@ -18,7 +18,7 @@ namespace Bridge.Spaf.ViewModels
         public ChatViewModel(IChatHub chatHub)
         {
             this._chatHub = chatHub;
-            this._chatHub.OnMessagereceived += ChatHubOnOnMessagereceived;
+            this._chatHub.OnMessagereceived += this.ChatHubOnOnMessagereceived;
         }
 
         private void ChatHubOnOnMessagereceived(object sender, Tuple<string, string> e)

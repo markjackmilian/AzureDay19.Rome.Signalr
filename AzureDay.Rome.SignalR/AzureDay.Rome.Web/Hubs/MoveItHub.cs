@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
 namespace AzureDay.Rome.Web.Hubs
@@ -12,6 +13,12 @@ namespace AzureDay.Rome.Web.Hubs
         public void SendLeft(int left)
         {
             this.Clients.All.SendAsync("updateLeft", left);
+        }
+        
+        public override Task OnConnectedAsync()
+        {
+            var connectionInfo =  this.Context;
+            return base.OnConnectedAsync();
         }
     }
 }

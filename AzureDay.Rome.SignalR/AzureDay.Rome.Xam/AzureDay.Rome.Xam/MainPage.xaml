@@ -13,7 +13,7 @@
         
         <Button Text="Add 10 Top" Clicked="AddTopButton_Clicked"/>
         <Button Text="Add 10 Left" Clicked="AddLeftButton_Clicked"/>
-        <Button Text="Reset" Clicked="AddLeftButton_Clicked"/>
+        <Button Text="Reset" Clicked="ResetButton_Clicked"/>
         
     </StackLayout>
 
