@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using AzureDay.Rome.App.Hubs.Impl;
 using Bridge;
 using Bridge.Ioc;
 using Bridge.Messenger;
@@ -39,6 +40,7 @@ namespace Bridge.Spaf
 
             // register custom resource, services..
             Container.RegisterSingleInstance<IChatHub, ChatHub>();
+            Container.RegisterSingleInstance<IMoveItHub, MoveItHub>();
 
 
         }

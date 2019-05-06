@@ -17,5 +17,4 @@ namespace Bridge.Spaf.Hubs
         /// <param name="message"></param>
         void Send(string message);
     }
-
 }
