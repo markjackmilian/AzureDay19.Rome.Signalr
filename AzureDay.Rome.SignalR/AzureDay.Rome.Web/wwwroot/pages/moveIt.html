@@ -1,22 +1,24 @@
 <div id="moveIt">
     <div id="myTop" class="w3-container w3-top w3-theme w3-large">
         <p><i class="fa fa-bars w3-button w3-red w3-hide-large w3-xlarge" onclick="w3_open()"></i>
-            <span id="myIntro" class="w3-hide">SignlaR make pages alive!</span></p>
+            <span id="myIntro" class="w3-hide"><img src="http://www.giuneco.it/images/logo_white.png" /></span></p>
     </div>
 
 
-    <header class="w3-container w3-theme" style="padding:64px 32px">
-        <h1 class="w3-xxxlarge">Move It</h1>
+    <header class="w3-container w3-theme" style="
+        background-image: url('../images/aircraft-1499171_1920.jpg');
+        background-position: center;">
+        <h1 class="w3-xxxlarge w3-padding-48">MOVE IT!</h1>
     </header>
-    <div style="height: 600px; background: lightgray">
+    <div class="w3-container w3-sand" style="height: 600px;">
         <div class="square" data-bind="style:{top: Top, left: Left}" ></div>
     </div>
     
-    <label>Top</label>
-    <button class="w3-button w3-circle w3-teal" data-bind="click:AddTen">+</button>
+    <label>Horizontal</label>
+    <button class="w3-button w3-circle w3-teal" data-bind="click:AddTen"><i class="fa fa-arrow-right"></i></button>
 
-    <label>Left</label>
-    <button class="w3-button w3-circle w3-teal" data-bind="click:AddTenLeft">+</button>
+    <label>Vertical</label>
+    <button class="w3-button w3-circle w3-teal" data-bind="click:AddTenLeft"><i class="fa fa-arrow-down"></i></button>
 </div>
 
 <style>
