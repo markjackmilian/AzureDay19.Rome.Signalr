@@ -16,6 +16,7 @@ namespace AzureDay.Rome.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddMvc();
             
 //            services.AddSignalR().AddAzureSignalR("Endpoint=https://ad19rome.service.signalr.net;AccessKey=Bg10eic8ZTchRNePpKh9VSHI4uZFczpt5pHCq+QTdXg=;Version=1.0;");
@@ -32,13 +33,23 @@ namespace AzureDay.Rome.Web
             
             app.UseMvc();
             app.UseFileServer();
+
+            app.UseCors();
+            
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:5005")
+                    .AllowAnyHeader()
+                    .WithMethods("GET", "POST")
+                    .AllowCredentials();
+            });
             
 //            app.UseAzureSignalR(routes =>
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chat");
                 routes.MapHub<MoveItHub>("/moveIt");
-
+                routes.MapHub<GameHub>("/play");
             });
             
             

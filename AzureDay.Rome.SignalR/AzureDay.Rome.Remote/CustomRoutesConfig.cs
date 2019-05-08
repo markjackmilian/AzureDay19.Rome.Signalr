@@ -32,6 +32,13 @@ namespace Bridge.Spaf
                     Key = SpafApp.GameId,
                     PageController = () => SpafApp.Container.Resolve<GameViewModel>()
                 },
+                new PageDescriptor
+                {
+                    CanBeDirectLoad = ()=>true,
+                    HtmlLocation = ()=>"pages/gameResult.html",
+                    Key = SpafApp.GameResultId,
+                    PageController = () => SpafApp.Container.Resolve<GameResultViewModel>()
+                },
               
             };
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using AzureDay.Rome.Remote.Hubs;
+using AzureDay.Rome.Remote.Hubs.Impl;
 using Bridge;
 using Bridge.Ioc;
 using Bridge.Messenger;
@@ -19,6 +21,9 @@ namespace Bridge.Spaf
             ContainerConfig(); // config container
             Container.Resolve<INavigator>().InitNavigation(); // init navigation
 
+            var hub = Container.Resolve<IGameHub>();
+            hub.Start();
+
         }
 
         private static void ContainerConfig()
@@ -36,6 +41,8 @@ namespace Bridge.Spaf
             RegisterAllViewModels();
 
             // register custom resource, services..
+            Container.RegisterSingleInstance<IGameHub, GameHub>();
+
 
         }
 
@@ -45,6 +52,7 @@ namespace Bridge.Spaf
 
         public static string WaitingId => "waiting";
         public static string GameId => "game";
+        public static string GameResultId => "gameResult";
         public static string RegiserId => "register";
        
         #endregion
