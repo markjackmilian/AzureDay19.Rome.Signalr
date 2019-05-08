@@ -19,7 +19,6 @@ namespace AzureDay.Rome.Xam
         {
             this.InitializeComponent();
             
-            // localhost for UWP/iOS or special IP for Android
             var ip = "localhost";
             if (Device.RuntimePlatform == Device.Android)
                 ip = "10.0.2.2";
