@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{64A4E686-DA9E-4E7F-9DA5-6F8D9C384B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.App", "AzureDay.Rome.App\AzureDay.Rome.App.csproj", "{A429653F-60F3-4A97-A008-83C8081EE23E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.Client", "AzureDay.Rome.Client\AzureDay.Rome.Client.csproj", "{A429653F-60F3-4A97-A008-83C8081EE23E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDay.Rome.Web", "AzureDay.Rome.Web\AzureDay.Rome.Web.csproj", "{DFC0A6C0-CD38-4875-BCB8-A38C0E4EF9EC}"
 EndProject

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using AzureDay.Rome.App.Hubs.Impl;
+using AzureDay.Rome.Client.Hubs.Impl;
 using Bridge;
 using Bridge.Ioc;
 using Bridge.Messenger;

@@ -2,7 +2,7 @@ using System;
 using Bridge.AspNetCore.SignalR.Client;
 using Bridge.Spaf.Hubs;
 
-namespace AzureDay.Rome.App.Hubs.Impl
+namespace AzureDay.Rome.Client.Hubs.Impl
 {
     class MoveItHub : IMoveItHub
     {
