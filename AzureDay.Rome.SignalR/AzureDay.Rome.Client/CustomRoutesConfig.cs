@@ -25,6 +25,13 @@ namespace Bridge.Spaf
                     Key = SpafApp.MoveItId,
                     PageController = () => SpafApp.Container.Resolve<MoveItViewModel>()
                 },
+                new PageDescriptor
+                {
+                    CanBeDirectLoad = ()=>true,
+                    HtmlLocation = ()=>"pages/run.html", 
+                    Key = SpafApp.RunId,
+                    PageController = () => SpafApp.Container.Resolve<RunViewModel>()
+                },
               
             };
         }

@@ -92,6 +92,7 @@
     <Compile Include="SpafApp.cs" />
     <Compile Include="ViewModels\ChatViewModel.cs" />
     <Compile Include="ViewModels\MoveItViewModel.cs" />
+    <Compile Include="ViewModels\RunViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bridge.json" />
