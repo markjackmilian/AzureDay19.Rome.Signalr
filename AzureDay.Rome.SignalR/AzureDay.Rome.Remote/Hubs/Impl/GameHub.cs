@@ -12,6 +12,7 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
     {
         private readonly HubConnection _connection;
 
+        public event EventHandler<string> OnNewPlayerInYourTeamJoined;
         public event EventHandler OnGameStart;
         public event EventHandler<GameResult> OnGameEnd;
         public event EventHandler<int> OnGameProgressUpdate;
@@ -47,6 +48,14 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
             {
                 this.OnGameStateReceived?.Invoke(this,gameState);
             }));
+            
+            
+            this._connection.On("newPlayerInThisGroup",new Action<string>((name) =>
+            {
+                this.OnNewPlayerInYourTeamJoined?.Invoke(this,name);
+            }));
+            
+            
         }
 
         public void Start(Action onStarted)

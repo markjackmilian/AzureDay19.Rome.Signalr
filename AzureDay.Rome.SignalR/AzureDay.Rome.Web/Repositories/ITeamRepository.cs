@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using AzureDay.Rome.Web.Model;
 
 namespace AzureDay.Rome.Web.Repositories
 {
@@ -6,6 +9,9 @@ namespace AzureDay.Rome.Web.Repositories
     {
         void ClearPlayers();
         void AddPlayer(string name, Guid team, string contextConnectionId);
-        
+
+        IEnumerable<Player> GetAllPlayers();
+        IEnumerable<Team> GetAllTeams();
+
     }
 }

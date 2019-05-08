@@ -23,7 +23,7 @@ namespace Bridge.Spaf.Hubs.Impl
             this._connection.Invoke("Send", "Blazor Client", message);
         }
 
-        public void Start()
+        public void Start(Action onConnected = null)
         {            
             this._connection.Start();
         }

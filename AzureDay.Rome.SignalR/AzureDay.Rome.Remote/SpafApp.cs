@@ -4,6 +4,7 @@ using System.Reflection;
 using AzureDay.Rome.Remote.Hubs;
 using AzureDay.Rome.Remote.Hubs.Impl;
 using Bridge;
+using Bridge.Html5;
 using Bridge.Ioc;
 using Bridge.Messenger;
 using Bridge.Navigation;
@@ -25,7 +26,12 @@ namespace Bridge.Spaf
             {
                 Container.Resolve<INavigator>().InitNavigation(); // init navigation
             });
-            
+
+            hub.OnNewPlayerInYourTeamJoined += (sender, name) =>
+            {
+                Global.Alert($"La tua squadra ha un nuovo player: {name}");
+            };
+
         }
 
         private static void ContainerConfig()

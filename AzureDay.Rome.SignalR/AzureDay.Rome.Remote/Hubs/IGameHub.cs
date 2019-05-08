@@ -7,6 +7,14 @@ namespace AzureDay.Rome.Remote.Hubs
     public interface IGameHub : IBaseHub
     {
         #region EVENTS FROM SERVER
+        
+        
+            
+        /// <summary>
+        /// Raised when a new player joined your team
+        /// </summary>
+        event EventHandler<string> OnNewPlayerInYourTeamJoined;
+
 
         /// <summary>
         /// Raised when game start

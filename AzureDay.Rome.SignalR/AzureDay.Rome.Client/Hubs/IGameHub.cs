@@ -11,8 +11,19 @@ namespace Bridge.Spaf.Hubs
         event EventHandler<GameState> OnGameStateReceived;
         
         /// <summary>
+        /// Raised when new player join the game
+        /// </summary>
+        event EventHandler<Tuple<string,Guid>> OnNewPlayerJoined;
+        
+        
+        /// <summary>
         /// Set the game as open for registration
         /// </summary>
         void OpenRegistration();
+
+        /// <summary>
+        /// Notify my connection
+        /// </summary>
+        void NotifyIAmTheAdmin();
     }
 }

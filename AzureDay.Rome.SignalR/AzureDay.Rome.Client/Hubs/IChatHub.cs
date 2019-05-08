@@ -11,6 +11,9 @@ namespace Bridge.Spaf.Hubs
         /// </summary>
         event EventHandler<Tuple<string, string>> OnMessagereceived;
         
+        
+        
+        
         /// <summary>
         /// Send broadcast message
         /// </summary>

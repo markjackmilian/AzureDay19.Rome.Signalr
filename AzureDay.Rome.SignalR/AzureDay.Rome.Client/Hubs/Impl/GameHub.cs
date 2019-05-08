@@ -10,6 +10,7 @@ namespace Bridge.Spaf.Hubs
         private HubConnection _connection;
         
         public event EventHandler<GameState> OnGameStateReceived;
+        public event EventHandler<Tuple<string, Guid>> OnNewPlayerJoined;
 
 
         public GameHub()
@@ -20,11 +21,18 @@ namespace Bridge.Spaf.Hubs
             {
                 this.OnGameStateReceived?.Invoke(this,gameState);
             }));
+            
+            this._connection.On("newPlayerJoined",new Action<string,Guid>((name,team) =>
+            {
+                this.OnNewPlayerJoined?.Invoke(this,Tuple.Create(name,team));
+            }));
         }
         
-        public void Start()
+
+        public void Start(Action onConnected = null)
         {
-            this._connection.Start().Catch(o => Global.Alert(o.ToString()));
+            this._connection.Start().Then(() => onConnected?.Invoke(), o => {})
+                .Catch(o => Global.Alert(o.ToString()));
         }
 
         public void Stop()
@@ -36,6 +44,11 @@ namespace Bridge.Spaf.Hubs
         public void OpenRegistration()
         {
             this._connection.Invoke("openRegistration");
+        }
+
+        public void NotifyIAmTheAdmin()
+        {
+            this._connection.Invoke("setUpAdmin");
         }
     }
 }

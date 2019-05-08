@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AzureDay.Rome.Web.Model;
 using LiteDB;
 
@@ -33,6 +34,16 @@ namespace AzureDay.Rome.Web.Repositories
                 ConnectionId = contextConnectionId
             });
             this._teamRepo.Update(dbTeam);
+        }
+
+        public IEnumerable<Player> GetAllPlayers()
+        {
+            return this._teamRepo.FindAll().SelectMany(sm => sm.Players);
+        }
+
+        public IEnumerable<Team> GetAllTeams()
+        {
+            return this._teamRepo.FindAll();
         }
     }
 }

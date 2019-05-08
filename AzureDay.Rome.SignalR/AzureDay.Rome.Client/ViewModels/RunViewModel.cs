@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Bridge.Html5;
 using Bridge.Spaf.Hubs;
@@ -14,6 +15,12 @@ namespace Bridge.Spaf.ViewModels
         {
             this._gameHub = gameHub;
             this._gameHub.OnGameStateReceived += this.GameHubOnOnGameStateReceived;
+            this._gameHub.OnNewPlayerJoined += GameHubOnOnNewPlayerJoined;
+        }
+
+        private void GameHubOnOnNewPlayerJoined(object sender, Tuple<string, Guid> e)
+        {
+            Global.Alert($"Nuovo giocatore {e.Item1} della squadra {e.Item2}");
         }
 
         private void GameHubOnOnGameStateReceived(object sender, GameState e)
@@ -26,7 +33,7 @@ namespace Bridge.Spaf.ViewModels
         {
             base.OnLoad(parameters);
             
-            this._gameHub.Start();
+            this._gameHub.Start(()=> this._gameHub.NotifyIAmTheAdmin());
         }
         
         public void OpenRegistration()
