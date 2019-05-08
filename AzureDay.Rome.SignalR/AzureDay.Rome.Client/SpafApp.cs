@@ -64,7 +64,7 @@ namespace Bridge.Spaf
 
             public static GlobalSender Sender = new GlobalSender();
 
-            public static string LoginDone => "LoginDone";
+            //public static string LoginDone => "LoginDone";
 
         }
 

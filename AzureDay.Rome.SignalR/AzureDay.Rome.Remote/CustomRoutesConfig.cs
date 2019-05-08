@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Bridge.jQuery2;
 using Bridge.Navigation;
+using Bridge.Spaf.ViewModels;
 
 namespace Bridge.Spaf
 {
@@ -13,15 +14,30 @@ namespace Bridge.Spaf
                 new PageDescriptor
                 {
                     CanBeDirectLoad = ()=>true,
-                    HtmlLocation = ()=>"pages/home.html", // yout html location
-                    Key = SpafApp.HomeId,
-                    //PageController = () => SpafApp.Container.Resolve<HomeViewModel>()
+                    HtmlLocation = ()=>"pages/waiting.html",
+                    Key = SpafApp.WaitingId,
+                    PageController = () => SpafApp.Container.Resolve<WaitingViewModel>()
+                },
+                new PageDescriptor
+                {
+                    CanBeDirectLoad = ()=>true,
+                    HtmlLocation = ()=>"pages/register.html",
+                    Key = SpafApp.RegiserId,
+                    PageController = () => SpafApp.Container.Resolve<RegisterViewModel>()
+                },
+                new PageDescriptor
+                {
+                    CanBeDirectLoad = ()=>true,
+                    HtmlLocation = ()=>"pages/game.html",
+                    Key = SpafApp.GameId,
+                    PageController = () => SpafApp.Container.Resolve<GameViewModel>()
                 },
               
             };
         }
 
         public override jQuery Body { get; } = jQuery.Select("#pageBody");
-        public override string HomeId { get; } = SpafApp.HomeId;
+        public override string HomeId { get; } = SpafApp.WaitingId;
+        public override bool DisableAutoSpafAnchorsOnNavigate { get; } = true;
     }
 }

@@ -43,7 +43,9 @@ namespace Bridge.Spaf
         // static pages id
 
 
-        public static string HomeId => "home";
+        public static string WaitingId => "waiting";
+        public static string GameId => "game";
+        public static string RegiserId => "register";
        
         #endregion
 
@@ -56,7 +58,7 @@ namespace Bridge.Spaf
 
             public static GlobalSender Sender = new GlobalSender();
 
-            public static string LoginDone => "LoginDone";
+            //public static string LoginDone => "LoginDone";
 
         }
 
