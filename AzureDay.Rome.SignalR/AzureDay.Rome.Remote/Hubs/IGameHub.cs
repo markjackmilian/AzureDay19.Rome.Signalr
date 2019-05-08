@@ -42,14 +42,6 @@ namespace AzureDay.Rome.Remote.Hubs
         /// Send tap
         /// </summary>
         void Tap();
-
-        /// <summary>
-        /// Register to game
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="team">team number</param>
-        void Register(string name, Guid team);
-        
         
         #endregion
 
@@ -60,6 +52,14 @@ namespace AzureDay.Rome.Remote.Hubs
         /// </summary>
         /// <returns></returns>
         Task<GameState> GetGameMode();
+
+        /// <summary>
+        /// Register to game
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="team">team number</param>
+        Task Register(string name, Guid team);
+        
 
         #endregion
     }

@@ -2,7 +2,6 @@
 using AzureDay.Rome.Remote.ViewModels;
 using Bridge.jQuery2;
 using Bridge.Navigation;
-using Bridge.Spaf.ViewModels;
 
 namespace Bridge.Spaf
 {
@@ -21,21 +20,21 @@ namespace Bridge.Spaf
                 },
                 new PageDescriptor
                 {
-                    CanBeDirectLoad = ()=>true,
+                    CanBeDirectLoad = ()=>false,
                     HtmlLocation = ()=>"pages/register.html",
                     Key = SpafApp.RegiserId,
                     PageController = () => SpafApp.Container.Resolve<RegisterViewModel>()
                 },
                 new PageDescriptor
                 {
-                    CanBeDirectLoad = ()=>true,
+                    CanBeDirectLoad = ()=>false,
                     HtmlLocation = ()=>"pages/game.html",
                     Key = SpafApp.GameId,
                     PageController = () => SpafApp.Container.Resolve<GameViewModel>()
                 },
                 new PageDescriptor
                 {
-                    CanBeDirectLoad = ()=>true,
+                    CanBeDirectLoad = ()=>false,
                     HtmlLocation = ()=>"pages/gameResult.html",
                     Key = SpafApp.GameResultId,
                     PageController = () => SpafApp.Container.Resolve<GameResultViewModel>()

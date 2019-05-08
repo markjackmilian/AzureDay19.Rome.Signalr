@@ -28,6 +28,7 @@ namespace AzureDay.Rome.Web
 
             services.AddScoped<ILiteDbWrapper,LiteDbWrapper>();
             services.AddScoped<IGameStateRepository, GameStateRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

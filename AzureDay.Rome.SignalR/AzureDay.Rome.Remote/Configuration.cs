@@ -1,4 +1,4 @@
-namespace Bridge.Spaf
+namespace AzureDay.Rome.Remote
 {
     public static class Configuration
     {

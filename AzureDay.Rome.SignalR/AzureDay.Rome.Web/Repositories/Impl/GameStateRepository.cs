@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using AzureDay.Rome.Web.Model;
 using LiteDB;
@@ -37,14 +38,32 @@ namespace AzureDay.Rome.Web.Repositories.Impl
 
         private void ChangeGameState(GameState state)
         {
-            var game = this.GetGame();
-            game.State = state;
-            this._gameRepo.Update(game);
+            try
+            {
+                var game = this.GetGame();
+                game.State = state;
+                this._gameRepo.Update(game);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+         
         }
 
         private Game GetGame()
         {
-            return this._gameRepo.FindAll().First();
+            try
+            {
+                return this._gameRepo.FindAll().First();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

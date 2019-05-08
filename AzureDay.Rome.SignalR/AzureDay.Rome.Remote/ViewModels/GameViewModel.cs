@@ -1,7 +1,8 @@
 using System;
 using AzureDay.Rome.Remote.Hubs;
+using Bridge.Spaf;
 
-namespace Bridge.Spaf.ViewModels
+namespace AzureDay.Rome.Remote.ViewModels
 {
     public class GameViewModel : LoadableViewModel
     {

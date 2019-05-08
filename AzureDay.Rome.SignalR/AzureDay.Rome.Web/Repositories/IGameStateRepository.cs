@@ -24,7 +24,5 @@ namespace AzureDay.Rome.Web.Repositories
         /// </summary>
         /// <returns></returns>
         GameState GetCurrentState();
-
-
     }
 }

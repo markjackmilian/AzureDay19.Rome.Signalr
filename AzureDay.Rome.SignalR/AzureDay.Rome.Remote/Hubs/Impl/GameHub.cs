@@ -64,9 +64,11 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
             this._connection.Send("tap");
         }
 
-        public void Register(string name, Guid team)
+        public Task Register(string name, Guid team)
         {
+            var waitForMe = new WaitForMe<IGameHub, GameState>(this, hub => nameof(hub.OnRegisterDone));
             this._connection.Send("register",name,team);
+            return waitForMe.Task;
         }
 
         public Task<GameState> GetGameMode()

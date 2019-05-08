@@ -41,8 +41,7 @@ namespace Bridge.Spaf
             // register custom resource, services..
             Container.RegisterSingleInstance<IChatHub, ChatHub>();
             Container.RegisterSingleInstance<IMoveItHub, MoveItHub>();
-
-
+            Container.RegisterSingleInstance<IGameHub, GameHub>();
         }
 
         #region PAGES IDS

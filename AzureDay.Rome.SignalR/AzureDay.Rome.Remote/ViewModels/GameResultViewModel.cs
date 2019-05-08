@@ -1,4 +1,6 @@
-namespace Bridge.Spaf.ViewModels
+using Bridge.Spaf;
+
+namespace AzureDay.Rome.Remote.ViewModels
 {
     public class GameResultViewModel : LoadableViewModel
     {
