@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Identity;
 
 namespace AzureDay.Rome.Web.Model
@@ -19,5 +20,13 @@ namespace AzureDay.Rome.Web.Model
         public string Name { get; set; }
 
         public ICollection<Player> Players { get; set; }
+
+        public void RemovePlayerByConnectionId(string contextConnectionId)
+        {
+            var player = this.Players.SingleOrDefault(sd=>sd.ConnectionId == contextConnectionId);
+            if (player == null)
+                return;
+            this.Players.Remove(player);
+        }
     }
 }

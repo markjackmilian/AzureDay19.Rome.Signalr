@@ -45,5 +45,17 @@ namespace AzureDay.Rome.Web.Repositories
         {
             return this._teamRepo.FindAll();
         }
+
+        public Team GetTeamByPlayerConnection(string contextConnectionId)
+        {
+            var teams = this.GetAllTeams();
+            return teams.SingleOrDefault(sd =>
+                sd.Players.Select(s => s.ConnectionId).Contains(contextConnectionId));
+        }
+
+        public void UpdateTeam(Team team)
+        {
+            this._teamRepo.Update(team);
+        }
     }
 }

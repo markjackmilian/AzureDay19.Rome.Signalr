@@ -11,6 +11,7 @@ namespace Bridge.Spaf.Hubs
         
         public event EventHandler<GameState> OnGameStateReceived;
         public event EventHandler<Tuple<string, Guid>> OnNewPlayerJoined;
+        public event EventHandler<Tuple<string, Guid>> OnPlayerLeaved;
 
 
         public GameHub()
@@ -26,6 +27,13 @@ namespace Bridge.Spaf.Hubs
             {
                 this.OnNewPlayerJoined?.Invoke(this,Tuple.Create(name,team));
             }));
+            
+            this._connection.On("playerLeaved",new Action<string,Guid>((name,team) =>
+            {
+                this.OnPlayerLeaved?.Invoke(this,Tuple.Create(name,team));
+            }));
+            
+            
         }
         
 

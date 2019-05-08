@@ -15,6 +15,14 @@ namespace Bridge.Spaf.Hubs
         /// </summary>
         event EventHandler<Tuple<string,Guid>> OnNewPlayerJoined;
         
+        /// <summary>
+        /// Raised when a player leave
+        /// </summary>
+        event EventHandler<Tuple<string,Guid>> OnPlayerLeaved;
+        
+        
+        
+        
         
         /// <summary>
         /// Set the game as open for registration

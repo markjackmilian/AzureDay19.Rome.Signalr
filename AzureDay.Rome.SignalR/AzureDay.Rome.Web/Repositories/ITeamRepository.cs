@@ -13,5 +13,7 @@ namespace AzureDay.Rome.Web.Repositories
         IEnumerable<Player> GetAllPlayers();
         IEnumerable<Team> GetAllTeams();
 
+        Team GetTeamByPlayerConnection(string contextConnectionId);
+        void UpdateTeam(Team team);
     }
 }

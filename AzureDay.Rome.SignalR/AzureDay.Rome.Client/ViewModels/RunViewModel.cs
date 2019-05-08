@@ -15,7 +15,13 @@ namespace Bridge.Spaf.ViewModels
         {
             this._gameHub = gameHub;
             this._gameHub.OnGameStateReceived += this.GameHubOnOnGameStateReceived;
-            this._gameHub.OnNewPlayerJoined += GameHubOnOnNewPlayerJoined;
+            this._gameHub.OnNewPlayerJoined += this.GameHubOnOnNewPlayerJoined;
+            this._gameHub.OnPlayerLeaved += GameHubOnOnPlayerLeaved;
+        }
+
+        private void GameHubOnOnPlayerLeaved(object sender, Tuple<string, Guid> e)
+        {
+            Global.Alert($"Il giocatore {e.Item1} della squadra {e.Item2} ci ha lasciato prematuramente.");
         }
 
         private void GameHubOnOnNewPlayerJoined(object sender, Tuple<string, Guid> e)
@@ -35,7 +41,15 @@ namespace Bridge.Spaf.ViewModels
             
             this._gameHub.Start(()=> this._gameHub.NotifyIAmTheAdmin());
         }
-        
+
+        public override void OnLeave()
+        {
+            this._gameHub.OnGameStateReceived -= this.GameHubOnOnGameStateReceived;
+            this._gameHub.OnNewPlayerJoined -= this.GameHubOnOnNewPlayerJoined;
+            this._gameHub.OnPlayerLeaved -= GameHubOnOnPlayerLeaved;
+            base.OnLeave();
+        }
+
         public void OpenRegistration()
         {
             this._gameHub.OpenRegistration();
