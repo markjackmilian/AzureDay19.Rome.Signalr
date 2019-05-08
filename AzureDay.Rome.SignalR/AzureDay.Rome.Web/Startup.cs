@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AzureDay.Rome.Web.Hubs;
+using AzureDay.Rome.Web.Repositories;
+using AzureDay.Rome.Web.Repositories.Impl;
+using LiteDB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +24,10 @@ namespace AzureDay.Rome.Web
             
 //            services.AddSignalR().AddAzureSignalR("Endpoint=https://ad19rome.service.signalr.net;AccessKey=Bg10eic8ZTchRNePpKh9VSHI4uZFczpt5pHCq+QTdXg=;Version=1.0;");
             services.AddSignalR();
+
+
+            services.AddScoped<ILiteDbWrapper,LiteDbWrapper>();
+            services.AddScoped<IGameStateRepository, GameStateRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +59,11 @@ namespace AzureDay.Rome.Web
                 routes.MapHub<GameHub>("/play");
             });
             
-            
+            // ensure game
+            using (var liteDb = new LiteDbWrapper())
+            {
+                liteDb.EnsureDb();
+            }
         }
     }
 }

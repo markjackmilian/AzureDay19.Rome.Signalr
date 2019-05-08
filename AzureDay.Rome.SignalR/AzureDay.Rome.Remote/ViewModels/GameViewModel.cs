@@ -1,3 +1,4 @@
+using System;
 using AzureDay.Rome.Remote.Hubs;
 
 namespace Bridge.Spaf.ViewModels
@@ -14,7 +15,7 @@ namespace Bridge.Spaf.ViewModels
 
         public void Tap()
         {
-            this._gameHub.Register("Marco",1);
+            this._gameHub.Register("Marco",Guid.NewGuid());
         }
     }
 }

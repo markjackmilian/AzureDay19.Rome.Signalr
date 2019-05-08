@@ -19,11 +19,13 @@ namespace Bridge.Spaf
         {
             Container = new BridgeIoc();
             ContainerConfig(); // config container
-            Container.Resolve<INavigator>().InitNavigation(); // init navigation
-
+            
             var hub = Container.Resolve<IGameHub>();
-            hub.Start();
-
+            hub.Start(() =>
+            {
+                Container.Resolve<INavigator>().InitNavigation(); // init navigation
+            });
+            
         }
 
         private static void ContainerConfig()

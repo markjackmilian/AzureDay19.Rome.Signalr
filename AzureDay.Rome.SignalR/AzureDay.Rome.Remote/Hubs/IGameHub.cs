@@ -1,7 +1,41 @@
+using System;
+using System.Threading.Tasks;
+using AzureDay.Rome.Remote.Models;
+
 namespace AzureDay.Rome.Remote.Hubs
 {
     public interface IGameHub : IBaseHub
     {
+        #region EVENTS FROM SERVER
+
+        /// <summary>
+        /// Raised when game start
+        /// </summary>
+        event EventHandler OnGameStart;
+        
+        /// <summary>
+        /// Raised when game end
+        /// </summary>
+        event EventHandler<GameResult> OnGameEnd;
+        
+        /// <summary>
+        /// Raised when game is in progress
+        /// </summary>
+        event EventHandler<int> OnGameProgressUpdate;
+
+        /// <summary>
+        /// Return after a register request
+        /// </summary>
+        event EventHandler OnRegisterDone;
+        
+        /// <summary>
+        /// Receive the state of server game
+        /// </summary>
+        event EventHandler<GameState> OnGameStateReceived;
+
+        #endregion
+        
+        
         #region COMMAND
 
         /// <summary>
@@ -14,9 +48,19 @@ namespace AzureDay.Rome.Remote.Hubs
         /// </summary>
         /// <param name="name"></param>
         /// <param name="team">team number</param>
-        void Register(string name, int team);
+        void Register(string name, Guid team);
         
         
+        #endregion
+
+        #region AWAITABLE
+
+        /// <summary>
+        /// Check if the game mode is Register
+        /// </summary>
+        /// <returns></returns>
+        Task<GameState> GetGameMode();
+
         #endregion
     }
 }

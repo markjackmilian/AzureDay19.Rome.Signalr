@@ -1,20 +1,57 @@
 using System;
+using System.Threading.Tasks;
+using AzureDay.Rome.Remote.Classes;
+using AzureDay.Rome.Remote.Models;
 using Bridge.AspNetCore.SignalR.Client;
+using Bridge.Html5;
+using Bridge.Spaf;
 
 namespace AzureDay.Rome.Remote.Hubs.Impl
 {
     public class GameHub : IGameHub
     {
-        private HubConnection _connection;
+        private readonly HubConnection _connection;
+
+        public event EventHandler OnGameStart;
+        public event EventHandler<GameResult> OnGameEnd;
+        public event EventHandler<int> OnGameProgressUpdate;
+        public event EventHandler OnRegisterDone;
+        
+        public event EventHandler<GameState> OnGameStateReceived;
 
         public GameHub()
         {
-            this._connection =  new HubConnectionBuilder().WithUrl("http://localhost:5000/play").Build();
+            this._connection =  new HubConnectionBuilder().WithUrl(Configuration.GameServer).Build();
+            
+            this._connection.On("gameStarted",new Action(() =>
+            {
+                this.OnGameStart?.Invoke(this,null);
+            }));
+            
+            this._connection.On("gameEnded",new Action<GameResult>((gameResult) =>
+            {
+                this.OnGameEnd?.Invoke(this,gameResult);
+            }));
+            
+            this._connection.On("gameProgress",new Action<int>((position) =>
+            {
+                this.OnGameProgressUpdate?.Invoke(this,position);
+            }));
+            
+            this._connection.On("registerDone",new Action(() =>
+            {
+                this.OnRegisterDone?.Invoke(this,null);
+            }));
+            
+            this._connection.On("gameStateMode",new Action<GameState>((gameState) =>
+            {
+                this.OnGameStateReceived?.Invoke(this,gameState);
+            }));
         }
 
-        public void Start()
+        public void Start(Action onStarted)
         {
-            this._connection.Start();
+            this._connection.Start().Then(() =>onStarted?.Invoke(),o => Global.Alert(o.ToString()));
         }
 
         public void Stop()
@@ -27,9 +64,16 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
             this._connection.Send("tap");
         }
 
-        public void Register(string name, int team)
+        public void Register(string name, Guid team)
         {
             this._connection.Send("register",name,team);
+        }
+
+        public Task<GameState> GetGameMode()
+        {
+            var waitForMe = new WaitForMe<IGameHub, GameState>(this, hub => nameof(hub.OnGameStateReceived));
+            this._connection.Send("getStateMode");
+            return waitForMe.Task;
         }
     }
 }
