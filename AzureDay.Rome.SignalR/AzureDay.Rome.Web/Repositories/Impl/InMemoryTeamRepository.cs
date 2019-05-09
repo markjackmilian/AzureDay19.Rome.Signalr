@@ -83,5 +83,13 @@ namespace AzureDay.Rome.Web.Repositories.Impl
             dbTeam.Name = team.Name;
             dbTeam.Players = team.Players;
         }
+
+        public int AddCLickForPLayerWithConnection(string connection)
+        {
+            var team = this.GetTeamByPlayerConnection(connection);
+            var player = team.Players.Single(s => s.ConnectionId == connection);
+            player.ClickCount++;
+            return team.Players.Sum(s => s.ClickCount);
+        }
     }
 }

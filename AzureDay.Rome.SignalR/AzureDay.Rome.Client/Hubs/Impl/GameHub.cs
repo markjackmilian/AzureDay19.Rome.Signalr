@@ -12,6 +12,7 @@ namespace AzureDay.Rome.Client.Hubs.Impl
         public event EventHandler<GameState> OnGameStateReceived;
         public event EventHandler<Tuple<Player, Guid>> OnNewPlayerJoined;
         public event EventHandler<Tuple<Player, Guid>> OnPlayerLeaved;
+        public event EventHandler<Tuple<int, Guid>> OnTapCountReceived;
 
 
         public GameHub()
@@ -32,6 +33,12 @@ namespace AzureDay.Rome.Client.Hubs.Impl
             {
                 this.OnPlayerLeaved?.Invoke(this,Tuple.Create(name,team));
             }));
+            
+            this._connection.On("tapCount",new Action<int,Guid>((name,team) =>
+            {
+                this.OnTapCountReceived?.Invoke(this,Tuple.Create(name,team));
+            }));
+            
             
             
         }

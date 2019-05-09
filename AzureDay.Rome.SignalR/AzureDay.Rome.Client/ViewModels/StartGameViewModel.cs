@@ -17,17 +17,19 @@ namespace AzureDay.Rome.Client.ViewModels
         public override string ElementId() => SpafApp.StartGameId;
         
         public knockout.KnockoutObservableArray<Player> Players { get; set; }
+        public knockout.KnockoutObservable<GameState> GameState { get; set; }
+        public knockout.KnockoutObservable<int> Team1Score { get; set; }
 
 
         public StartGameViewModel(IGameHub gameHub, ITeamRepository teamRepository)
         {
             this._gameHub = gameHub;
             this._teamRepository = teamRepository;
-            this._gameHub.OnGameStateReceived += this.GameHubOnOnGameStateReceived;
-            this._gameHub.OnNewPlayerJoined += this.GameHubOnOnNewPlayerJoined;
-            this._gameHub.OnPlayerLeaved += this.GameHubOnOnPlayerLeaved;
+            
 
             this.Players = knockout.ko.observableArray.Self<Player>();
+            this.GameState = knockout.ko.observable.Self<GameState>();
+            this.Team1Score = knockout.ko.observable.Self<int>();
         }
 
         private void GameHubOnOnPlayerLeaved(object sender, Tuple<Player, Guid> tuple)
@@ -51,7 +53,13 @@ namespace AzureDay.Rome.Client.ViewModels
 
         private void GameHubOnOnGameStateReceived(object sender, GameState e)
         {
-            Global.Alert(e.ToString());
+            Console.WriteLine(e.ToString());
+            this.GameState.Self(e);
+        }
+        
+        private void GameHubOnOnTapCountReceived(object sender, Tuple<int, Guid> e)
+        {
+            this.Team1Score.Self(e.Item1);
         }
 
         public void StartGame()
@@ -63,8 +71,15 @@ namespace AzureDay.Rome.Client.ViewModels
         {
             base.OnLoad(parameters);
             
+            this._gameHub.OnGameStateReceived += this.GameHubOnOnGameStateReceived;
+            this._gameHub.OnNewPlayerJoined += this.GameHubOnOnNewPlayerJoined;
+            this._gameHub.OnPlayerLeaved += this.GameHubOnOnPlayerLeaved;
+            this._gameHub.OnTapCountReceived += GameHubOnOnTapCountReceived;
+            
             this._gameHub.Start(()=> this._gameHub.NotifyIAmTheAdmin());
         }
+
+      
 
         public override void OnLeave()
         {

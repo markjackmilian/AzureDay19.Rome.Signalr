@@ -82,6 +82,14 @@ namespace AzureDay.Rome.Web.Hubs
         public void SetUpAdmin()
         {
             AdminUser.Connection = this.Context.ConnectionId;
+            this.GetStateMode();
+        }
+
+        public void Tap()
+        {
+            var teamClick = this._teamRepository.AddCLickForPLayerWithConnection(this.Context.ConnectionId);
+            var team = this._teamRepository.GetTeamByPlayerConnection(this.Context.ConnectionId);
+            this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team);
         }
 
         /// <summary>

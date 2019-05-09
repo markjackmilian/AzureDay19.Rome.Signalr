@@ -19,8 +19,12 @@ namespace AzureDay.Rome.Client.Hubs
         /// Raised when a player leave
         /// </summary>
         event EventHandler<Tuple<Player,Guid>> OnPlayerLeaved;
-
-
+        
+        /// <summary>
+        /// Raised when tap count arrived
+        /// </summary>
+        event EventHandler<Tuple<int,Guid>> OnTapCountReceived;
+        
 
         /// <summary>
         /// Send change state

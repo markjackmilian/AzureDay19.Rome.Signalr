@@ -13,5 +13,7 @@ namespace AzureDay.Rome.Web.Model
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string ConnectionId { get; set; }
+
+        public int ClickCount { get; set; }
     }
 }

@@ -15,5 +15,7 @@ namespace AzureDay.Rome.Web.Repositories
 
         Team GetTeamByPlayerConnection(string contextConnectionId);
         void UpdateTeam(Team team);
+
+        int AddCLickForPLayerWithConnection(string connection);
     }
 }

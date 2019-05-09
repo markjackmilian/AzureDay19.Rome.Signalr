@@ -1,8 +1,13 @@
 <div id="startGame">
-    <button data-bind="click:OpenRegistration">Open Registration</button>
+    <span data-bind="text:GameState"></span>
+    <button data-bind="click:OpenRegistration, visible: GameState() == 0">Open Registration</button>
     <ul data-bind="foreach: Players">
         <li data-bind="text:Name"></li>
     </ul>
-    <button data-bind="click:StartGame">Start</button>
+    
+    <button data-bind="click:StartGame, visible: GameState() == 1">Start</button>
+    <span data-bind="visible: GameState() == 2">RUN RUN RUN</span>
+
+    <span data-bind="text:Team1Score, visible: GameState() == 2"></span>
 
 </div>
