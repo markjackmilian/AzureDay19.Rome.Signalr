@@ -8,7 +8,7 @@ namespace AzureDay.Rome.Web.Repositories
     public interface ITeamRepository
     {
         void ClearPlayers();
-        void AddPlayer(string name, Guid team, string contextConnectionId);
+        Player AddPlayer(string name, Guid team, string contextConnectionId);
 
         IEnumerable<Player> GetAllPlayers();
         IEnumerable<Team> GetAllTeams();

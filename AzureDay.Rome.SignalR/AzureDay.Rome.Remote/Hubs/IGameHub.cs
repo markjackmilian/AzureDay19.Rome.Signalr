@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using AzureDay.Rome.Remote.Hubs.Impl;
 using AzureDay.Rome.Remote.Models;
 
 namespace AzureDay.Rome.Remote.Hubs
@@ -13,7 +14,7 @@ namespace AzureDay.Rome.Remote.Hubs
         /// <summary>
         /// Raised when a new player joined your team
         /// </summary>
-        event EventHandler<string> OnNewPlayerInYourTeamJoined;
+        event EventHandler<Player> OnNewPlayerInYourTeamJoined;
 
 
         /// <summary>

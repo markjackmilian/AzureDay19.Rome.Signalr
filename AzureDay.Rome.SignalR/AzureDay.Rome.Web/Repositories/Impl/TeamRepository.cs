@@ -25,15 +25,17 @@ namespace AzureDay.Rome.Web.Repositories
             }
         }
 
-        public void AddPlayer(string name, Guid team, string contextConnectionId)
+        public Player AddPlayer(string name, Guid team, string contextConnectionId)
         {
             var dbTeam = this._teamRepo.FindOne(f => f.Id == team);
-            dbTeam.Players.Add(new Player
+            var player = new Player
             {
                 Name = name,
                 ConnectionId = contextConnectionId
-            });
+            };
+            dbTeam.Players.Add(player);
             this._teamRepo.Update(dbTeam);
+            return player;
         }
 
         public IEnumerable<Player> GetAllPlayers()

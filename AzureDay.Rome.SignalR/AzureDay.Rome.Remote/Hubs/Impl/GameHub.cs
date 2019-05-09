@@ -4,7 +4,6 @@ using AzureDay.Rome.Remote.Classes;
 using AzureDay.Rome.Remote.Models;
 using Bridge.AspNetCore.SignalR.Client;
 using Bridge.Html5;
-using Bridge.Spaf;
 
 namespace AzureDay.Rome.Remote.Hubs.Impl
 {
@@ -12,7 +11,7 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
     {
         private readonly HubConnection _connection;
 
-        public event EventHandler<string> OnNewPlayerInYourTeamJoined;
+        public event EventHandler<Player> OnNewPlayerInYourTeamJoined;
         public event EventHandler OnGameStart;
         public event EventHandler<GameResult> OnGameEnd;
         public event EventHandler<int> OnGameProgressUpdate;
@@ -50,9 +49,9 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
             }));
             
             
-            this._connection.On("newPlayerInThisGroup",new Action<string>((name) =>
+            this._connection.On("newPlayerInThisGroup",new Action<Player>((player) =>
             {
-                this.OnNewPlayerInYourTeamJoined?.Invoke(this,name);
+                this.OnNewPlayerInYourTeamJoined?.Invoke(this,player);
             }));
             
             

@@ -25,14 +25,14 @@ namespace AzureDay.Rome.Web.Hubs
         /// <param name="team"></param>
         public void Register(string name, Guid team)
         {
-            this._teamRepository.AddPlayer(name, team, this.Context.ConnectionId);
+            var player = this._teamRepository.AddPlayer(name, team, this.Context.ConnectionId);
             this.Clients.Caller.SendAsync("registerDone");
 
             this.Groups.AddToGroupAsync(this.Context.ConnectionId, team.ToString());
-            this.Clients.Group(team.ToString()).SendAsync("newPlayerInThisGroup", name);
+            this.Clients.Group(team.ToString()).SendAsync("newPlayerInThisGroup", player);
             
             if(!string.IsNullOrEmpty(AdminUser.Connection))
-                this.Clients.Client(AdminUser.Connection).SendAsync("newPlayerJoined",name,team);
+                this.Clients.Client(AdminUser.Connection).SendAsync("newPlayerJoined",player,team);
         }
 
         /// <summary>
@@ -58,6 +58,13 @@ namespace AzureDay.Rome.Web.Hubs
             
             // notify state
             this.Clients.All.SendAsync("gameStateMode",GameState.Register);
+        }
+
+        public void StartGame()
+        {
+            this._gameStateRepository.StartGameMode();
+            this.Clients.All.SendAsync("gameStateMode",GameState.InRun);
+
         }
 
         /// <summary>

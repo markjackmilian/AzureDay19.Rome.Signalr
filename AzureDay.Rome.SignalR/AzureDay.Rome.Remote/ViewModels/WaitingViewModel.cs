@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AzureDay.Rome.Remote.Classes;
 using AzureDay.Rome.Remote.Hubs;
 using AzureDay.Rome.Remote.Models;
 using Bridge.Html5;
@@ -35,6 +36,17 @@ namespace AzureDay.Rome.Remote.ViewModels
         public override async void OnLoad(Dictionary<string, object> parameters)
         {
             base.OnLoad(parameters);
+
+            try
+            {
+                AppCache.TeamId = parameters.GetParameter<Guid>("teamId");
+            }
+            catch (Exception e)
+            {
+                Global.Alert("Errore, non trovo il team id!");
+                throw;
+            }
+          
 
             var mode = await this._gameHub.GetGameMode();
 

@@ -1,4 +1,5 @@
 using System;
+using AzureDay.Rome.Remote.Classes;
 using AzureDay.Rome.Remote.Hubs;
 using Bridge.Html5;
 using Bridge.Navigation;
@@ -30,7 +31,7 @@ namespace AzureDay.Rome.Remote.ViewModels
                 return;
             }
             
-            await this._gameHub.Register(this.Name.Self(),Guid.Parse("0d2c37f7-49fe-48d9-a1d3-1a90e7948bcc"));
+            await this._gameHub.Register(this.Name.Self(),AppCache.TeamId);
             this._navigator.Navigate(SpafApp.GameId);
         }
 

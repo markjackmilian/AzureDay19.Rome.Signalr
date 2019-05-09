@@ -85,6 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\AppCache.cs" />
     <Compile Include="Classes\WaitForMe.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="CustomRoutesConfig.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Hubs\Impl\GameHub.cs" />
     <Compile Include="Models\GameResult.cs" />
     <Compile Include="Models\GameState.cs" />
+    <Compile Include="Models\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpafApp.cs" />
     <Compile Include="ViewModels\GameResultViewModel.cs" />
