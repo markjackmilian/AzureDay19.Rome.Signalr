@@ -20,86 +20,102 @@
 </head>
 <body>
 
-<nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card" style="z-index:3;width:250px;" id="mySidebar">
-    <a class="w3-bar-item w3-button w3-border-bottom w3-large" href="#"><img src="http://www.giuneco.it/images/firma/giuneco.png" style="width:90%;"></a>
-    <a class="w3-bar-item w3-button w3-hide-large w3-large" href="javascript:void(0)" onclick="w3_close()">Close <i class="fa fa-remove"></i></a>
-    <a class="w3-bar-item w3-button w3-red" href="#">Move It</a>
-    <a class="w3-bar-item w3-button" href="#">CRUD</a>
-    <a class="w3-bar-item w3-button" href="#">Run Play</a>
-</nav>
-
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
-
-<div class="w3-main" style="margin-left:250px;">
-
-    <div id="pageBody"></div>
-
-</div>
+    <nav class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-card" style="z-index:3;width:250px;" id="mySidebar">
+        <a class="w3-bar-item w3-button w3-border-bottom w3-large" href="#"><img src="images/giuneco.png" style="width: 98%;" alt="Giuneco srl" title="Giuneco srl" /></a>
+        <a class="w3-bar-item w3-button w3-hide-large w3-large" href="javascript:void(0)" onclick="w3_close()">Close <i class="fa fa-remove"></i></a>
+        <a class="w3-bar-item w3-button w3-red" href="#">Move It</a>
+        <a class="w3-bar-item w3-button" href="#">CRUD</a>
+        <a class="w3-bar-item w3-button" href="#">Run Play</a>
+    </nav>
 
 
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
 
-<script>
-    // Open and close the sidebar on medium and small screens
-    function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("myOverlay").style.display = "block";
-    }
+    <div class="w3-main" style="margin-left:250px;">
 
-    function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("myOverlay").style.display = "none";
-    }
+        <div id="pageBody"></div>
+        <div class="w3-bottom w3-topbar w3-white w3-padding-24">
+            <div class="w3-row-padding">
+                <div class="w3-col w3-container" style="width: 34%;">
+                    <img src="http://markjackmilian.net/media/1007/me800.jpg?crop=0.10954560483116034,0.013942167887602226,0.12221249115810476,0.0897756107665403&cropmode=percentage&width=600&height=700&rnd=131800370250000000" class="w3-round w3-card-4 w3-left w3-margin-right" alt="Marco Milani" title="Marco Milani" style="width: 50%; max-width: 50px;" />
+                        <strong>Marco Milani</strong><br />
+                        <a href="http://markjackmilian.net" target="_blank">markjackmilian.net</a><br />
+                        <a href="https://github.com/markjackmilian" target="_blank">Github Page</a>
+                </div>
+                <div class="w3-col w3-right" style="width: 33%;">
+                    <img src="../images/giunecotech.png" class="" alt="Giuneco Tech" title="Giuneco Tech" style="width: 50%; max-width: 300px;" />
+                </div>
+            </div>
+        </div>
 
-    // Change style of top container on scroll
-    window.onscroll = function() {myFunction()};
-    function myFunction() {
-        if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-            document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
-            document.getElementById("myIntro").classList.add("w3-show-inline-block");
-        } else {
-            document.getElementById("myIntro").classList.remove("w3-show-inline-block");
-            document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+
+
+    </div>
+
+
+
+    <script>
+        // Open and close the sidebar on medium and small screens
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+            document.getElementById("myOverlay").style.display = "block";
         }
-    }
 
-    // Accordions
-    function myAccordion(id) {
-        var x = document.getElementById(id);
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-            x.previousElementSibling.className += " w3-theme";
-        } else {
-            x.className = x.className.replace("w3-show", "");
-            x.previousElementSibling.className =
-                x.previousElementSibling.className.replace(" w3-theme", "");
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+            document.getElementById("myOverlay").style.display = "none";
         }
-    }
-</script>
+
+        // Change style of top container on scroll
+        window.onscroll = function () { myFunction() };
+        function myFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
+                document.getElementById("myIntro").classList.add("w3-show-inline-block");
+            } else {
+                document.getElementById("myIntro").classList.remove("w3-show-inline-block");
+                document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+            }
+        }
+
+        // Accordions
+        function myAccordion(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                    x.previousElementSibling.className.replace(" w3-theme", "");
+            }
+        }
+    </script>
 
 
 
 
 
 
-<script src="lib/signalr/dist/browser/signalr.js"></script>
-<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.0/dist/browser/signalr.min.js"></script>-->
+    <script src="lib/signalr/dist/browser/signalr.js"></script>
+    <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.0/dist/browser/signalr.min.js"></script>-->
 
 
-<script src="js/knockout.js"></script>
+    <script src="js/knockout.js"></script>
 
-<script src="bridge/bridge.js"></script>
-<script src="bridge/bridge.meta.js"></script>
-<script src="bridge/bridge.ioc.js"></script>
-<script src="bridge/bridge.ioc.meta.js"></script>
-<script src="bridge/Bridge.Messenger.js"></script>
-<script src="bridge/Bridge.Messenger.meta.js"></script>
-<script src="bridge/jquery-2.2.4.js"></script>
-<script src="bridge/Bridge.Navigation.js"></script>
-<script src="bridge/Bridge.Navigation.meta.js"></script>
-<script src="bridge/Bridge.Spaf.js"></script>
-<script src="bridge/Bridge.Spaf.meta.js"></script>
-<script src="bridge/AzureDay.Rome.Client.js"></script>
-<script src="bridge/AzureDay.Rome.Client.meta.js"></script>
+    <script src="bridge/bridge.js"></script>
+    <script src="bridge/bridge.meta.js"></script>
+    <script src="bridge/bridge.ioc.js"></script>
+    <script src="bridge/bridge.ioc.meta.js"></script>
+    <script src="bridge/Bridge.Messenger.js"></script>
+    <script src="bridge/Bridge.Messenger.meta.js"></script>
+    <script src="bridge/jquery-2.2.4.js"></script>
+    <script src="bridge/Bridge.Navigation.js"></script>
+    <script src="bridge/Bridge.Navigation.meta.js"></script>
+    <script src="bridge/Bridge.Spaf.js"></script>
+    <script src="bridge/Bridge.Spaf.meta.js"></script>
+    <script src="bridge/AzureDay.Rome.Client.js"></script>
+    <script src="bridge/AzureDay.Rome.Client.meta.js"></script>
 
 </body>
 </html>

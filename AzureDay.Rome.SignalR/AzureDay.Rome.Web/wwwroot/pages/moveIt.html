@@ -1,4 +1,4 @@
-<div id="moveIt">
+<div id="moveIt" style="background-image: url('../images/firenze.PNG'); background-size: cover;">
     <div id="myTop" class="w3-container w3-top w3-theme w3-large">
         <p><i class="fa fa-bars w3-button w3-red w3-hide-large w3-xlarge" onclick="w3_open()"></i>
             <span id="myIntro" class="w3-hide"><img src="http://www.giuneco.it/images/logo_white.png" /></span></p>
@@ -6,26 +6,25 @@
 
 
     <header class="w3-container w3-theme" style="
-        background-image: url('../images/aircraft-1499171_1920.jpg');
-        background-position: center;">
-        <h1 class="w3-xxxlarge w3-padding-48">MOVE IT!</h1>
+        /*background-image: url('../images/aircraft-1499171_1920.jpg');
+        background-position: center;*/">
+        <h1 class="w3-xxxlarge">MOVE IT!</h1>
     </header>
-    <div class="w3-container w3-sand" style="height: 600px;">
+    <div class="w3-container w3-margin w3-padding-24" style="height: 600px; background-image: url('../images/wh.png'); background-repeat: repeat;">
         <div class="square" data-bind="style:{top: Top, left: Left}" ></div>
     </div>
-    
-    <label>Horizontal</label>
-    <button class="w3-button w3-circle w3-teal" data-bind="click:AddTen"><i class="fa fa-arrow-right"></i></button>
-
-    <label>Vertical</label>
-    <button class="w3-button w3-circle w3-teal" data-bind="click:AddTenLeft"><i class="fa fa-arrow-down"></i></button>
+    <div class="w3-container w3-sand w3-center w3-padding-24">
+        <button class="w3-button w3-circle w3-teal" data-bind="click:AddTen"><i class="fa fa-arrow-down"></i></button>
+        <button class="w3-button w3-circle w3-teal" data-bind="click:AddTenLeft"><i class="fa fa-arrow-right"></i></button>
+    </div>
 </div>
 
 <style>
     .square {
-        height: 50px;
-        width: 50px;
-        background: red;
+        height: 73px;
+        width: 73px;
+        background-image: url('../images/giuneco_tondo_trasparente.png');
+        background-repeat: no-repeat;
         position: relative;
     }
 </style>
