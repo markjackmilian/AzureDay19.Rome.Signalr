@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AzureDay.Rome.Client.Hubs;
+using AzureDay.Rome.Client.Models;
+using AzureDay.Rome.Client.Repositories;
 using Bridge.Html5;
-using Bridge.Spaf.Hubs;
-using Bridge.Spaf.Models;
-using Bridge.Spaf.Repositories;
+using Bridge.Spaf;
 using Retyped;
 
-namespace Bridge.Spaf.ViewModels
+namespace AzureDay.Rome.Client.ViewModels
 {
     public class StartGameViewModel : LoadableViewModel
     {
@@ -24,7 +25,7 @@ namespace Bridge.Spaf.ViewModels
             this._teamRepository = teamRepository;
             this._gameHub.OnGameStateReceived += this.GameHubOnOnGameStateReceived;
             this._gameHub.OnNewPlayerJoined += this.GameHubOnOnNewPlayerJoined;
-            this._gameHub.OnPlayerLeaved += GameHubOnOnPlayerLeaved;
+            this._gameHub.OnPlayerLeaved += this.GameHubOnOnPlayerLeaved;
 
             this.Players = knockout.ko.observableArray.Self<Player>();
         }
@@ -69,7 +70,7 @@ namespace Bridge.Spaf.ViewModels
         {
             this._gameHub.OnGameStateReceived -= this.GameHubOnOnGameStateReceived;
             this._gameHub.OnNewPlayerJoined -= this.GameHubOnOnNewPlayerJoined;
-            this._gameHub.OnPlayerLeaved -= GameHubOnOnPlayerLeaved;
+            this._gameHub.OnPlayerLeaved -= this.GameHubOnOnPlayerLeaved;
             base.OnLeave();
         }
 

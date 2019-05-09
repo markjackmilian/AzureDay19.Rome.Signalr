@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using AzureDay.Rome.Client.ViewModels;
 using Bridge.jQuery2;
 using Bridge.Navigation;
-using Bridge.Spaf.ViewModels;
 
 namespace Bridge.Spaf
 {

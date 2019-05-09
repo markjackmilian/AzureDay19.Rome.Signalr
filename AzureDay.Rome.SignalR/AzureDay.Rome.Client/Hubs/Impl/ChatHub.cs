@@ -1,8 +1,7 @@
 using System;
 using Bridge.AspNetCore.SignalR.Client;
-using IPromise = Bridge.AspNetCore.SignalR.Client.Threading.IPromise;
 
-namespace Bridge.Spaf.Hubs.Impl
+namespace AzureDay.Rome.Client.Hubs.Impl
 {
     class ChatHub : IChatHub
     {

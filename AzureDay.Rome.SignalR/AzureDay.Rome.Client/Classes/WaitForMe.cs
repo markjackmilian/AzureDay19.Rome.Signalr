@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Bridge.Spaf.Classes
+namespace AzureDay.Rome.Client.Classes
 {
     internal class WaitForMe<T, TK>
     {

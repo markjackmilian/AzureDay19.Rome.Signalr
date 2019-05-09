@@ -1,6 +1,6 @@
 using System;
 
-namespace AzureDay.Rome.Remote.Hubs.Impl
+namespace AzureDay.Rome.Remote.Models
 {
     public class Player
     {

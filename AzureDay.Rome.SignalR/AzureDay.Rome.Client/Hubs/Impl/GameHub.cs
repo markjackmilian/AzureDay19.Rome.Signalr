@@ -1,9 +1,9 @@
 using System;
+using AzureDay.Rome.Client.Models;
 using Bridge.AspNetCore.SignalR.Client;
 using Bridge.Html5;
-using Bridge.Spaf.Models;
 
-namespace Bridge.Spaf.Hubs
+namespace AzureDay.Rome.Client.Hubs.Impl
 {
     class GameHub : IGameHub
     {

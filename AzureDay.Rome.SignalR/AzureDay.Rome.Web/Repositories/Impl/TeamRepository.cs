@@ -4,7 +4,7 @@ using System.Linq;
 using AzureDay.Rome.Web.Model;
 using LiteDB;
 
-namespace AzureDay.Rome.Web.Repositories
+namespace AzureDay.Rome.Web.Repositories.Impl
 {
     class TeamRepository : ITeamRepository
     {

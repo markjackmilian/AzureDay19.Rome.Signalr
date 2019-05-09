@@ -1,6 +1,6 @@
 using System;
 
-namespace Bridge.Spaf.Hubs
+namespace AzureDay.Rome.Client.Models
 {
     public class Player
     {

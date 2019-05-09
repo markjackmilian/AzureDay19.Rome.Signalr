@@ -1,4 +1,4 @@
-namespace Bridge.Spaf.Models
+namespace AzureDay.Rome.Client.Models
 {
     public enum GameState
     {

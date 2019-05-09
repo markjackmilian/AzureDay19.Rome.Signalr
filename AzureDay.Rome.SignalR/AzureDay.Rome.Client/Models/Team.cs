@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bridge.Spaf.Hubs
+namespace AzureDay.Rome.Client.Models
 {
     public class Team
     {

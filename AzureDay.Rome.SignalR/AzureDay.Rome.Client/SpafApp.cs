@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using AzureDay.Rome.Client.Hubs;
 using AzureDay.Rome.Client.Hubs.Impl;
+using AzureDay.Rome.Client.Repositories;
+using AzureDay.Rome.Client.Repositories.Impl;
 using Bridge;
 using Bridge.Ioc;
 using Bridge.Messenger;
 using Bridge.Navigation;
 using Bridge.Spaf.Attributes;
-using Bridge.Spaf.Hubs;
-using Bridge.Spaf.Hubs.Impl;
-using Bridge.Spaf.Repositories;
 
 namespace Bridge.Spaf
 {

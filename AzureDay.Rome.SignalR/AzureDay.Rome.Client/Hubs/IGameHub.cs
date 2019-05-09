@@ -1,7 +1,7 @@
 using System;
-using Bridge.Spaf.Models;
+using AzureDay.Rome.Client.Models;
 
-namespace Bridge.Spaf.Hubs
+namespace AzureDay.Rome.Client.Hubs
 {
     public interface IGameHub : IBaseHub
     {

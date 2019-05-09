@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Bridge.AspNetCore.SignalR.Client;
+using AzureDay.Rome.Client.Hubs;
 using Bridge.Html5;
-using Bridge.Spaf.Hubs;
+using Bridge.Spaf;
 using Retyped;
 
-namespace Bridge.Spaf.ViewModels
+namespace AzureDay.Rome.Client.ViewModels
 {
     public class ChatViewModel : LoadableViewModel
     {

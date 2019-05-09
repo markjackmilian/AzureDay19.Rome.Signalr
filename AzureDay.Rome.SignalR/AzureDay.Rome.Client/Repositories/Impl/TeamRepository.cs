@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bridge.Spaf.Hubs;
+using AzureDay.Rome.Client.Models;
 
-namespace Bridge.Spaf.Repositories
+namespace AzureDay.Rome.Client.Repositories.Impl
 {
     class TeamRepository : ITeamRepository
     {

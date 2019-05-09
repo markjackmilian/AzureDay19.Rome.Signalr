@@ -1,8 +1,6 @@
 using System;
-using System.Threading.Tasks;
-using IPromise = Bridge.AspNetCore.SignalR.Client.Threading.IPromise;
 
-namespace Bridge.Spaf.Hubs
+namespace AzureDay.Rome.Client.Hubs
 {
     public interface IChatHub : IBaseHub
     {

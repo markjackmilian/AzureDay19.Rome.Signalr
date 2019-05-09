@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Bridge.Spaf.Hubs;
+using AzureDay.Rome.Client.Models;
 
-namespace Bridge.Spaf.Repositories
+namespace AzureDay.Rome.Client.Repositories
 {
     public interface ITeamRepository
     {
