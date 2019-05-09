@@ -19,9 +19,14 @@ namespace AzureDay.Rome.Client.ViewModels
         public knockout.KnockoutObservableArray<Player> Players { get; set; }
         public knockout.KnockoutObservable<GameState> GameState { get; set; }
         public knockout.KnockoutObservable<int> Team1Score { get; set; }
+        public knockout.KnockoutObservable<string> Team1ScreenPosition { get; set; }
         public knockout.KnockoutObservable<int> Team2Score { get; set; }
+        public knockout.KnockoutObservable<string> Team2ScreenPosition { get; set; }
         public knockout.KnockoutObservable<int> Team3Score { get; set; }
+        public knockout.KnockoutObservable<string> Team3ScreenPosition { get; set; }
         public knockout.KnockoutObservable<int> Team4Score { get; set; }
+        public knockout.KnockoutObservable<string> Team4ScreenPosition { get; set; }
+
 
 
         public StartGameViewModel(IGameHub gameHub, ITeamRepository teamRepository)
@@ -37,6 +42,17 @@ namespace AzureDay.Rome.Client.ViewModels
             this.Team2Score = knockout.ko.observable.Self<int>();
             this.Team3Score = knockout.ko.observable.Self<int>();
             this.Team4Score = knockout.ko.observable.Self<int>();
+            
+            this.Team1ScreenPosition = knockout.ko.observable.Self<string>();
+            this.Team2ScreenPosition = knockout.ko.observable.Self<string>();
+            this.Team3ScreenPosition = knockout.ko.observable.Self<string>();
+            this.Team4ScreenPosition = knockout.ko.observable.Self<string>();
+
+
+            this.Team1Score.subscribe(value => this.Team1ScreenPosition.Self($"{value}px"));
+            this.Team2Score.subscribe(value => this.Team2ScreenPosition.Self($"{value}px"));
+            this.Team3Score.subscribe(value => this.Team3ScreenPosition.Self($"{value}px"));
+            this.Team4Score.subscribe(value => this.Team4ScreenPosition.Self($"{value}px"));
         }
 
         private void GameHubOnOnPlayerLeaved(object sender, Tuple<Player, Guid> tuple)
@@ -90,7 +106,7 @@ namespace AzureDay.Rome.Client.ViewModels
             this._gameHub.OnGameStateReceived += this.GameHubOnOnGameStateReceived;
             this._gameHub.OnNewPlayerJoined += this.GameHubOnOnNewPlayerJoined;
             this._gameHub.OnPlayerLeaved += this.GameHubOnOnPlayerLeaved;
-            this._gameHub.OnTapCountReceived += GameHubOnOnTapCountReceived;
+            this._gameHub.OnTapCountReceived += this.GameHubOnOnTapCountReceived;
             
             this._gameHub.Start(()=> this._gameHub.NotifyIAmTheAdmin());
         }

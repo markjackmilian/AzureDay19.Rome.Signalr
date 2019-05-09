@@ -27,9 +27,9 @@ namespace Bridge.Spaf
                 Container.Resolve<INavigator>().InitNavigation(); // init navigation
             });
 
-            hub.OnNewPlayerInYourTeamJoined += (sender, name) =>
+            hub.OnNewPlayerInYourTeamJoined += (sender, player) =>
             {
-                Global.Alert($"La tua squadra ha un nuovo player: {name}");
+                Global.Alert($"La tua squadra ha un nuovo player: {player.Name}");
             };
 
         }
