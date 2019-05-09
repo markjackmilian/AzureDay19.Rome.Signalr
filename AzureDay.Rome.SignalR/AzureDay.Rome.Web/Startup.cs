@@ -26,9 +26,8 @@ namespace AzureDay.Rome.Web
             services.AddSignalR();
 
 
-            services.AddScoped<ILiteDbWrapper,LiteDbWrapper>();
-            services.AddScoped<IGameStateRepository, GameStateRepository>();
-            services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddSingleton<IGameStateRepository, InMemoryGameStateRepository>();
+            services.AddSingleton<ITeamRepository, InMemoryTeamRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,11 +59,6 @@ namespace AzureDay.Rome.Web
                 routes.MapHub<GameHub>("/play");
             });
             
-            // ensure game
-            using (var liteDb = new LiteDbWrapper())
-            {
-                liteDb.EnsureDb();
-            }
         }
     }
 }
