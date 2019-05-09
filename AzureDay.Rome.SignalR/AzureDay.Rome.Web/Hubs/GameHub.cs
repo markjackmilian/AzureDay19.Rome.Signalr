@@ -89,7 +89,7 @@ namespace AzureDay.Rome.Web.Hubs
         {
             var teamClick = this._teamRepository.AddCLickForPLayerWithConnection(this.Context.ConnectionId);
             var team = this._teamRepository.GetTeamByPlayerConnection(this.Context.ConnectionId);
-            this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team);
+            this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team.Id);
         }
 
         /// <summary>

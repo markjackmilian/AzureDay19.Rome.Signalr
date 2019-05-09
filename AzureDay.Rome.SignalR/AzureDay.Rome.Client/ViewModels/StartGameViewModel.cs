@@ -19,6 +19,9 @@ namespace AzureDay.Rome.Client.ViewModels
         public knockout.KnockoutObservableArray<Player> Players { get; set; }
         public knockout.KnockoutObservable<GameState> GameState { get; set; }
         public knockout.KnockoutObservable<int> Team1Score { get; set; }
+        public knockout.KnockoutObservable<int> Team2Score { get; set; }
+        public knockout.KnockoutObservable<int> Team3Score { get; set; }
+        public knockout.KnockoutObservable<int> Team4Score { get; set; }
 
 
         public StartGameViewModel(IGameHub gameHub, ITeamRepository teamRepository)
@@ -29,7 +32,11 @@ namespace AzureDay.Rome.Client.ViewModels
 
             this.Players = knockout.ko.observableArray.Self<Player>();
             this.GameState = knockout.ko.observable.Self<GameState>();
+            
             this.Team1Score = knockout.ko.observable.Self<int>();
+            this.Team2Score = knockout.ko.observable.Self<int>();
+            this.Team3Score = knockout.ko.observable.Self<int>();
+            this.Team4Score = knockout.ko.observable.Self<int>();
         }
 
         private void GameHubOnOnPlayerLeaved(object sender, Tuple<Player, Guid> tuple)
@@ -59,7 +66,16 @@ namespace AzureDay.Rome.Client.ViewModels
         
         private void GameHubOnOnTapCountReceived(object sender, Tuple<int, Guid> e)
         {
-            this.Team1Score.Self(e.Item1);
+            var team = this._teamRepository.GetTeamById(e.Item2);
+            var actions = new Dictionary<int, Action>()
+            {
+                {1, () => this.Team1Score.Self(e.Item1)},
+                {2, () => this.Team2Score.Self(e.Item1)},
+                {3, () => this.Team3Score.Self(e.Item1)},
+                {4, () => this.Team4Score.Self(e.Item1)},
+            };
+            
+            actions[team.Order].Invoke();
         }
 
         public void StartGame()
