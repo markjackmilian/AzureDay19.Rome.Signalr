@@ -25,5 +25,7 @@ namespace AzureDay.Rome.Web.Repositories.Impl
         {
             return this._game.State;
         }
+        
+        
     }
 }

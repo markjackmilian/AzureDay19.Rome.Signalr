@@ -41,6 +41,12 @@ namespace AzureDay.Rome.Remote.Hubs
         /// Receive the state of server game
         /// </summary>
         event EventHandler<GameState> OnGameStateReceived;
+        
+        /// <summary>
+        /// When a team win
+        /// </summary>
+        event EventHandler<Team> OnNotifyWinner;
+        
 
         #endregion
         

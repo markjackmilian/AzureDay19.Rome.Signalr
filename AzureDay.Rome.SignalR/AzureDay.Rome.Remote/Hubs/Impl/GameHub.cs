@@ -18,6 +18,7 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
         public event EventHandler OnRegisterDone;
         
         public event EventHandler<GameState> OnGameStateReceived;
+        public event EventHandler<Team> OnNotifyWinner;
 
         public GameHub()
         {
@@ -54,6 +55,14 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
                 this.OnNewPlayerInYourTeamJoined?.Invoke(this,player);
             }));
             
+            this._connection.On("notifyWinner",new Action<Team>((team) =>
+            {
+                this.OnNotifyWinner?.Invoke(this,team);
+            }));
+            
+            
+            
+
             
         }
 

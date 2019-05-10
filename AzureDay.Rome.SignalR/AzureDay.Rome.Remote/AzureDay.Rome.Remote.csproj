@@ -92,6 +92,7 @@
     <Compile Include="Hubs\IBaseHub.cs" />
     <Compile Include="Hubs\IGameHub.cs" />
     <Compile Include="Hubs\Impl\GameHub.cs" />
+    <Compile Include="Models\Team.cs" />
     <Compile Include="Models\GameResult.cs" />
     <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\Player.cs" />

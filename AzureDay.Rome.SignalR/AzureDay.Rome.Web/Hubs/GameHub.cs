@@ -90,6 +90,17 @@ namespace AzureDay.Rome.Web.Hubs
             var teamClick = this._teamRepository.AddCLickForPLayerWithConnection(this.Context.ConnectionId);
             var team = this._teamRepository.GetTeamByPlayerConnection(this.Context.ConnectionId);
             this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team.Id);
+
+            this.CheckWinner(team);
+        }
+
+        private void CheckWinner(Team team)
+        {
+            if (team.TeamScore >= 20)
+            {
+                this.Clients.All.SendAsync("notifyWinner", team);
+                this.Clients.All.SendAsync("gameStateMode", GameState.Finished);
+            }
         }
 
         /// <summary>

@@ -21,6 +21,8 @@ namespace AzureDay.Rome.Web.Model
 
         public ICollection<Player> Players { get; set; }
 
+        public int TeamScore => this.Players.Sum(s => s.ClickCount);
+
         public void RemovePlayerByConnectionId(string contextConnectionId)
         {
             var player = this.Players.SingleOrDefault(sd=>sd.ConnectionId == contextConnectionId);
