@@ -10,77 +10,77 @@ namespace AzureDay.Rome.Xam
 {
     public partial class ButtonsPage : ContentPage
     {
-        private HubConnection hubConnection;
-
-        private int _top = 0;
-        private int _left = 0;
+//        private HubConnection hubConnection;
+//
+//        private int _top = 0;
+//        private int _left = 0;
 
         public ButtonsPage()
         {
             this.InitializeComponent();
             
-            var ip = "localhost";
-            if (Device.RuntimePlatform == Device.Android)
-                ip = "10.0.2.2";
-            
-            this.hubConnection = new HubConnectionBuilder()
-                .WithUrl($"http://{ip}:5000/moveIt")
-                .Build();
-
-            this.hubConnection.On<int>("updateTop", (top) => { this.BoxView.TranslationY = top; });
-            this.hubConnection.On<int>("updateLeft", (left) => { this.BoxView.TranslationX = left; });
-            
-            this.hubConnection.StartAsync().ConfigureAwait(false);
+//            var ip = "localhost";
+//            if (Device.RuntimePlatform == Device.Android)
+//                ip = "10.0.2.2";
+//            
+//            this.hubConnection = new HubConnectionBuilder()
+//                .WithUrl($"http://{ip}:5000/moveIt")
+//                .Build();
+//
+//            this.hubConnection.On<int>("updateTop", (top) => { this.BoxView.TranslationY = top; });
+//            this.hubConnection.On<int>("updateLeft", (left) => { this.BoxView.TranslationX = left; });
+//            
+//            this.hubConnection.StartAsync().ConfigureAwait(false);
         }
         
         
        
-        private async void AddTopButton_Clicked(object sender, EventArgs e)
-        {
-            try
-            {
-                this._top+=10;
-                await this.hubConnection.SendAsync("sendTop", this._top);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-           
-        }
-        
-        private async void AddLeftButton_Clicked(object sender, EventArgs e)
-        {
-            try
-            {
-                this._left+=10;
-                await this.hubConnection.SendAsync("sendLeft", this._left);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-           
-        }
-        
-        private async void ResetButton_Clicked(object sender, EventArgs e)
-        {
-            try
-            {
-                this._left = 0;
-                this._top = 0;
-                await this.hubConnection.SendAsync("sendLeft", this._left);
-                await this.hubConnection.SendAsync("sendTop", this._top);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-           
-        }
+//        private async void AddTopButton_Clicked(object sender, EventArgs e)
+//        {
+//            try
+//            {
+//                this._top+=10;
+//                await this.hubConnection.SendAsync("sendTop", this._top);
+//            }
+//            catch (Exception exception)
+//            {
+//                Console.WriteLine(exception);
+//                throw;
+//            }
+//           
+//        }
+//        
+//        private async void AddLeftButton_Clicked(object sender, EventArgs e)
+//        {
+//            try
+//            {
+//                this._left+=10;
+//                await this.hubConnection.SendAsync("sendLeft", this._left);
+//            }
+//            catch (Exception exception)
+//            {
+//                Console.WriteLine(exception);
+//                throw;
+//            }
+//           
+//        }
+//        
+//        private async void ResetButton_Clicked(object sender, EventArgs e)
+//        {
+//            try
+//            {
+//                this._left = 0;
+//                this._top = 0;
+//                await this.hubConnection.SendAsync("sendLeft", this._left);
+//                await this.hubConnection.SendAsync("sendTop", this._top);
+//            }
+//            catch (Exception exception)
+//            {
+//                Console.WriteLine(exception);
+//                throw;
+//            }
+//           
+//        }
 
        
     }
