@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AzureDay.Rome.Xam"
+             xmlns:markupExtensions="clr-namespace:Xam.Zero.MarkupExtensions;assembly=Xam.Zero"
+             xmlns:home="clr-namespace:AzureDay.Rome.Xam.ViewModels;assembly=AzureDay.Rome.Xam"
+             x:Name="Buttons"
+             x:Class="AzureDay.Rome.Xam.ButtonsPage"
+             BindingContext="{markupExtensions:ShellPagedViewModelMarkup ViewModel={x:Type home:ButtonsViewModel}, Page={x:Reference Buttons}}"
+             >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <BoxView 
+            HeightRequest="30" 
+            WidthRequest="30"
+            TranslationX="{Binding Left}"
+            TranslationY="{Binding Top}"
+            BackgroundColor="Red"
+            VerticalOptions="Start" 
+            HorizontalOptions="Start"/>
+        
+        <StackLayout Grid.Row="1">
+        
+        
+            <Button 
+                Text="Add 10 Top" 
+                Command="{Binding AddTopCommand}"/>
+            
+            <Button 
+                Text="Add 10 Left" 
+                Command="{Binding AddLeftCommand}"/>
+            
+            <Button 
+                Text="Reset" 
+                Command="{Binding ResetCommand}"/>
+        
+        </StackLayout>
+    </Grid>
+
+   
+
+</ContentPage>
