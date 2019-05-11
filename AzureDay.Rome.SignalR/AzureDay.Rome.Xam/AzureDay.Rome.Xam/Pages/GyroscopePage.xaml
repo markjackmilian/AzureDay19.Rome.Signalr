@@ -8,11 +8,28 @@
              BindingContext="{markupExtensions:ShellPagedViewModelMarkup ViewModel={x:Type home:GyroscopeViewModel}, Page={x:Reference Gyroscope}}"
              x:Class="AzureDay.Rome.Xam.GyroscopePage">
     
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <BoxView 
+            HeightRequest="30" 
+            WidthRequest="30"
+            TranslationX="{Binding Left}"
+            TranslationY="{Binding Top}"
+            BackgroundColor="Red"
+            VerticalOptions="Start" 
+            HorizontalOptions="Start"/>
+        
+        <StackLayout Grid.Row="1">
+        
+            <Button 
+                Text="{Binding IsGyroscopeActive, Converter={StaticResource IsActiveToTestConverter}}" 
+                Command="{Binding ToggleGyroscopeCommand}"/>
+            
         </StackLayout>
-    </ContentPage.Content>
+    </Grid>
+
 </ContentPage>

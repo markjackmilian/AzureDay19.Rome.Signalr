@@ -21,8 +21,8 @@ namespace AzureDay.Rome.Xam.ViewModels
         public ButtonsViewModel()
         {
             this.AddTopCommand = new Command(async () => await this.InnerAddTop());
-            this.AddTopCommand = new Command(async () => await this.InnerAddLeft());
-            this.AddTopCommand = new Command(async () => await this.InnerReset());
+            this.AddLeftCommand = new Command(async () => await this.InnerAddLeft());
+            this.ResetCommand = new Command(async () => await this.InnerReset());
             
             
             var ip = "localhost";
