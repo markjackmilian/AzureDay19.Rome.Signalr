@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AzureDay.Rome.Xam"
-             x:Class="AzureDay.Rome.Xam.MainPage">
+             xmlns:markupExtensions="clr-namespace:Xam.Zero.MarkupExtensions;assembly=Xam.Zero"
+             xmlns:home="clr-namespace:AzureDay.Rome.Xam.ViewModels;assembly=AzureDay.Rome.Xam"
+             x:Name="Buttons"
+             x:Class="AzureDay.Rome.Xam.ButtonsPage"
+             BindingContext="{markupExtensions:ShellPagedViewModelMarkup ViewModel={x:Type home:ButtonsViewModel}, Page={x:Reference Buttons}}"
+             >
 
     <Grid>
         <Grid.RowDefinitions>

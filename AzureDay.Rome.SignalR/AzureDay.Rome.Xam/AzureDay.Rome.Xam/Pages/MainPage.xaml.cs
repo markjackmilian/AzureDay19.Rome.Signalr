@@ -8,14 +8,14 @@ using Xamarin.Forms;
 
 namespace AzureDay.Rome.Xam
 {
-    public partial class MainPage : ContentPage
+    public partial class ButtonsPage : ContentPage
     {
         private HubConnection hubConnection;
 
         private int _top = 0;
         private int _left = 0;
 
-        public MainPage()
+        public ButtonsPage()
         {
             this.InitializeComponent();
             
