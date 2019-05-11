@@ -12,32 +12,15 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
         private readonly HubConnection _connection;
 
         public event EventHandler<Player> OnNewPlayerInYourTeamJoined;
-        public event EventHandler OnGameStart;
-        public event EventHandler<GameResult> OnGameEnd;
-        public event EventHandler<int> OnGameProgressUpdate;
         public event EventHandler OnRegisterDone;
         
         public event EventHandler<GameState> OnGameStateReceived;
-        public event EventHandler<Team> OnNotifyWinner;
+        public event EventHandler OnYourTeamWins;
+        public event EventHandler OnYourTeamLost;
 
         public GameHub()
         {
             this._connection =  new HubConnectionBuilder().WithUrl(Configuration.GameServer).Build();
-            
-            this._connection.On("gameStarted",new Action(() =>
-            {
-                this.OnGameStart?.Invoke(this,null);
-            }));
-            
-            this._connection.On("gameEnded",new Action<GameResult>((gameResult) =>
-            {
-                this.OnGameEnd?.Invoke(this,gameResult);
-            }));
-            
-            this._connection.On("gameProgress",new Action<int>((position) =>
-            {
-                this.OnGameProgressUpdate?.Invoke(this,position);
-            }));
             
             this._connection.On("registerDone",new Action(() =>
             {
@@ -55,14 +38,17 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
                 this.OnNewPlayerInYourTeamJoined?.Invoke(this,player);
             }));
             
-            this._connection.On("notifyWinner",new Action<Team>((team) =>
+            
+            
+            this._connection.On("yourTeamWins",new Action(() =>
             {
-                this.OnNotifyWinner?.Invoke(this,team);
+                this.OnYourTeamWins?.Invoke(this,null);
             }));
             
-            
-            
-
+            this._connection.On("yourTeamLost",new Action(() =>
+            {
+                this.OnYourTeamLost?.Invoke(this,null);
+            }));
             
         }
 

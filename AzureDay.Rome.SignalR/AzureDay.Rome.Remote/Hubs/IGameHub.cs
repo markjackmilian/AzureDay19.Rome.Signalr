@@ -18,21 +18,6 @@ namespace AzureDay.Rome.Remote.Hubs
 
 
         /// <summary>
-        /// Raised when game start
-        /// </summary>
-        event EventHandler OnGameStart;
-        
-        /// <summary>
-        /// Raised when game end
-        /// </summary>
-        event EventHandler<GameResult> OnGameEnd;
-        
-        /// <summary>
-        /// Raised when game is in progress
-        /// </summary>
-        event EventHandler<int> OnGameProgressUpdate;
-
-        /// <summary>
         /// Return after a register request
         /// </summary>
         event EventHandler OnRegisterDone;
@@ -45,7 +30,12 @@ namespace AzureDay.Rome.Remote.Hubs
         /// <summary>
         /// When a team win
         /// </summary>
-        event EventHandler<Team> OnNotifyWinner;
+        event EventHandler OnYourTeamWins;
+        
+        /// <summary>
+        /// raised when your team lost
+        /// </summary>
+        event EventHandler OnYourTeamLost;
         
 
         #endregion

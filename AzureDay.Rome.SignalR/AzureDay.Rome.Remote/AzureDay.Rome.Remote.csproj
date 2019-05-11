@@ -85,7 +85,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\AppCache.cs" />
     <Compile Include="Classes\WaitForMe.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="CustomRoutesConfig.cs" />

@@ -29,7 +29,7 @@ namespace AzureDay.Rome.Web.Hubs
             this.Clients.Caller.SendAsync("registerDone");
 
             this.Groups.AddToGroupAsync(this.Context.ConnectionId, team.ToString());
-            this.Clients.Group(team.ToString()).SendAsync("newPlayerInThisGroup", player);
+            this.Clients.OthersInGroup(team.ToString()).SendAsync("newPlayerInThisGroup", player);
             
             if(!string.IsNullOrEmpty(AdminUser.Connection))
                 this.Clients.Client(AdminUser.Connection).SendAsync("newPlayerJoined",player,team);
@@ -87,6 +87,8 @@ namespace AzureDay.Rome.Web.Hubs
 
         public void Tap()
         {
+            if (this._gameStateRepository.GetCurrentState() == GameState.Finished) return; // already finisched
+            
             var teamClick = this._teamRepository.AddCLickForPLayerWithConnection(this.Context.ConnectionId);
             var team = this._teamRepository.GetTeamByPlayerConnection(this.Context.ConnectionId);
             this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team.Id);
@@ -94,13 +96,17 @@ namespace AzureDay.Rome.Web.Hubs
             this.CheckWinner(team);
         }
 
-        private void CheckWinner(Team team)
+        private void CheckWinner(Team checkTeam)
         {
-            if (team.TeamScore >= 20)
-            {
-                this.Clients.All.SendAsync("notifyWinner", team);
-                this.Clients.All.SendAsync("gameStateMode", GameState.Finished);
-            }
+            if (checkTeam.TeamScore < 20) return; // check max point
+            
+            this.Clients.All.SendAsync("gameStateMode", GameState.Finished); // stop clients send tap
+
+            var teams = this._teamRepository.GetAllTeams();
+            foreach (var team in teams)
+                this.Clients.Group(team.Id.ToString()).SendAsync(team.Id == checkTeam.Id ? "yourTeamWins" :"yourTeamLost");
+
+//                this.Clients.Client(AdminUser.Connection).SendAsync("");
         }
 
         /// <summary>

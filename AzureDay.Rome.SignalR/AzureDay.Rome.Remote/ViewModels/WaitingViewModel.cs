@@ -39,7 +39,7 @@ namespace AzureDay.Rome.Remote.ViewModels
 
             try
             {
-                AppCache.TeamId = parameters.GetParameter<Guid>("teamId");
+                SpafApp.TeamId = parameters.GetParameter<Guid>("teamId");
             }
             catch (Exception e)
             {

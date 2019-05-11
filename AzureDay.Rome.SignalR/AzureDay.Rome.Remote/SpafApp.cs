@@ -14,6 +14,8 @@ namespace Bridge.Spaf
 {
     public class SpafApp
     {
+        public static Guid TeamId { get; set; }
+
         public static IIoc Container;
 
         public static void Main()
@@ -62,7 +64,7 @@ namespace Bridge.Spaf
         public static string GameId => "game";
         public static string GameResultId => "gameResult";
         public static string RegiserId => "register";
-       
+
         #endregion
 
         #region MESSAGES
