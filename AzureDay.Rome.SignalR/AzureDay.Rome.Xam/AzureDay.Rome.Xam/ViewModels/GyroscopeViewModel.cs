@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Input;
+using AzureDay.Rome.Xam.Services;
 using Xam.Zero.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -8,6 +9,8 @@ namespace AzureDay.Rome.Xam.ViewModels
 {
     public class GyroscopeViewModel: ZeroBaseModel
     {
+        private readonly IMoveItHubService _moveItHubService;
+
         // Set speed delay for monitoring changes.
         private SensorSpeed _speed;
 
@@ -18,11 +21,12 @@ namespace AzureDay.Rome.Xam.ViewModels
         
         public ICommand ToggleGyroscopeCommand { get; private set; }
 
-        public GyroscopeViewModel()
+        public GyroscopeViewModel(IMoveItHubService moveItHubService)
         {
-            _speed = SensorSpeed.UI;
-            this.ToggleGyroscopeCommand = new Command(() => InnerToggleGyroscope());
-            Gyroscope.ReadingChanged += Gyroscope_ReadingChanged;
+            this._moveItHubService = moveItHubService;
+            this._speed = SensorSpeed.UI;
+            this.ToggleGyroscopeCommand = new Command(() => this.InnerToggleGyroscope());
+            Gyroscope.ReadingChanged += this.Gyroscope_ReadingChanged;
         }
         
         private void Gyroscope_ReadingChanged(object sender, GyroscopeChangedEventArgs e)
@@ -35,6 +39,20 @@ namespace AzureDay.Rome.Xam.ViewModels
             this.Left += (int) data.AngularVelocity.X;
         }
 
+
+        protected override void CurrentPageOnAppearing(object sender, EventArgs e)
+        {
+            Gyroscope.Start(this._speed);
+            base.CurrentPageOnAppearing(sender, e);
+        }
+
+
+        protected override void CurrentPageOnDisappearing(object sender, EventArgs e)
+        {
+            Gyroscope.Stop();
+            base.CurrentPageOnDisappearing(sender, e);
+        }
+
         private void InnerToggleGyroscope()
         {
             try
@@ -42,7 +60,7 @@ namespace AzureDay.Rome.Xam.ViewModels
                 if (Gyroscope.IsMonitoring)
                     Gyroscope.Stop();
                 else
-                    Gyroscope.Start(_speed);
+                    Gyroscope.Start(this._speed);
             }
             catch (FeatureNotSupportedException fnsEx)
             {
@@ -52,6 +70,16 @@ namespace AzureDay.Rome.Xam.ViewModels
             {
                 // Other error has occurred.
             }
+        }
+        
+        public async void OnTopChanged()
+        {
+            await this._moveItHubService.SendTop(this.Top);
+        }
+        
+        public async void OnLeftChanged()
+        {
+            await this._moveItHubService.SendLeft(this.Left);
         }
     }
 }

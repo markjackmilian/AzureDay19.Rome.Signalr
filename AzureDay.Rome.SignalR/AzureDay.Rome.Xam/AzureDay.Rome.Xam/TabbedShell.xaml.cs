@@ -6,7 +6,7 @@ namespace AzureDay.Rome.Xam
     {
         public TabbedShell()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

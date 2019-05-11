@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using AzureDay.Rome.Xam.Services;
+using AzureDay.Rome.Xam.Services.Impl;
 using Microsoft.AspNetCore.SignalR.Client;
 using Xam.Zero.ViewModels;
 using Xamarin.Forms;
@@ -9,7 +11,7 @@ namespace AzureDay.Rome.Xam.ViewModels
 {
     public class ButtonsViewModel: ZeroBaseModel
     {
-        private HubConnection hubConnection;
+        private readonly IMoveItHubService _moveItHubService;
 
         public int Top { get; set; }
         public int Left { get; set; }
@@ -18,69 +20,37 @@ namespace AzureDay.Rome.Xam.ViewModels
         public ICommand AddLeftCommand { get; set; }
         public ICommand ResetCommand { get; set; }
         
-        public ButtonsViewModel()
+        public ButtonsViewModel(IMoveItHubService moveItHubService)
         {
-            this.AddTopCommand = new Command(async () => await this.InnerAddTop());
-            this.AddLeftCommand = new Command(async () => await this.InnerAddLeft());
-            this.ResetCommand = new Command(async () => await this.InnerReset());
-            
-            
-            var ip = "localhost";
-            if (Device.RuntimePlatform == Device.Android)
-                ip = "10.0.2.2";
-            
-            this.hubConnection = new HubConnectionBuilder()
-                .WithUrl($"http://{ip}:5000/moveIt")
-                .Build();
-
-            this.hubConnection.On<int>("updateTop", (top) => { this.Top = top; });
-            this.hubConnection.On<int>("updateLeft", (left) => { this.Left = left; });
-            
-            this.hubConnection.StartAsync().ConfigureAwait(false);
-        }
-
-        private async Task InnerReset()
-        {
-            try
+            this._moveItHubService = moveItHubService;
+            this.AddTopCommand = new Command(() => this.Top += 10);
+            this.AddLeftCommand = new Command(() => this.Left += 10);
+            this.ResetCommand = new Command(() =>
             {
                 this.Left = 0;
                 this.Top = 0;
-                await this.hubConnection.SendAsync("sendLeft", this.Left);
-                await this.hubConnection.SendAsync("sendTop", this.Top);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
+            });
+
+
+            this._moveItHubService.Connect();
+
+            this._moveItHubService.OnTopChanged += (sender, i) => { this.Top = i; };
+            this._moveItHubService.OnLeftChanged += (sender, i) => { this.Left = i; };
+           
         }
 
-        private async Task InnerAddLeft()
+        public async void OnTopChanged()
         {
-            try
-            {
-                this.Left+=10;
-                await this.hubConnection.SendAsync("sendLeft", this.Left);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
+            await this._moveItHubService.SendTop(this.Top);
+        }
+        
+        public async void OnLeftChanged()
+        {
+            await this._moveItHubService.SendLeft(this.Left);
         }
 
-        private async Task InnerAddTop()
-        {
-            try
-            {
-                this.Top+=10;
-                await this.hubConnection.SendAsync("sendTop", this.Top);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-        }
+       
+
+     
     }
 }

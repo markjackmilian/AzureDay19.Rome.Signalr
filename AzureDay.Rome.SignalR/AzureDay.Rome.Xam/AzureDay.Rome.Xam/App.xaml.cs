@@ -1,4 +1,6 @@
 ﻿using System;
+using AzureDay.Rome.Xam.Services;
+using AzureDay.Rome.Xam.Services.Impl;
 using DryIoc;
 using Xam.Zero;
 using Xam.Zero.DryIoc;
@@ -17,6 +19,8 @@ namespace AzureDay.Rome.Xam
         public App()
         {
             this.InitializeComponent();
+            
+            Container.Register<IMoveItHubService,MoveItHubService>(Reuse.Singleton);
 
             ZeroApp.On(this)
                 .WithContainer(DryIocZeroContainer.Build(Container))
