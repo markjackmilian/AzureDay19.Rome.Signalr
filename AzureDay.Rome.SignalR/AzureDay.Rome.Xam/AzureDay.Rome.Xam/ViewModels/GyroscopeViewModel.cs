@@ -31,8 +31,8 @@ namespace AzureDay.Rome.Xam.ViewModels
             // Process Angular Velocity X, Y, and Z reported in rad/s
             Console.WriteLine($"Reading: X: {data.AngularVelocity.X}, Y: {data.AngularVelocity.Y}, Z: {data.AngularVelocity.Z}");
 
-            this.Top = (int) data.AngularVelocity.Y;
-            this.Left = (int) data.AngularVelocity.X;
+            this.Top += (int) data.AngularVelocity.Y;
+            this.Left += (int) data.AngularVelocity.X;
         }
 
         private void InnerToggleGyroscope()

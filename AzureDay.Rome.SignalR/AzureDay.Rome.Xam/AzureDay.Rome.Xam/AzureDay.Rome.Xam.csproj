@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="DryIoc.dll" Version="3.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="1.1.0" />
         <PackageReference Include="PropertyChanged.Fody" Version="3.0.0" />
         <PackageReference Include="Xam.Zero" Version="0.0.1-Alpha1" />
