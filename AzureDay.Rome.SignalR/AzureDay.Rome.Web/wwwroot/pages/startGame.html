@@ -8,12 +8,7 @@
     <button data-bind="click:StartGame, visible: GameState() == 1">Start</button>
     <span data-bind="visible: GameState() == 2">RUN RUN RUN</span>
 
-<!--    <span data-bind="text:Team1Score, visible: GameState() == 2"></span>-->
-<!--    <span data-bind="text:Team2Score, visible: GameState() == 2"></span>-->
-<!--    <span data-bind="text:Team3Score, visible: GameState() == 2"></span>-->
-<!--    <span data-bind="text:Team4Score, visible: GameState() == 2"></span>-->
-    
-    <div style="width: 600px; horiz-align: center; background: gray" data-bind="visible: GameState() == 2">
+    <div style="width: 600px; horiz-align: center; background: gray" data-bind="visible: GameState() == 2 || GameState() == 3">
         <div class="square" data-bind="style:{left: Team1ScreenPosition}" style="background: red" ></div>
         <div class="square" data-bind="style:{left: Team2ScreenPosition}" style="background: blue"></div>
         <div class="square" data-bind="style:{left: Team3ScreenPosition}" style="background: blueviolet"></div>

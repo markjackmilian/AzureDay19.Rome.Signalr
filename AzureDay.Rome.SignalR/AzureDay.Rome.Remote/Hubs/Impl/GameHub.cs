@@ -38,8 +38,6 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
                 this.OnNewPlayerInYourTeamJoined?.Invoke(this,player);
             }));
             
-            
-            
             this._connection.On("yourTeamWins",new Action(() =>
             {
                 this.OnYourTeamWins?.Invoke(this,null);
