@@ -1,4 +1,7 @@
 ﻿using System;
+using DryIoc;
+using Xam.Zero;
+using Xam.Zero.DryIoc;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,11 +11,17 @@ namespace AzureDay.Rome.Xam
 {
     public partial class App : Application
     {
+        
+        public static readonly Container Container = new Container();
+        
         public App()
         {
             this.InitializeComponent();
 
-            this.MainPage = new MainPage();
+            ZeroApp.On(this)
+                .WithContainer(DryIocZeroContainer.Build(Container))
+                .RegisterShell(() => new TabbedShell())
+                .StartWith<TabbedShell>();
         }
 
         protected override void OnStart()
