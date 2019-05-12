@@ -33,7 +33,7 @@ namespace AzureDay.Rome.Remote.ViewModels
 
         private void SwitchToRunMode()
         {
-            Global.Alert("start the game!");
+            Notification.Success("Il gioco è iniziato!");
         }
 
 

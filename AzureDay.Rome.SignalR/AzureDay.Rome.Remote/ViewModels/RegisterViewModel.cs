@@ -27,7 +27,7 @@ namespace AzureDay.Rome.Remote.ViewModels
         {
             if (string.IsNullOrEmpty(this.Name.Self()))
             {
-                Global.Alert("Inserisci un nome");
+                Notification.Warning("Inserisci un nome");
                 return;
             }
             

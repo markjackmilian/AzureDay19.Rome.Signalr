@@ -62,7 +62,7 @@ namespace AzureDay.Rome.Remote.ViewModels
                     Global.Alert("Dovevi essere piu veloce.. il gioco è già in corso.");
                     break;
                 case GameState.Finished:
-                    Global.Alert("Il gioco è concluso.. resta in attesa nel caso iniziasse una nuova corsa.");
+                    Global.Alert("Il gioco è concluso.. ");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
