@@ -1,20 +1,37 @@
 <div id="startGame">
     <span data-bind="text:GameState"></span>
     <button data-bind="click:OpenRegistration, visible: GameState() == 0">Open Registration</button>
-    <ul data-bind="foreach: Players">
-        <li data-bind="text:name"></li>
-    </ul>
+  
     
     <button data-bind="click:StartGame, visible: GameState() == 1">Start</button>
     <span data-bind="visible: GameState() == 2">RUN RUN RUN</span>
 
-    <div style="width: 600px; horiz-align: center; background: gray" data-bind="visible: GameState() == 2 || GameState() == 3">
-        <div class="square" data-bind="style:{left: Team1ScreenPosition}" style="background: red" ></div>
-        <div class="square" data-bind="style:{left: Team2ScreenPosition}" style="background: blue"></div>
-        <div class="square" data-bind="style:{left: Team3ScreenPosition}" style="background: blueviolet"></div>
-        <div class="square" data-bind="style:{left: Team4ScreenPosition}" style="background: yellow"></div>
-
+<!--    <div>-->
+<!--        <h2>Team 1</h2>-->
+<!--        <ul data-bind="foreach: Team1.Players">-->
+<!--            <li data-bind="text:name"></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+    
+    <div>
+        <!-- ko foreach: TeamViewModels -->
+        <div>
+            <h2 data-bind="text:Name"></h2>
+            <h2 data-bind="text:HowMany"></h2>
+            <ul data-bind="foreach: Players">
+                <li data-bind="text:name"></li>
+            </ul>
+        </div>
+        <!-- /ko -->
     </div>
+
+    <div style="width: 600px; horiz-align: center; background: gray" data-bind="visible: GameState() == 2 || GameState() == 3">
+        <!-- ko foreach: TeamViewModels -->
+        <div class="square" data-bind="style:{left: ScreenPosition}, css:CssClass"  style="background: red" ></div>
+        <!-- /ko -->
+    </div>
+    
+   
 
 </div>
 
@@ -24,5 +41,9 @@
         width: 73px;
         background: red;
         position: relative;
+    }
+    
+    .Team_1{
+        background: blue !important;
     }
 </style>

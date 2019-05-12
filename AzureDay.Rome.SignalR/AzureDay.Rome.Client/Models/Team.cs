@@ -10,6 +10,5 @@ namespace AzureDay.Rome.Client.Models
 
         public IEnumerable<Player> Players { get; set; }
 
-        public int Order { get; set; }
     }
 }

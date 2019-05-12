@@ -15,61 +15,41 @@ namespace AzureDay.Rome.Client.ViewModels
         private readonly IGameHub _gameHub;
         private readonly ITeamRepository _teamRepository;
         public override string ElementId() => SpafApp.StartGameId;
-        
-        public knockout.KnockoutObservableArray<Player> Players { get; set; }
+
         public knockout.KnockoutObservable<GameState> GameState { get; set; }
-        public knockout.KnockoutObservable<int> Team1Score { get; set; }
-        public knockout.KnockoutObservable<string> Team1ScreenPosition { get; set; }
-        public knockout.KnockoutObservable<int> Team2Score { get; set; }
-        public knockout.KnockoutObservable<string> Team2ScreenPosition { get; set; }
-        public knockout.KnockoutObservable<int> Team3Score { get; set; }
-        public knockout.KnockoutObservable<string> Team3ScreenPosition { get; set; }
-        public knockout.KnockoutObservable<int> Team4Score { get; set; }
-        public knockout.KnockoutObservable<string> Team4ScreenPosition { get; set; }
 
-
+        public knockout.KnockoutObservableArray<TeamViewModel> TeamViewModels { get; set; }
 
         public StartGameViewModel(IGameHub gameHub, ITeamRepository teamRepository)
         {
             this._gameHub = gameHub;
             this._teamRepository = teamRepository;
             
+            var sbrazzi = this._teamRepository.GetTeams().Select(s => new TeamViewModel(s)).ToArray();
 
-            this.Players = knockout.ko.observableArray.Self<Player>();
+            this.TeamViewModels = knockout.ko.observableArray.Self<TeamViewModel>();
+                
+            this.TeamViewModels.push(sbrazzi);
+                //this._teamRepository.GetTeams().Select(s => new TeamViewModel(s));
+            
+            
             this.GameState = knockout.ko.observable.Self<GameState>();
-            
-            this.Team1Score = knockout.ko.observable.Self<int>();
-            this.Team2Score = knockout.ko.observable.Self<int>();
-            this.Team3Score = knockout.ko.observable.Self<int>();
-            this.Team4Score = knockout.ko.observable.Self<int>();
-            
-            this.Team1ScreenPosition = knockout.ko.observable.Self<string>();
-            this.Team2ScreenPosition = knockout.ko.observable.Self<string>();
-            this.Team3ScreenPosition = knockout.ko.observable.Self<string>();
-            this.Team4ScreenPosition = knockout.ko.observable.Self<string>();
-
-
-            this.Team1Score.subscribe(value => this.Team1ScreenPosition.Self($"{value}px"));
-            this.Team2Score.subscribe(value => this.Team2ScreenPosition.Self($"{value}px"));
-            this.Team3Score.subscribe(value => this.Team3ScreenPosition.Self($"{value}px"));
-            this.Team4Score.subscribe(value => this.Team4ScreenPosition.Self($"{value}px"));
         }
 
         private void GameHubOnOnPlayerLeaved(object sender, Tuple<Player, Guid> tuple)
         {
-            var localPlayer = this.Players.Self().SingleOrDefault(sd => sd.Id == tuple.Item1.Id);
+            var localPlayer = this.ALlPlayers.SingleOrDefault(sd => sd.Id == tuple.Item1.Id);
             if (localPlayer == null) return;
 
-            this.Players.remove(localPlayer);
             var team = this._teamRepository.GetTeamById(tuple.Item2);
-            
+
             Global.Alert($"Il giocatore {tuple.Item1.Name} della squadra {team?.Name} ci ha lasciato prematuramente.");
         }
 
         private void GameHubOnOnNewPlayerJoined(object sender, Tuple<Player, Guid> tuple)
         {
-            this.Players.push(tuple.Item1);
-            var team = this._teamRepository.GetTeamById(tuple.Item2);
+            var team = this.GetTeamById(tuple.Item2);
+            team.Players.push(tuple.Item1);
 
             Global.Alert($"Nuovo giocatore {tuple.Item1.Name} della squadra {team?.Name}");
         }
@@ -79,19 +59,11 @@ namespace AzureDay.Rome.Client.ViewModels
             Console.WriteLine(e.ToString());
             this.GameState.Self(e);
         }
-        
+
         private void GameHubOnOnTapCountReceived(object sender, Tuple<int, Guid> e)
         {
-            var team = this._teamRepository.GetTeamById(e.Item2);
-            var actions = new Dictionary<int, Action>()
-            {
-                {1, () => this.Team1Score.Self(e.Item1)},
-                {2, () => this.Team2Score.Self(e.Item1)},
-                {3, () => this.Team3Score.Self(e.Item1)},
-                {4, () => this.Team4Score.Self(e.Item1)},
-            };
-            
-            actions[team.Order].Invoke();
+            var team = this.GetTeamById(e.Item2);
+            team.Score.Self(e.Item1);
         }
 
         public void StartGame()
@@ -102,16 +74,15 @@ namespace AzureDay.Rome.Client.ViewModels
         public override void OnLoad(Dictionary<string, object> parameters)
         {
             base.OnLoad(parameters);
-            
+
             this._gameHub.OnGameStateReceived += this.GameHubOnOnGameStateReceived;
             this._gameHub.OnNewPlayerJoined += this.GameHubOnOnNewPlayerJoined;
             this._gameHub.OnPlayerLeaved += this.GameHubOnOnPlayerLeaved;
             this._gameHub.OnTapCountReceived += this.GameHubOnOnTapCountReceived;
-            
-            this._gameHub.Start(()=> this._gameHub.NotifyIAmTheAdmin());
+
+            this._gameHub.Start(() => this._gameHub.NotifyIAmTheAdmin());
         }
 
-      
 
         public override void OnLeave()
         {
@@ -124,6 +95,39 @@ namespace AzureDay.Rome.Client.ViewModels
         public void OpenRegistration()
         {
             this._gameHub.OpenRegistration();
+
         }
+        
+        private TeamViewModel GetTeamById(Guid id) => this.TeamViewModels.Self().Single(s => s.Id.ToString().Equals(id.ToString()));
+
+        private IEnumerable<Player> ALlPlayers => this.TeamViewModels.Self().SelectMany(sm=>sm.Players.Self());
+    }
+
+    public class TeamViewModel
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string CssClass { get; set; }
+        public knockout.KnockoutObservable<int> Score { get; set; }
+        public knockout.KnockoutObservable<int> HowMany { get; set; }
+        
+        public knockout.KnockoutObservable<string> ScreenPosition { get; set; }
+        public knockout.KnockoutObservableArray<Player> Players { get; set; }
+
+        public TeamViewModel(Team team)
+        {
+            this.Id = team.Id;
+            this.Name = team.Name;
+            this.CssClass = this.Name.Replace(" ", "_");
+            
+            this.Score = knockout.ko.observable.Self<int>();
+            this.HowMany = knockout.ko.observable.Self<int>();
+            this.ScreenPosition = knockout.ko.observable.Self<string>();
+            this.Players = knockout.ko.observableArray.Self<Player>();
+
+            this.Score.subscribe(value => this.ScreenPosition.Self($"{value}px"));
+            this.Players.subscribe(value => this.HowMany.Self(this.Players.Self().Length));
+        }
+       
     }
 }
