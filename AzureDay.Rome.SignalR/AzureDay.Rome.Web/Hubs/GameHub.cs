@@ -25,6 +25,8 @@ namespace AzureDay.Rome.Web.Hubs
         /// <param name="team"></param>
         public void Register(string name, Guid team)
         {
+            if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
+
             var player = this._teamRepository.AddPlayer(name, team, this.Context.ConnectionId);
             this.Clients.Caller.SendAsync("registerDone");
 
@@ -40,6 +42,8 @@ namespace AzureDay.Rome.Web.Hubs
         /// </summary>
         public void OpenRegistration()
         {
+            if (this._gameStateRepository.GetCurrentState() != GameState.Closed) return; // wrong state
+
             // clear groups
             var teams = this._teamRepository.GetAllTeams();
             foreach (var team in teams)
@@ -62,6 +66,8 @@ namespace AzureDay.Rome.Web.Hubs
 
         public void StartGame()
         {
+            if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
+
             this._gameStateRepository.StartGameMode();
             this.Clients.All.SendAsync("gameStateMode",GameState.InRun);
 
