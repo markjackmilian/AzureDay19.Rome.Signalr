@@ -81,7 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Class1.cs" />
+    <Compile Include="Classes\Notification.cs" />
     <Compile Include="Classes\WaitForMe.cs" />
     <Compile Include="CustomRoutesConfig.cs" />
     <Compile Include="Hubs\IBaseHub.cs" />

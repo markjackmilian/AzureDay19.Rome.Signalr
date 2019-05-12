@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AzureDay.Rome.Client.Classes;
 using AzureDay.Rome.Client.Hubs;
 using AzureDay.Rome.Client.Models;
 using AzureDay.Rome.Client.Repositories;
@@ -42,16 +43,16 @@ namespace AzureDay.Rome.Client.ViewModels
             if (localPlayer == null) return;
 
             var team = this._teamRepository.GetTeamById(tuple.Item2);
-
-            Global.Alert($"Il giocatore {tuple.Item1.Name} della squadra {team?.Name} ci ha lasciato prematuramente.");
+            
+            Notification.Warning($"Il giocatore {tuple.Item1.Name} della squadra {team?.Name} ci ha lasciato prematuramente.");
         }
 
         private void GameHubOnOnNewPlayerJoined(object sender, Tuple<Player, Guid> tuple)
         {
             var team = this.GetTeamById(tuple.Item2);
             team.Players.push(tuple.Item1);
-
-            Global.Alert($"Nuovo giocatore {tuple.Item1.Name} della squadra {team?.Name}");
+            
+            Notification.Success($"Nuovo giocatore {tuple.Item1.Name} della squadra {team?.Name}");
         }
 
         private void GameHubOnOnGameStateReceived(object sender, GameState e)
