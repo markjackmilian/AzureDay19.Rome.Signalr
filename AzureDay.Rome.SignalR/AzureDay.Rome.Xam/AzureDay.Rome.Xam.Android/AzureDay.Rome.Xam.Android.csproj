@@ -72,7 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AzureDay.Rome.Xam\AzureDay.Rome.Xam.csproj">
-      <Project>{0EC272BF-8CEF-4B3D-9695-CFDF788E90A6}</Project>
+      <Project>{B53594B7-DD2B-47CA-A8C2-EC1E3720E999}</Project>
       <Name>AzureDay.Rome.Xam</Name>
     </ProjectReference>
   </ItemGroup>
