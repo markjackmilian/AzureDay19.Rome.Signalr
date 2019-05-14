@@ -5,6 +5,7 @@ using AzureDay.Rome.Client.Classes;
 using AzureDay.Rome.Client.Hubs;
 using AzureDay.Rome.Client.Models;
 using AzureDay.Rome.Client.Repositories;
+using Bridge;
 using Bridge.Html5;
 using Bridge.Spaf;
 using Retyped;
@@ -15,6 +16,7 @@ namespace AzureDay.Rome.Client.ViewModels
     {
         private readonly IGameHub _gameHub;
         private readonly ITeamRepository _teamRepository;
+        private int _tapCount;
         public override string ElementId() => SpafApp.StartGameId;
 
         public knockout.KnockoutObservable<GameState> GameState { get; set; }
@@ -31,7 +33,7 @@ namespace AzureDay.Rome.Client.ViewModels
             this.TeamViewModels = knockout.ko.observableArray.Self<TeamViewModel>();
                 
             this.TeamViewModels.push(sbrazzi);
-                //this._teamRepository.GetTeams().Select(s => new TeamViewModel(s));
+
             
             
             this.GameState = knockout.ko.observable.Self<GameState>();
@@ -57,14 +59,24 @@ namespace AzureDay.Rome.Client.ViewModels
 
         private void GameHubOnOnGameStateReceived(object sender, GameState e)
         {
-            Console.WriteLine(e.ToString());
             this.GameState.Self(e);
+
+            if (e == Models.GameState.InRun)
+            {
+                var width = Global.Document.GetElementById("gameDiv").OffsetWidth;
+            
+                Global.Alert(width.ToString());
+
+                this._tapCount = width / 20;
+            }
+            
+            
         }
 
         private void GameHubOnOnTapCountReceived(object sender, Tuple<int, Guid> e)
         {
             var team = this.GetTeamById(e.Item2);
-            team.Score.Self(e.Item1);
+            team.Score.Self(e.Item1*this._tapCount);
         }
 
         public void StartGame()
@@ -82,6 +94,9 @@ namespace AzureDay.Rome.Client.ViewModels
             this._gameHub.OnTapCountReceived += this.GameHubOnOnTapCountReceived;
 
             this._gameHub.Start(() => this._gameHub.NotifyIAmTheAdmin());
+
+         
+
         }
 
 
