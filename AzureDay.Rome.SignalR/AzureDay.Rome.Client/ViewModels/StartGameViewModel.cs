@@ -63,7 +63,7 @@ namespace AzureDay.Rome.Client.ViewModels
 
             if (e == Models.GameState.InRun)
             {
-                var width = Global.Document.GetElementById("gameDiv").OffsetWidth;
+                var width = Global.Document.GetElementById("gameDiv").OffsetWidth-50;
             
                 Global.Alert(width.ToString());
 
@@ -77,6 +77,9 @@ namespace AzureDay.Rome.Client.ViewModels
         {
             var team = this.GetTeamById(e.Item2);
             team.Score.Self(e.Item1*this._tapCount);
+
+            this.TeamViewModels.Self().ForEach(f => f.IsWinner.Self(false));
+            this.TeamViewModels.Self().OrderByDescending(o => o.Score.Self()).First().IsWinner.Self(true);
         }
 
         public void StartGame()
@@ -129,6 +132,7 @@ namespace AzureDay.Rome.Client.ViewModels
         
         public knockout.KnockoutObservable<string> ScreenPosition { get; set; }
         public knockout.KnockoutObservableArray<Player> Players { get; set; }
+        public knockout.KnockoutObservable<bool> IsWinner { get; set; }
 
         public TeamViewModel(Team team)
         {
@@ -139,6 +143,7 @@ namespace AzureDay.Rome.Client.ViewModels
             this.Score = knockout.ko.observable.Self<int>();
             this.HowMany = knockout.ko.observable.Self<int>();
             this.ScreenPosition = knockout.ko.observable.Self<string>();
+            this.IsWinner = knockout.ko.observable.Self<bool>();
             this.Players = knockout.ko.observableArray.Self<Player>();
 
             this.Score.subscribe(value => this.ScreenPosition.Self($"{value}px"));

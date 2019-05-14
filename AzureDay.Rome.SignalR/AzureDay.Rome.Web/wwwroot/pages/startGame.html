@@ -15,7 +15,8 @@
         <!-- ko foreach: TeamViewModels -->
         <div class="w3-cell w3-mobile">
             <div class="w3-card w3-margin w3-container w3-border w3-round-large w3-text-blue-gray" style="position: relative;">
-                <img src="../images/crown.png" alt="Winner" title="Winner" style="position: absolute; bottom: 10px; right: 10px; width: 40px;" />
+                <span data-bind="text:IsWinner"></span>
+                <img data-bind="visible:IsWinner()" src="../images/crown.png" alt="Winner" title="Winner" style="position: absolute; bottom: 10px; right: 10px; width: 40px;" />
                 <img src="../images/team1.png" alt="Team" style="float: left; margin: 5px 10px 0 0; width: 60px;" />
                 <h2 data-bind="text:Name" style="text-transform: uppercase;"></h2>
                 <p>Numero di click: <span data-bind="text:Score"></span></p>
@@ -28,7 +29,7 @@
         <!-- /ko -->
     </div>
 
-    <div style="background-image: url('../images/space.jpg'); background-size: cover;" data-bind="visible: GameState() == 2 || GameState() == 3" class="w3-container w3-round-medium">
+    <div style="background-image: url('../images/space.jpg'); background-size: cover;" data-bind="visible: GameState() == 2 || GameState() == 3" class="w3-container w3-round-medium" id="gameDiv">
         <div style="background-image: url('../images/bandiera.png'); background-position: top right; background-repeat: no-repeat; width: 100%; min-height: 600px;">
             <!-- ko foreach: TeamViewModels -->
             <div class="square" data-bind="style:{left: ScreenPosition}, css:CssClass"></div>
