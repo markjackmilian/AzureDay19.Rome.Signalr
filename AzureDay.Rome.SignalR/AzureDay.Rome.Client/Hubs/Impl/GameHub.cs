@@ -71,5 +71,10 @@ namespace AzureDay.Rome.Client.Hubs.Impl
         {
             this._connection.Invoke("setUpAdmin");
         }
+
+        public void ReStartGame()
+        {
+            this._connection.Invoke("reStart");
+        }
     }
 }

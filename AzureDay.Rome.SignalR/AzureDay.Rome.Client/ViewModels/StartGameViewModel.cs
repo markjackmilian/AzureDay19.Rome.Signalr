@@ -14,6 +14,8 @@ namespace AzureDay.Rome.Client.ViewModels
 {
     public class StartGameViewModel : LoadableViewModel
     {
+        private const int FinishLineCount = 20;
+
         private const int FinishLineOffset = 170;
         private const int SpaceShipWidth = 178;
         
@@ -66,10 +68,11 @@ namespace AzureDay.Rome.Client.ViewModels
 
             if (e != GameState.InRun) return;
             var width = Global.Document.GetElementById("gameDiv").OffsetWidth-FinishLineOffset-SpaceShipWidth;
-            this._tapCount = width / 100;
+            this._tapCount = width / FinishLineCount;
             Console.WriteLine($"Width: {width}");
             Console.WriteLine($"TapCount: {this._tapCount}");
         }
+
 
         private void GameHubOnOnTapCountReceived(object sender, Tuple<int, Guid> e)
         {
@@ -83,6 +86,11 @@ namespace AzureDay.Rome.Client.ViewModels
         public void StartGame()
         {
             this._gameHub.StartGame();
+        }
+        
+        public void ReStartGame()
+        {
+            this._gameHub.ReStartGame();
         }
 
         public override void OnLoad(Dictionary<string, object> parameters)

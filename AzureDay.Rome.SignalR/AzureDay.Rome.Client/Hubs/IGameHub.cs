@@ -41,5 +41,10 @@ namespace AzureDay.Rome.Client.Hubs
         /// Notify my connection
         /// </summary>
         void NotifyIAmTheAdmin();
+
+        /// <summary>
+        /// Send restart game signal
+        /// </summary>
+        void ReStartGame();
     }
 }

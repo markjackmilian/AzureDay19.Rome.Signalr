@@ -60,6 +60,7 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
             this._connection.Stop();
         }
 
+      
         public void Tap()
         {
             this._connection.Send("tap");

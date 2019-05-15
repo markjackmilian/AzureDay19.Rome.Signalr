@@ -13,7 +13,7 @@ namespace AzureDay.Rome.Web.Hubs
         /// <summary>
         /// How many tap do you need to win
         /// </summary>
-        private const int FinishLine = 100;
+        private const int FinishLine = 20;
         
         private readonly IGameStateRepository _gameStateRepository;
         private readonly ITeamRepository _teamRepository;
@@ -80,6 +80,17 @@ namespace AzureDay.Rome.Web.Hubs
             this._gameStateRepository.StartGameMode();
             this.Clients.All.SendAsync("gameStateMode",GameState.InRun);
         }
+        
+        public void ReStart()
+        {
+            // todo
+            
+//            if (this._gameStateRepository.GetCurrentState() != GameState.Finished) return; // wrong state
+//
+//            this._gameStateRepository.ClosedStateMode();
+//            this.Clients.All.SendAsync("gameStateMode",GameState.Closed);
+        }
+
 
         /// <summary>
         /// Recover actual state

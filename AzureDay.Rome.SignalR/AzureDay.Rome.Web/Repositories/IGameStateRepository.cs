@@ -18,6 +18,11 @@ namespace AzureDay.Rome.Web.Repositories
         /// <summary>
         /// Set state to closed
         /// </summary>
+        void ClosedStateMode();
+
+        /// <summary>
+        /// Set state to closed
+        /// </summary>
         void StopGame();
 
         /// <summary>
