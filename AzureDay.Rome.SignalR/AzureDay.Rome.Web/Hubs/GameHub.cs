@@ -13,7 +13,7 @@ namespace AzureDay.Rome.Web.Hubs
         /// <summary>
         /// How many tap do you need to win
         /// </summary>
-        private const int FinishLine = 20;
+        private const int FinishLine = 100;
         
         private readonly IGameStateRepository _gameStateRepository;
         private readonly ITeamRepository _teamRepository;

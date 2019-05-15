@@ -64,7 +64,7 @@ namespace AzureDay.Rome.Client.ViewModels
 
             if (e != GameState.InRun) return;
             var width = Global.Document.GetElementById("gameDiv").OffsetWidth-50;
-            this._tapCount = width / 20;
+            this._tapCount = width / 100;
         }
 
         private void GameHubOnOnTapCountReceived(object sender, Tuple<int, Guid> e)
