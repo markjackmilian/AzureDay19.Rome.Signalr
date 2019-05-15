@@ -1,5 +1,6 @@
 using System;
 using AzureDay.Rome.Client.Models;
+using AzureDay.Rome.Shared;
 
 namespace AzureDay.Rome.Client.Hubs
 {

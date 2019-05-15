@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AzureDay.Rome.Remote.Hubs.Impl;
 using AzureDay.Rome.Remote.Models;
+using AzureDay.Rome.Shared;
 
 namespace AzureDay.Rome.Remote.Hubs
 {

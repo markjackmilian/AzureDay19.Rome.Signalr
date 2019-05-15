@@ -1,3 +1,4 @@
+using AzureDay.Rome.Shared;
 using AzureDay.Rome.Web.Model;
 
 namespace AzureDay.Rome.Web.Repositories.Impl

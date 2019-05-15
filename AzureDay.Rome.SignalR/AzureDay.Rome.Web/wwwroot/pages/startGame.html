@@ -1,23 +1,22 @@
 <div id="startGame" class="w3-container w3-animate-top">
-    <span data-bind="text:GameState"></span>
-<!--    GAME STATE = 0 => GIOCO CHIUSO. UNICA AZIONE OPEN REGISTRATION-->
-    <button data-bind="click:OpenRegistration, visible: GameState() == 0" class="w3-button w3-block w3-teal w3-round">Open Registration</button>
-
+    <!--    GAME STATE = 0 => GIOCO CHIUSO. UNICA AZIONE OPEN REGISTRATION-->
+    <button data-bind="click:OpenRegistration, visible: GameState() == 0" class="w3-button w3-block w3-teal w3-round">
+        Open Registration
+    </button>
 
     <!--    GAME STATE = 1 => REGISTRAZIONI APERTE. Unica azione START-->
-    <button data-bind="click:StartGame, visible: GameState() == 1" class="w3-button w3-block w3-teal w3-round">START</button>
+    <button data-bind="click:StartGame, visible: GameState() == 1" class="w3-button w3-block w3-teal w3-round">START
+    </button>
 
-    <!--    GAME STATE = 2 => GIOCO IN RUN. Nessuna azione-->
-    <!--<span data-bind="visible: GameState() == 2">RUN RUN RUN</span>-->
-
-    
     <div class="w3-cell-row">
         <!-- ko foreach: TeamViewModels -->
         <div class="w3-cell w3-mobile">
-            <div class="w3-card w3-margin w3-container w3-border w3-round-large w3-text-blue-gray" style="position: relative;">
+            <div class="w3-card w3-margin w3-container w3-border w3-round-large w3-text-blue-gray"
+                 style="position: relative;">
                 <span data-bind="text:IsWinner"></span>
-                <img data-bind="visible:IsWinner()" src="../images/crown.png" alt="Winner" title="Winner" style="position: absolute; bottom: 10px; right: 10px; width: 40px;" />
-                <img src="../images/team1.png" alt="Team" style="float: left; margin: 5px 10px 0 0; width: 60px;" />
+                <img data-bind="visible:IsWinner()" src="../images/crown.png" alt="Winner" title="Winner"
+                     style="position: absolute; bottom: 10px; right: 10px; width: 40px;"/>
+                <img src="../images/team1.png" alt="Team" style="float: left; margin: 5px 10px 0 0; width: 60px;"/>
                 <h2 data-bind="text:Name" style="text-transform: uppercase;"></h2>
                 <p>Numero di click: <span data-bind="text:Score"></span></p>
                 <p>In squadra: <span data-bind="text:HowMany"></span></p>
@@ -29,15 +28,15 @@
         <!-- /ko -->
     </div>
 
-    <div style="background-image: url('../images/space.jpg'); background-size: cover;" data-bind="visible: GameState() == 2 || GameState() == 3" class="w3-container w3-round-medium" id="gameDiv">
+    <div style="background-image: url('../images/space.jpg'); background-size: cover;"
+         data-bind="visible: GameState() == 2 || GameState() == 3" class="w3-container w3-round-medium" id="gameDiv">
         <div style="background-image: url('../images/bandiera.png'); background-position: top right; background-repeat: no-repeat; width: 100%; min-height: 600px;">
             <!-- ko foreach: TeamViewModels -->
             <div class="square" data-bind="style:{left: ScreenPosition}, css:CssClass"></div>
             <!-- /ko -->
         </div>
     </div>
-    
-   
+
 
 </div>
 

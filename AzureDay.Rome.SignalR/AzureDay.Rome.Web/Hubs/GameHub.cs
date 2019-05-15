@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AzureDay.Rome.Shared;
 using AzureDay.Rome.Web.Model;
 using AzureDay.Rome.Web.Repositories;
 using Microsoft.AspNetCore.SignalR;

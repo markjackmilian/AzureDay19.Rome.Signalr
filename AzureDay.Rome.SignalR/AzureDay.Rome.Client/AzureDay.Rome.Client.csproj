@@ -91,7 +91,6 @@
     <Compile Include="Hubs\Impl\ChatHub.cs" />
     <Compile Include="Hubs\Impl\GameHub.cs" />
     <Compile Include="Hubs\Impl\MoveItHub.cs" />
-    <Compile Include="Models\GameState.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +113,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Bridge.Min.17.2.0\build\Bridge.Min.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Bridge.Min.17.2.0\build\Bridge.Min.targets'))" />
   </Target>
+  <Import Project="..\AzureDay.Rome.Shared\AzureDay.Rome.Shared.projitems" Label="Shared" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

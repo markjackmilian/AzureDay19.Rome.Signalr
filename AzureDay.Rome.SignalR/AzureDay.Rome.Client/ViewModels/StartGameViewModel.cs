@@ -5,6 +5,7 @@ using AzureDay.Rome.Client.Classes;
 using AzureDay.Rome.Client.Hubs;
 using AzureDay.Rome.Client.Models;
 using AzureDay.Rome.Client.Repositories;
+using AzureDay.Rome.Shared;
 using Bridge;
 using Bridge.Html5;
 using Bridge.Spaf;
@@ -19,7 +20,7 @@ namespace AzureDay.Rome.Client.ViewModels
         private int _tapCount;
         public override string ElementId() => SpafApp.StartGameId;
 
-        public knockout.KnockoutObservable<GameState> GameState { get; set; }
+        public knockout.KnockoutObservable<GameState> State { get; set; }
 
         public knockout.KnockoutObservableArray<TeamViewModel> TeamViewModels { get; set; }
 
@@ -36,7 +37,7 @@ namespace AzureDay.Rome.Client.ViewModels
 
             
             
-            this.GameState = knockout.ko.observable.Self<GameState>();
+            this.State = knockout.ko.observable.Self<GameState>();
         }
 
         private void GameHubOnOnPlayerLeaved(object sender, Tuple<Player, Guid> tuple)
@@ -59,9 +60,9 @@ namespace AzureDay.Rome.Client.ViewModels
 
         private void GameHubOnOnGameStateReceived(object sender, GameState e)
         {
-            this.GameState.Self(e);
+            this.State.Self(e);
 
-            if (e != Models.GameState.InRun) return;
+            if (e != GameState.InRun) return;
             var width = Global.Document.GetElementById("gameDiv").OffsetWidth-50;
             this._tapCount = width / 20;
         }

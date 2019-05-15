@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AzureDay.Rome.Remote.Classes;
 using AzureDay.Rome.Remote.Models;
+using AzureDay.Rome.Shared;
 using Bridge.AspNetCore.SignalR.Client;
 using Bridge.Html5;
 

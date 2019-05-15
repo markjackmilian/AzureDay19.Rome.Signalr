@@ -1,4 +1,5 @@
 using System;
+using AzureDay.Rome.Shared;
 
 namespace AzureDay.Rome.Web.Model
 {
