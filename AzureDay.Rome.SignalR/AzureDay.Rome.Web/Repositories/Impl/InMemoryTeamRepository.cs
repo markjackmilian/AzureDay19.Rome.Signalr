@@ -8,7 +8,7 @@ namespace AzureDay.Rome.Web.Repositories.Impl
 {
     class InMemoryTeamRepository : ITeamRepository
     {
-        private List<Team> _teams = new List<Team>();
+        private List<WebTeam> _teams = new List<WebTeam>();
 
         public InMemoryTeamRepository()
         {
@@ -17,25 +17,25 @@ namespace AzureDay.Rome.Web.Repositories.Impl
 
         private void CreateTeams()
         {
-            var team1 = new Team(Guid.Parse("74DB8003-2348-498F-B773-1C4CE0FD69A2"))
+            var team1 = new WebTeam(Guid.Parse("74DB8003-2348-498F-B773-1C4CE0FD69A2"))
             {
                 Name = "Team 1"
             };
             this._teams.Add(team1);
 
-            var team2 = new Team(Guid.Parse("8E6AF2F7-6184-4DA0-B2E4-978EDB3F43D1"))
+            var team2 = new WebTeam(Guid.Parse("8E6AF2F7-6184-4DA0-B2E4-978EDB3F43D1"))
             {
                 Name = "Team 2"
             };
             this._teams.Add(team2);
 
-            var team3 = new Team(Guid.Parse("8D724F01-C9EE-4F31-A865-AFBD6A2D2BDA"))
+            var team3 = new WebTeam(Guid.Parse("8D724F01-C9EE-4F31-A865-AFBD6A2D2BDA"))
             {
                 Name = "Team 3"
             };
             this._teams.Add(team3);
 
-            var team4 = new Team(Guid.Parse("0D2C37F7-49FE-48D9-A1D3-1A90E7948BCC"))
+            var team4 = new WebTeam(Guid.Parse("0D2C37F7-49FE-48D9-A1D3-1A90E7948BCC"))
             {
                 Name = "Team 4"
             };
@@ -45,12 +45,12 @@ namespace AzureDay.Rome.Web.Repositories.Impl
 
         public void ClearPlayers()
         {
-            this._teams.ForEach(f => f.Players = new List<Player>());
+            this._teams.ForEach(f => f.Players = new List<WebPlayer>());
         }
 
-        public Player AddPlayer(string name, Guid teamId, string contextConnectionId)
+        public WebPlayer AddPlayer(string name, Guid teamId, string contextConnectionId)
         {
-            var player = new Player
+            var player = new WebPlayer
             {
                 Name = name,
                 ConnectionId = contextConnectionId
@@ -61,27 +61,27 @@ namespace AzureDay.Rome.Web.Repositories.Impl
             return player;
         }
 
-        public IEnumerable<Player> GetAllPlayers()
+        public IEnumerable<WebPlayer> GetAllPlayers()
         {
             return this._teams.SelectMany(sm => sm.Players);
         }
 
-        public IEnumerable<Team> GetAllTeams()
+        public IEnumerable<WebTeam> GetAllTeams()
         {
             return this._teams;
         }
 
-        public Team GetTeamByPlayerConnection(string contextConnectionId)
+        public WebTeam GetTeamByPlayerConnection(string contextConnectionId)
         {
             return this._teams.SingleOrDefault(sd =>
                 sd.Players.Select(s => s.ConnectionId).Contains(contextConnectionId));
         }
 
-        public void UpdateTeam(Team team)
+        public void UpdateTeam(WebTeam webTeam)
         {
-            var dbTeam = this._teams.Single(s => s.Id == team.Id);
-            dbTeam.Name = team.Name;
-            dbTeam.Players = team.Players;
+            var dbTeam = this._teams.Single(s => s.Id == webTeam.Id);
+            dbTeam.Name = webTeam.Name;
+            dbTeam.Players = webTeam.Players;
         }
 
         public int AddCLickForPLayerWithConnection(string connection)

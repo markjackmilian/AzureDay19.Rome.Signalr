@@ -1,5 +1,4 @@
 using System;
-using AzureDay.Rome.Client.Models;
 using AzureDay.Rome.Shared;
 using Bridge.AspNetCore.SignalR.Client;
 using Bridge.Html5;

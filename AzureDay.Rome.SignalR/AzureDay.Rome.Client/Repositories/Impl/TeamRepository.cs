@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AzureDay.Rome.Client.Models;
+using AzureDay.Rome.Shared;
 
 namespace AzureDay.Rome.Client.Repositories.Impl
 {

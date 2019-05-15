@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AzureDay.Rome.Client.Classes;
 using AzureDay.Rome.Client.Hubs;
-using AzureDay.Rome.Client.Models;
 using AzureDay.Rome.Client.Repositories;
 using AzureDay.Rome.Shared;
 using Bridge;
@@ -15,7 +14,7 @@ namespace AzureDay.Rome.Client.ViewModels
 {
     public class StartGameViewModel : LoadableViewModel
     {
-        private const int FinishLineOffset = 200;
+        private const int FinishLineOffset = 170;
         private const int SpaceShipWidth = 178;
         
         private readonly IGameHub _gameHub;

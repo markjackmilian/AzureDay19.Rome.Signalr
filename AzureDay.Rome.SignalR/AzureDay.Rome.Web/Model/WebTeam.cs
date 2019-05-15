@@ -1,25 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AzureDay.Rome.Shared;
 using Microsoft.AspNetCore.Identity;
 
 namespace AzureDay.Rome.Web.Model
 {
-    public class Team
+    public class WebTeam 
     {
-        public Team()
+        public WebTeam()
         {}
         
-        public Team(Guid guid)
+        public WebTeam(Guid guid)
         {
             this.Id = guid;
-            this.Players = new List<Player>();
+            this.Players = new List<WebPlayer>();
         }
         
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Player> Players { get; set; }
+        public ICollection<WebPlayer> Players { get; set; }
 
         public int TeamScore => this.Players.Sum(s => s.ClickCount);
 

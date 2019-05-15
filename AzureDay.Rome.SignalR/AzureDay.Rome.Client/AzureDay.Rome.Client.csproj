@@ -91,8 +91,6 @@
     <Compile Include="Hubs\Impl\ChatHub.cs" />
     <Compile Include="Hubs\Impl\GameHub.cs" />
     <Compile Include="Hubs\Impl\MoveItHub.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\Team.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\TeamRepository.cs" />
     <Compile Include="Repositories\ITeamRepository.cs" />

@@ -119,7 +119,7 @@ namespace AzureDay.Rome.Web.Hubs
         /// Evaluate game for the passed team
         /// </summary>
         /// <param name="checkTeam"></param>
-        private void CheckWinner(Team checkTeam)
+        private void CheckWinner(WebTeam checkTeam)
         {
             if (checkTeam.TeamScore < FinishLine) return; // check max point
             

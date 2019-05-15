@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using AzureDay.Rome.Client.Models;
+using AzureDay.Rome.Shared;
 
 namespace AzureDay.Rome.Client.Repositories
 {
