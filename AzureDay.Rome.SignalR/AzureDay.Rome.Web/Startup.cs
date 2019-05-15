@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AzureDay.Rome.Web.Hubs;
+﻿using AzureDay.Rome.Web.Hubs;
 using AzureDay.Rome.Web.Repositories;
 using AzureDay.Rome.Web.Repositories.Impl;
-using LiteDB;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureDay.Rome.Web

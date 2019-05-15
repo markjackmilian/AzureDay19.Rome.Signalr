@@ -87,8 +87,10 @@ namespace AzureDay.Rome.Web.Repositories.Impl
         public int AddCLickForPLayerWithConnection(string connection)
         {
             var team = this.GetTeamByPlayerConnection(connection);
-            var player = team.Players.Single(s => s.ConnectionId == connection);
-            player.ClickCount++;
+            var player = team.Players.SingleOrDefault(s => s.ConnectionId == connection);
+            if(player != null) 
+                player.ClickCount++;
+            
             return team.Players.Sum(s => s.ClickCount);
         }
     }

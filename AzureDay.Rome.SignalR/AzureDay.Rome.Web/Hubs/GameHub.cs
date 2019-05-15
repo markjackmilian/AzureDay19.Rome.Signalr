@@ -9,6 +9,11 @@ namespace AzureDay.Rome.Web.Hubs
 {
     public class GameHub : Hub
     {
+        /// <summary>
+        /// How many tap do you need to win
+        /// </summary>
+        private const int FinishLine = 20;
+        
         private readonly IGameStateRepository _gameStateRepository;
         private readonly ITeamRepository _teamRepository;
 
@@ -64,13 +69,15 @@ namespace AzureDay.Rome.Web.Hubs
             this.Clients.All.SendAsync("gameStateMode",GameState.Register);
         }
 
+        /// <summary>
+        /// Received command to change gamestate to InRun
+        /// </summary>
         public void StartGame()
         {
             if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
 
             this._gameStateRepository.StartGameMode();
             this.Clients.All.SendAsync("gameStateMode",GameState.InRun);
-
         }
 
         /// <summary>
@@ -91,17 +98,26 @@ namespace AzureDay.Rome.Web.Hubs
             this.GetStateMode();
         }
 
+        /// <summary>
+        /// Receive a tap
+        /// </summary>
         public void Tap()
         {
             if (this._gameStateRepository.GetCurrentState() == GameState.Finished) return; // already finisched
             
             var teamClick = this._teamRepository.AddCLickForPLayerWithConnection(this.Context.ConnectionId);
             var team = this._teamRepository.GetTeamByPlayerConnection(this.Context.ConnectionId);
-            this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team.Id);
 
+            if (team == null) return;
+            
+            this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team.Id);
             this.CheckWinner(team);
         }
 
+        /// <summary>
+        /// Evaluate game for the passed team
+        /// </summary>
+        /// <param name="checkTeam"></param>
         private void CheckWinner(Team checkTeam)
         {
             if (checkTeam.TeamScore < 20) return; // check max point
@@ -111,8 +127,6 @@ namespace AzureDay.Rome.Web.Hubs
             var teams = this._teamRepository.GetAllTeams();
             foreach (var team in teams)
                 this.Clients.Group(team.Id.ToString()).SendAsync(team.Id == checkTeam.Id ? "yourTeamWins" :"yourTeamLost");
-
-//                this.Clients.Client(AdminUser.Connection).SendAsync("");
         }
 
         /// <summary>
@@ -136,10 +150,5 @@ namespace AzureDay.Rome.Web.Hubs
             
             return base.OnDisconnectedAsync(exception);
         }
-    }
-
-    public class AdminUser
-    {
-        public static string Connection { get; set; }
     }
 }

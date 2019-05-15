@@ -21,7 +21,7 @@
                 <h2 data-bind="text:Name" style="text-transform: uppercase;"></h2>
                 <p>Numero di click: <span data-bind="text:Score"></span></p>
                 <p>In squadra: <span data-bind="text:HowMany"></span></p>
-                <ul data-bind="foreach: Players" class="w3-ul w3-small">
+                <ul data-bind="foreach: Players, visible: $root.GameState() != 2" class="w3-ul w3-small">
                     <li data-bind="text:name"></li>
                 </ul>
             </div>

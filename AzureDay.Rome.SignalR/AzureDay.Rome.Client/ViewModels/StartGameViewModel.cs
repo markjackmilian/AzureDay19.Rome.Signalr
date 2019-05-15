@@ -61,16 +61,9 @@ namespace AzureDay.Rome.Client.ViewModels
         {
             this.GameState.Self(e);
 
-            if (e == Models.GameState.InRun)
-            {
-                var width = Global.Document.GetElementById("gameDiv").OffsetWidth-50;
-            
-                Global.Alert(width.ToString());
-
-                this._tapCount = width / 20;
-            }
-            
-            
+            if (e != Models.GameState.InRun) return;
+            var width = Global.Document.GetElementById("gameDiv").OffsetWidth-50;
+            this._tapCount = width / 20;
         }
 
         private void GameHubOnOnTapCountReceived(object sender, Tuple<int, Guid> e)
@@ -97,9 +90,6 @@ namespace AzureDay.Rome.Client.ViewModels
             this._gameHub.OnTapCountReceived += this.GameHubOnOnTapCountReceived;
 
             this._gameHub.Start(() => this._gameHub.NotifyIAmTheAdmin());
-
-         
-
         }
 
 
@@ -114,7 +104,6 @@ namespace AzureDay.Rome.Client.ViewModels
         public void OpenRegistration()
         {
             this._gameHub.OpenRegistration();
-
         }
         
         private TeamViewModel GetTeamById(Guid id) => this.TeamViewModels.Self().Single(s => s.Id.ToString().Equals(id.ToString()));
@@ -149,6 +138,5 @@ namespace AzureDay.Rome.Client.ViewModels
             this.Score.subscribe(value => this.ScreenPosition.Self($"{value}px"));
             this.Players.subscribe(value => this.HowMany.Self(this.Players.Self().Length));
         }
-       
     }
 }
