@@ -121,9 +121,9 @@ namespace AzureDay.Rome.Web.Hubs
         /// <param name="checkTeam"></param>
         private void CheckWinner(Team checkTeam)
         {
-            if (checkTeam.TeamScore < 20) return; // check max point
+            if (checkTeam.TeamScore < FinishLine) return; // check max point
             
-            this.Clients.All.SendAsync("gameStateMode", GameState.Finished); // stop clients send tap
+            this.Clients.All.SendAsync("gameStateMode", GameState.Finished); // stop clients 
 
             var teams = this._teamRepository.GetAllTeams();
             foreach (var team in teams)
