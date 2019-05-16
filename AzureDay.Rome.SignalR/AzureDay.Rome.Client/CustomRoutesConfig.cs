@@ -11,13 +11,7 @@ namespace Bridge.Spaf
         {
             return new List<IPageDescriptor>
             {
-                new PageDescriptor
-                {
-                    CanBeDirectLoad = ()=>true,
-                    HtmlLocation = ()=>"pages/chat.html", 
-                    Key = SpafApp.HomeId,
-                    PageController = () => SpafApp.Container.Resolve<ChatViewModel>()
-                },
+               
                 new PageDescriptor
                 {
                     CanBeDirectLoad = ()=>true,

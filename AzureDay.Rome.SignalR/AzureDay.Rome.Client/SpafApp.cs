@@ -40,7 +40,6 @@ namespace Bridge.Spaf
             RegisterAllViewModels();
 
             // register custom resource, services..
-            Container.RegisterSingleInstance<IChatHub, ChatHub>();
             Container.RegisterSingleInstance<IMoveItHub, MoveItHub>();
             Container.RegisterSingleInstance<IGameHub, GameHub>();
             

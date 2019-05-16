@@ -38,9 +38,6 @@ namespace AzureDay.Rome.Client.ViewModels
             this.TeamViewModels = knockout.ko.observableArray.Self<TeamViewModel>();
                 
             this.TeamViewModels.push(sbrazzi);
-
-            
-            
             this.State = knockout.ko.observable.Self<GameState>();
         }
 

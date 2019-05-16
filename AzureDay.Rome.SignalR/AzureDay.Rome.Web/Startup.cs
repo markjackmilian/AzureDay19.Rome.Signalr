@@ -56,7 +56,6 @@ namespace AzureDay.Rome.Web
 //            app.UseAzureSignalR(routes =>
             app.UseSignalR(routes =>
             {
-                routes.MapHub<ChatHub>("/chat");
                 routes.MapHub<MoveItHub>("/moveIt");
                 routes.MapHub<GameHub>("/play");
             });
