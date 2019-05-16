@@ -100,12 +100,20 @@
         // Change style of top container on scroll
         window.onscroll = function () { myFunction() };
         function myFunction() {
+            var myTop = document.getElementById("myTop");
+            var myIntro = document.getElementById("myIntro");
+            
+            
             if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-                document.getElementById("myTop").classList.add("w3-card-4", "w3-animate-opacity");
-                document.getElementById("myIntro").classList.add("w3-show-inline-block");
+                if(myTop !== undefined)
+                    myTop.classList.add("w3-card-4", "w3-animate-opacity");
+                if(myIntro)
+                    myIntro.classList.add("w3-show-inline-block");
             } else {
-                document.getElementById("myIntro").classList.remove("w3-show-inline-block");
-                document.getElementById("myTop").classList.remove("w3-card-4", "w3-animate-opacity");
+                if(myTop !== undefined)
+                    myTop.classList.remove("w3-card-4", "w3-animate-opacity");
+                if(myIntro)
+                    myIntro.classList.remove("w3-show-inline-block");
             }
         }
 
