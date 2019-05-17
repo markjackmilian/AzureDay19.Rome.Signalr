@@ -93,5 +93,7 @@ namespace AzureDay.Rome.Web.Repositories.Impl
             
             return team.Players.Sum(s => s.ClickCount);
         }
+
+        public IReadOnlyList<string> GetAllPlayersConnections => this._teams.SelectMany(s => s.Players).Select(s => s.ConnectionId).ToArray();
     }
 }

@@ -19,7 +19,7 @@ namespace AzureDay.Rome.Remote.Hubs
         /// <summary>
         /// Return after a register request
         /// </summary>
-        event EventHandler OnRegisterDone;
+        event EventHandler<bool> OnRegisterResult;
         
         /// <summary>
         /// Receive the state of server game
@@ -35,7 +35,8 @@ namespace AzureDay.Rome.Remote.Hubs
         /// raised when your team lost
         /// </summary>
         event EventHandler OnYourTeamLost;
-        
+
+
 
         #endregion
         
@@ -62,7 +63,7 @@ namespace AzureDay.Rome.Remote.Hubs
         /// </summary>
         /// <param name="name"></param>
         /// <param name="team">team number</param>
-        Task Register(string name, Guid team);
+        Task<bool> Register(string name, Guid team);
         
 
         #endregion

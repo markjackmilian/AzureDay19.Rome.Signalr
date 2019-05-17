@@ -4,10 +4,11 @@ using System.Linq;
 using AzureDay.Rome.Client.Classes;
 using AzureDay.Rome.Client.Hubs;
 using AzureDay.Rome.Client.Repositories;
+using AzureDay.Rome.Client.ViewModels.Models;
+using AzureDay.Rome.Remote;
 using AzureDay.Rome.Shared;
 using Bridge;
 using Bridge.Html5;
-using Bridge.Navigation;
 using Bridge.Spaf;
 using Retyped;
 
@@ -15,14 +16,11 @@ namespace AzureDay.Rome.Client.ViewModels
 {
     public class StartGameViewModel : LoadableViewModel
     {
-        private const int FinishLineCount = 20;
-
         private const int FinishLineOffset = 170;
         private const int SpaceShipWidth = 178;
         
         private readonly IGameHub _gameHub;
         private readonly ITeamRepository _teamRepository;
-        private readonly INavigator _navigator;
         private int _tapCount;
         public override string ElementId() => SpafApp.StartGameId;
 
@@ -30,11 +28,10 @@ namespace AzureDay.Rome.Client.ViewModels
 
         public knockout.KnockoutObservableArray<TeamViewModel> TeamViewModels { get; set; }
 
-        public StartGameViewModel(IGameHub gameHub, ITeamRepository teamRepository, INavigator navigator)
+        public StartGameViewModel(IGameHub gameHub, ITeamRepository teamRepository)
         {
             this._gameHub = gameHub;
             this._teamRepository = teamRepository;
-            this._navigator = navigator;
 
             var teams = this._teamRepository.GetTeams().Select(s => new TeamViewModel(s)).ToArray();
             this.TeamViewModels = knockout.ko.observableArray.Self<TeamViewModel>();
@@ -75,7 +72,7 @@ namespace AzureDay.Rome.Client.ViewModels
                     break;
                 case GameState.InRun:
                     var width = Global.Document.GetElementById("gameDiv").OffsetWidth-FinishLineOffset-SpaceShipWidth;
-                    this._tapCount = width / FinishLineCount;
+                    this._tapCount = width / SharedConfiguration.FinishLine;
                     break;
                 case GameState.Finished:
                     break;
@@ -123,8 +120,14 @@ namespace AzureDay.Rome.Client.ViewModels
             this._gameHub.OnNewPlayerJoined += this.GameHubOnOnNewPlayerJoined;
             this._gameHub.OnPlayerLeaved += this.GameHubOnOnPlayerLeaved;
             this._gameHub.OnTapCountReceived += this.GameHubOnOnTapCountReceived;
+            this._gameHub.OnTooManyPlayers += this.OnTooManyPlayers;
 
             this._gameHub.Start(() => this._gameHub.NotifyIAmTheAdmin());
+        }
+
+        private void OnTooManyPlayers(object sender, EventArgs e)
+        {
+            Notification.Warning("Troppi utenti.. giocatore escluso. :(");
         }
 
 
@@ -133,6 +136,9 @@ namespace AzureDay.Rome.Client.ViewModels
             this._gameHub.OnGameStateReceived -= this.GameHubOnOnGameStateReceived;
             this._gameHub.OnNewPlayerJoined -= this.GameHubOnOnNewPlayerJoined;
             this._gameHub.OnPlayerLeaved -= this.GameHubOnOnPlayerLeaved;
+            this._gameHub.OnTapCountReceived -= this.GameHubOnOnTapCountReceived;
+            this._gameHub.OnTooManyPlayers -= this.OnTooManyPlayers;
+
             base.OnLeave();
         }
 
@@ -140,38 +146,14 @@ namespace AzureDay.Rome.Client.ViewModels
         {
             this._gameHub.OpenRegistration();
         }
+
+        public void StopGame()
+        {
+            this._gameHub.StopGame();
+        }
         
         private TeamViewModel GetTeamById(Guid id) => this.TeamViewModels.Self().Single(s => s.Id.ToString().Equals(id.ToString()));
 
         private IEnumerable<Player> ALlPlayers => this.TeamViewModels.Self().SelectMany(sm=>sm.Players.Self());
-    }
-
-    public class TeamViewModel
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string CssClass { get; set; }
-        public knockout.KnockoutObservable<int> Score { get; set; }
-        public knockout.KnockoutObservable<int> HowMany { get; set; }
-        
-        public knockout.KnockoutObservable<string> ScreenPosition { get; set; }
-        public knockout.KnockoutObservableArray<Player> Players { get; set; }
-        public knockout.KnockoutObservable<bool> IsWinner { get; set; }
-
-        public TeamViewModel(Team team)
-        {
-            this.Id = team.Id;
-            this.Name = team.Name;
-            this.CssClass = this.Name.Replace(" ", "_");
-            
-            this.Score = knockout.ko.observable.Self<int>();
-            this.HowMany = knockout.ko.observable.Self<int>();
-            this.ScreenPosition = knockout.ko.observable.Self<string>();
-            this.IsWinner = knockout.ko.observable.Self<bool>();
-            this.Players = knockout.ko.observableArray.Self<Player>();
-
-            this.Score.subscribe(value => this.ScreenPosition.Self($"{value}px"));
-            this.Players.subscribe(value => this.HowMany.Self(this.Players.Self().Length));
-        }
     }
 }

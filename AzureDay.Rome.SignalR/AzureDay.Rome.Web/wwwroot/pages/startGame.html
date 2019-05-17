@@ -14,6 +14,11 @@
         START
     </button>
 
+    <!--    GAME STATE = 2 => GIOCO IN CORSO  Unica azione STOP-->
+    <button data-bind="click:StopGame, visible: State() == 2" class="w3-button w3-block w3-teal w3-round">
+        STOP
+    </button>
+
     <!--    GAME STATE = 3 => GIOCO COMPLETO. Unica azione RESTART-->
     <button data-bind="click:ReStartGame, visible: State() == 3" class="w3-button w3-block w3-teal w3-round">
         RESTART

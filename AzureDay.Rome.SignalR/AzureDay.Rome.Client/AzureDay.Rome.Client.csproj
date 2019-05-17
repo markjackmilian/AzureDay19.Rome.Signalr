@@ -93,6 +93,7 @@
     <Compile Include="Repositories\Impl\TeamRepository.cs" />
     <Compile Include="Repositories\ITeamRepository.cs" />
     <Compile Include="SpafApp.cs" />
+    <Compile Include="ViewModels\Models\TeamViewModel.cs" />
     <Compile Include="ViewModels\MoveItViewModel.cs" />
     <Compile Include="ViewModels\StartGameViewModel.cs" />
   </ItemGroup>

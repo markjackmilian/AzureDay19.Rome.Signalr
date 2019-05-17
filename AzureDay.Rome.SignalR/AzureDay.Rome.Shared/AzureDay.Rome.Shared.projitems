@@ -9,8 +9,9 @@
     <Import_RootNamespace>AzureDay.Rome.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)GameState.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Player.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Team.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\GameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Team.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedConfiguration.cs" />
   </ItemGroup>
 </Project>

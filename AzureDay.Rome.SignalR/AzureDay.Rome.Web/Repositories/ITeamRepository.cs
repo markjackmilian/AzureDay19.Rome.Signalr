@@ -17,5 +17,11 @@ namespace AzureDay.Rome.Web.Repositories
         void UpdateTeam(WebTeam webTeam);
 
         int AddCLickForPLayerWithConnection(string connection);
+
+        /// <summary>
+        /// Recovery all connections
+        /// </summary>
+        /// <returns></returns>
+        IReadOnlyList<string> GetAllPlayersConnections { get; }
     }
 }

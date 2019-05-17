@@ -12,7 +12,7 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
         private readonly HubConnection _connection;
 
         public event EventHandler<Player> OnNewPlayerInYourTeamJoined;
-        public event EventHandler OnRegisterDone;
+        public event EventHandler<bool> OnRegisterResult;
         
         public event EventHandler<GameState> OnGameStateReceived;
         public event EventHandler OnYourTeamWins;
@@ -22,9 +22,9 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
         {
             this._connection =  new HubConnectionBuilder().WithUrl(Configuration.GameServer).Build();
             
-            this._connection.On("registerDone",new Action(() =>
+            this._connection.On("registerResult",new Action<bool>((registered) =>
             {
-                this.OnRegisterDone?.Invoke(this,null);
+                this.OnRegisterResult?.Invoke(this,registered);
             }));
             
             this._connection.On("gameStateMode",new Action<GameState>((gameState) =>
@@ -48,6 +48,8 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
                 this.OnYourTeamLost?.Invoke(this,null);
             }));
             
+          
+            
         }
 
         public void Start(Action onStarted)
@@ -66,9 +68,9 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
             this._connection.Send("tap");
         }
 
-        public Task Register(string name, Guid team)
+        public Task<bool> Register(string name, Guid team)
         {
-            var waitForMe = new WaitForMe<IGameHub, GameState>(this, hub => nameof(hub.OnRegisterDone));
+            var waitForMe = new WaitForMe<IGameHub, bool>(this, hub => nameof(hub.OnRegisterResult));
             this._connection.Send("register",name,team);
             return waitForMe.Task;
         }

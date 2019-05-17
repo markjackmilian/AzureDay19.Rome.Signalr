@@ -24,6 +24,11 @@ namespace AzureDay.Rome.Client.Hubs
         /// Raised when tap count arrived
         /// </summary>
         event EventHandler<Tuple<int,Guid>> OnTapCountReceived;
+
+        /// <summary>
+        /// Raised when someone could not registered
+        /// </summary>
+        event EventHandler OnTooManyPlayers;
         
 
         /// <summary>
@@ -46,5 +51,10 @@ namespace AzureDay.Rome.Client.Hubs
         /// Send restart game signal
         /// </summary>
         void ReStartGame();
+
+        /// <summary>
+        /// Force stop game
+        /// </summary>
+        void StopGame();
     }
 }

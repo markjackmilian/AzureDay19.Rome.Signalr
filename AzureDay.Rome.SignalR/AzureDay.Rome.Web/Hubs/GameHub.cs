@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AzureDay.Rome.Remote;
 using AzureDay.Rome.Shared;
 using AzureDay.Rome.Web.Model;
 using AzureDay.Rome.Web.Repositories;
@@ -10,13 +12,12 @@ namespace AzureDay.Rome.Web.Hubs
 {
     public class GameHub : Hub
     {
-        /// <summary>
-        /// How many tap do you need to win
-        /// </summary>
-        private const int FinishLine = 20;
         
         private readonly IGameStateRepository _gameStateRepository;
         private readonly ITeamRepository _teamRepository;
+
+        private IClientProxy _allPlayers =>
+            this.Clients.Clients(this._teamRepository.GetAllPlayersConnections);
 
         public GameHub(IGameStateRepository gameStateRepository, ITeamRepository teamRepository)
         {
@@ -31,15 +32,24 @@ namespace AzureDay.Rome.Web.Hubs
         /// <param name="team"></param>
         public void Register(string name, string team)
         {
+            // check max numbers of players
+            if (this._teamRepository.GetAllPlayers().Count() >= SharedConfiguration.MaxPlayers)
+            {
+                this.Clients.Caller.SendAsync("registerResult",false);
+                this.Clients.Client(AdminUser.Connection).SendAsync("tooManyPlayers");
+
+                return;
+            }
+            
             var teamId = Guid.Parse(team);
             
             if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
 
             var player = this._teamRepository.AddPlayer(name, teamId, this.Context.ConnectionId);
-            this.Clients.Caller.SendAsync("registerDone");
+            this.Clients.Caller.SendAsync("registerResult",true);
 
             this.Groups.AddToGroupAsync(this.Context.ConnectionId, team.ToString());
-            this.Clients.OthersInGroup(team.ToString()).SendAsync("newPlayerInThisGroup", player);
+            this.Clients.OthersInGroup(team).SendAsync("newPlayerInThisGroup", player);
             
             if(!string.IsNullOrEmpty(AdminUser.Connection))
                 this.Clients.Client(AdminUser.Connection).SendAsync("newPlayerJoined",player,team);
@@ -72,6 +82,13 @@ namespace AzureDay.Rome.Web.Hubs
             this.Clients.All.SendAsync("gameStateMode",GameState.Register);
         }
 
+        public void StopGame()
+        {
+            if (this._gameStateRepository.GetCurrentState() != GameState.InRun) return; // wrong state
+            this._gameStateRepository.StopGame();
+            this.Clients.All.SendAsync("gameStateMode",GameState.Closed);
+        }
+
         /// <summary>
         /// Received command to change gamestate to InRun
         /// </summary>
@@ -80,7 +97,10 @@ namespace AzureDay.Rome.Web.Hubs
             if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
 
             this._gameStateRepository.StartGameMode();
-            this.Clients.All.SendAsync("gameStateMode",GameState.InRun);
+            
+            // i notify only to all connections in game
+            this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode", GameState.InRun);
+            this._allPlayers.SendAsync("gameStateMode",GameState.InRun);
         }
         
         public void ReStart()
@@ -132,10 +152,12 @@ namespace AzureDay.Rome.Web.Hubs
         /// <param name="checkTeam"></param>
         private void CheckWinner(WebTeam checkTeam)
         {
-            if (checkTeam.TeamScore < FinishLine) return; // check max point
+            if (checkTeam.TeamScore < SharedConfiguration.FinishLine) return; // check max point
             
             this._gameStateRepository.FinishedGameMode();
-            this.Clients.All.SendAsync("gameStateMode", GameState.Finished); // stop clients 
+            this._allPlayers.SendAsync("gameStateMode",GameState.Finished);
+            this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode",GameState.Finished);
+
 
             var teams = this._teamRepository.GetAllTeams();
             foreach (var team in teams)
@@ -164,4 +186,5 @@ namespace AzureDay.Rome.Web.Hubs
             return base.OnDisconnectedAsync(exception);
         }
     }
+
 }
