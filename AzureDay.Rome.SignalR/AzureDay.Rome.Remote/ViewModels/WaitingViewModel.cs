@@ -38,9 +38,9 @@ namespace AzureDay.Rome.Remote.ViewModels
 
             try
             {
-                SpafApp.TeamId = parameters.GetParameter<Guid>("teamId");
+                SpafApp.TeamId = parameters.GetParameter<string>("teamId");
             }
-            catch (Exception e)
+            catch 
             {
                 Global.Alert("Errore, non trovo il team id!");
                 throw;

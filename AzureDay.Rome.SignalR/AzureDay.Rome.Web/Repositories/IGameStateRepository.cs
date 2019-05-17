@@ -16,9 +16,9 @@ namespace AzureDay.Rome.Web.Repositories
         void StartGameMode();
 
         /// <summary>
-        /// Set state to closed
+        /// Set state to finish
         /// </summary>
-        void ClosedStateMode();
+        void FinishedGameMode();
 
         /// <summary>
         /// Set state to closed

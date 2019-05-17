@@ -29,11 +29,13 @@ namespace AzureDay.Rome.Web.Hubs
         /// </summary>
         /// <param name="name"></param>
         /// <param name="team"></param>
-        public void Register(string name, Guid team)
+        public void Register(string name, string team)
         {
+            var teamId = Guid.Parse(team);
+            
             if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
 
-            var player = this._teamRepository.AddPlayer(name, team, this.Context.ConnectionId);
+            var player = this._teamRepository.AddPlayer(name, teamId, this.Context.ConnectionId);
             this.Clients.Caller.SendAsync("registerDone");
 
             this.Groups.AddToGroupAsync(this.Context.ConnectionId, team.ToString());
@@ -83,12 +85,10 @@ namespace AzureDay.Rome.Web.Hubs
         
         public void ReStart()
         {
-            // todo
-            
-//            if (this._gameStateRepository.GetCurrentState() != GameState.Finished) return; // wrong state
-//
-//            this._gameStateRepository.ClosedStateMode();
-//            this.Clients.All.SendAsync("gameStateMode",GameState.Closed);
+            if (this._gameStateRepository.GetCurrentState() != GameState.Finished) return; // wrong state
+
+            this._gameStateRepository.StopGame();
+            this.Clients.All.SendAsync("gameStateMode",GameState.Closed);
         }
 
 
@@ -134,6 +134,7 @@ namespace AzureDay.Rome.Web.Hubs
         {
             if (checkTeam.TeamScore < FinishLine) return; // check max point
             
+            this._gameStateRepository.FinishedGameMode();
             this.Clients.All.SendAsync("gameStateMode", GameState.Finished); // stop clients 
 
             var teams = this._teamRepository.GetAllTeams();

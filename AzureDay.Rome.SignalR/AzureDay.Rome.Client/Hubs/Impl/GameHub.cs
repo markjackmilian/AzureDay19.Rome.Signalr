@@ -74,6 +74,8 @@ namespace AzureDay.Rome.Client.Hubs.Impl
 
         public void ReStartGame()
         {
+            // todo
+            Console.WriteLine("restart!");
             this._connection.Invoke("reStart");
         }
     }

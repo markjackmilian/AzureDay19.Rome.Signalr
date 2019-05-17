@@ -43,7 +43,7 @@ namespace AzureDay.Rome.Remote.ViewModels
             this._gameHub.OnYourTeamWins += this.GameHubOnOnNotifyWinner;
             this._gameHub.OnYourTeamLost += GameHubOnOnYourTeamLost;
 
-            this._teamId = SpafApp.TeamId;
+            this._teamId = Guid.Parse(SpafApp.TeamId);
 
             await this._gameHub.GetGameMode();
             base.OnLoad(parameters);

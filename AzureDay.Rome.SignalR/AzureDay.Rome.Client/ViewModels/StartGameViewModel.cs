@@ -7,6 +7,7 @@ using AzureDay.Rome.Client.Repositories;
 using AzureDay.Rome.Shared;
 using Bridge;
 using Bridge.Html5;
+using Bridge.Navigation;
 using Bridge.Spaf;
 using Retyped;
 
@@ -21,6 +22,7 @@ namespace AzureDay.Rome.Client.ViewModels
         
         private readonly IGameHub _gameHub;
         private readonly ITeamRepository _teamRepository;
+        private readonly INavigator _navigator;
         private int _tapCount;
         public override string ElementId() => SpafApp.StartGameId;
 
@@ -28,18 +30,19 @@ namespace AzureDay.Rome.Client.ViewModels
 
         public knockout.KnockoutObservableArray<TeamViewModel> TeamViewModels { get; set; }
 
-        public StartGameViewModel(IGameHub gameHub, ITeamRepository teamRepository)
+        public StartGameViewModel(IGameHub gameHub, ITeamRepository teamRepository, INavigator navigator)
         {
             this._gameHub = gameHub;
             this._teamRepository = teamRepository;
-            
-            var sbrazzi = this._teamRepository.GetTeams().Select(s => new TeamViewModel(s)).ToArray();
+            this._navigator = navigator;
 
+            var teams = this._teamRepository.GetTeams().Select(s => new TeamViewModel(s)).ToArray();
             this.TeamViewModels = knockout.ko.observableArray.Self<TeamViewModel>();
-                
-            this.TeamViewModels.push(sbrazzi);
+
+            this.TeamViewModels.push(teams);
             this.State = knockout.ko.observable.Self<GameState>();
         }
+
 
         private void GameHubOnOnPlayerLeaved(object sender, Tuple<Player, Guid> tuple)
         {
@@ -63,11 +66,33 @@ namespace AzureDay.Rome.Client.ViewModels
         {
             this.State.Self(e);
 
-            if (e != GameState.InRun) return;
-            var width = Global.Document.GetElementById("gameDiv").OffsetWidth-FinishLineOffset-SpaceShipWidth;
-            this._tapCount = width / FinishLineCount;
-            Console.WriteLine($"Width: {width}");
-            Console.WriteLine($"TapCount: {this._tapCount}");
+            switch (e)
+            {
+                case GameState.Closed:
+                    this.ResetTeams();
+                    break;
+                case GameState.Register:
+                    break;
+                case GameState.InRun:
+                    var width = Global.Document.GetElementById("gameDiv").OffsetWidth-FinishLineOffset-SpaceShipWidth;
+                    this._tapCount = width / FinishLineCount;
+                    break;
+                case GameState.Finished:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(e), e, null);
+            }
+
+        }
+
+        private void ResetTeams()
+        {
+            this.TeamViewModels.Self().ForEach(f =>
+            {
+                f.Players.removeAll();
+                f.Score.Self(0);
+                f.IsWinner.Self(false);
+            });
         }
 
 

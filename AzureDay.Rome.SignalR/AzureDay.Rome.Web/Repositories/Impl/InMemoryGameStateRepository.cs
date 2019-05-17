@@ -17,10 +17,11 @@ namespace AzureDay.Rome.Web.Repositories.Impl
             this._game.State = GameState.InRun;
         }
 
-        public void ClosedStateMode()
+        public void FinishedGameMode()
         {
-            this._game.State = GameState.Closed;
+            this._game.State = GameState.Finished;
         }
+
 
         public void StopGame()
         {

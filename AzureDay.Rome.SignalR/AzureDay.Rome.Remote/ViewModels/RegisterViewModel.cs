@@ -31,7 +31,7 @@ namespace AzureDay.Rome.Remote.ViewModels
                 return;
             }
             
-            await this._gameHub.Register(this.Name.Self(),SpafApp.TeamId);
+            await this._gameHub.Register(this.Name.Self(),Guid.Parse(SpafApp.TeamId));
             this._navigator.Navigate(SpafApp.GameId);
         }
 

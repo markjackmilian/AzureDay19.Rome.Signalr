@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AzureDay.Rome.Remote.Hubs;
 using AzureDay.Rome.Remote.Hubs.Impl;
+using AzureDay.Rome.Remote.ViewModels;
+using AzureDay.Rome.Shared;
 using Bridge;
 using Bridge.Html5;
 using Bridge.Ioc;
@@ -14,24 +17,43 @@ namespace Bridge.Spaf
 {
     public class SpafApp
     {
-        public static Guid TeamId { get; set; }
+        public static string TeamId { get; set; }
 
         public static IIoc Container;
+        
 
         public static void Main()
         {
             Container = new BridgeIoc();
             ContainerConfig(); // config container
-            
+
+            var navigator = Container.Resolve<INavigator>();
             var hub = Container.Resolve<IGameHub>();
             hub.Start(() =>
             {
-                Container.Resolve<INavigator>().InitNavigation(); // init navigation
+                navigator.InitNavigation(); // init navigation
             });
 
             hub.OnNewPlayerInYourTeamJoined += (sender, player) =>
             {
                 Global.Alert($"La tua squadra ha un nuovo player: {player.Name}");
+            };
+
+            hub.OnGameStateReceived += (sender, state) =>
+            {
+                if (state == GameState.Closed && navigator.LastNavigateController.GetType() != typeof(WaitingViewModel))
+                {
+                    if (string.IsNullOrEmpty(TeamId))
+                    {
+                        Global.Alert("Non hai un team id... strano..");
+                        return;
+                    }
+                    
+                    navigator.Navigate(SpafApp.WaitingId, new Dictionary<string, object>()
+                    {
+                        {"teamId",SpafApp.TeamId}
+                    });
+                }
             };
 
         }
