@@ -7,6 +7,7 @@ using AzureDay.Rome.Shared;
 using AzureDay.Rome.Web.Model;
 using AzureDay.Rome.Web.Repositories;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace AzureDay.Rome.Web.Hubs
 {
@@ -15,6 +16,7 @@ namespace AzureDay.Rome.Web.Hubs
         
         private readonly IGameStateRepository _gameStateRepository;
         private readonly ITeamRepository _teamRepository;
+        private Random _rand;
 
         private IClientProxy AllPlayers =>
             this.Clients.Clients(this._teamRepository.GetAllPlayersConnections);
@@ -23,6 +25,7 @@ namespace AzureDay.Rome.Web.Hubs
         {
             this._gameStateRepository = gameStateRepository;
             this._teamRepository = teamRepository;
+            this._rand = new Random();
         }
         
         /// <summary>
@@ -66,6 +69,7 @@ namespace AzureDay.Rome.Web.Hubs
             var teams = this._teamRepository.GetAllTeams();
             foreach (var team in teams)
             {
+                team.ClearTestScore();
                 foreach (var teamPlayer in team.Players)
                 {
                     this.Groups.RemoveFromGroupAsync(teamPlayer.ConnectionId,team.Id.ToString());
@@ -144,6 +148,23 @@ namespace AzureDay.Rome.Web.Hubs
             
             this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team.Id);
             this.CheckWinner(team);
+        }
+
+        public void AutoTap()
+        {
+            if (this._gameStateRepository.GetCurrentState() == GameState.Finished) return; // already finisched
+            var allTeams = this._teamRepository.GetAllTeams();
+            var team = allTeams.ElementAt(this._rand.Next(allTeams.Count()));
+
+            team.AddTestClick();
+
+            
+            this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", team.TestScore, team.Id);
+            
+            if (team.TestScore < SharedConfiguration.FinishLine) return; // check max point
+            
+            this._gameStateRepository.FinishedGameMode();
+            this.Clients.All.SendAsync("gameStateMode",GameState.Finished);
         }
 
         /// <summary>

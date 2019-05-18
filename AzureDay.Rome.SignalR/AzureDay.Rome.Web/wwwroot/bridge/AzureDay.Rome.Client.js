@@ -330,7 +330,7 @@ Bridge.assembly("AzureDay.Rome.Client", function ($asm, globals) {
             },
             ctors: {
                 init: function () {
-                    this.FinishLine = 20;
+                    this.FinishLine = 1000;
                     this.MaxPlayers = 3;
                 }
             }

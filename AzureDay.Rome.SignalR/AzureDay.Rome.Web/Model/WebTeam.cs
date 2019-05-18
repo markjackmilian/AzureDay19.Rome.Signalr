@@ -9,6 +9,8 @@ namespace AzureDay.Rome.Web.Model
 {
     public class WebTeam 
     {
+        private object _lock = new object();
+
         public WebTeam()
         {}
         
@@ -25,6 +27,21 @@ namespace AzureDay.Rome.Web.Model
 
         public int TeamScore => this.Players.Sum(s => s.ClickCount);
 
+        public void AddTestClick()
+        {
+            lock (_lock)
+            {
+                this.TestScore++;
+            }
+        }
+
+        public void ClearTestScore()
+        {
+            this.TestScore = 0;
+        }
+        
+        public int TestScore { get; private set; }
+        
         public void RemovePlayerByConnectionId(string contextConnectionId)
         {
             var player = this.Players.SingleOrDefault(sd=>sd.ConnectionId == contextConnectionId);
