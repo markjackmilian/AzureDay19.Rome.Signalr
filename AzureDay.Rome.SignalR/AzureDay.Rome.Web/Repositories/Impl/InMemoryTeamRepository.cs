@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AzureDay.Rome.Remote.DataSources;
 using AzureDay.Rome.Web.Model;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -8,39 +9,22 @@ namespace AzureDay.Rome.Web.Repositories.Impl
 {
     class InMemoryTeamRepository : ITeamRepository
     {
+        private readonly ITeamsDataSource _teamsDataSource;
         private List<WebTeam> _teams = new List<WebTeam>();
 
-        public InMemoryTeamRepository()
+        public InMemoryTeamRepository(ITeamsDataSource teamsDataSource)
         {
+            this._teamsDataSource = teamsDataSource;
             this.CreateTeams();
         }
 
         private void CreateTeams()
         {
-            var team1 = new WebTeam(Guid.Parse("74DB8003-2348-498F-B773-1C4CE0FD69A2"))
+            var webTeams = this._teamsDataSource.GetTeams().Select(s => new WebTeam(s.Id)
             {
-                Name = "Team 1"
-            };
-            this._teams.Add(team1);
-
-            var team2 = new WebTeam(Guid.Parse("8E6AF2F7-6184-4DA0-B2E4-978EDB3F43D1"))
-            {
-                Name = "Team 2"
-            };
-            this._teams.Add(team2);
-
-            var team3 = new WebTeam(Guid.Parse("8D724F01-C9EE-4F31-A865-AFBD6A2D2BDA"))
-            {
-                Name = "Team 3"
-            };
-            this._teams.Add(team3);
-
-            var team4 = new WebTeam(Guid.Parse("0D2C37F7-49FE-48D9-A1D3-1A90E7948BCC"))
-            {
-                Name = "Team 4"
-            };
-            this._teams.Add(team4);
-            
+                Name = s.Name
+            });
+            this._teams.AddRange(webTeams);
         }
 
         public void ClearPlayers()

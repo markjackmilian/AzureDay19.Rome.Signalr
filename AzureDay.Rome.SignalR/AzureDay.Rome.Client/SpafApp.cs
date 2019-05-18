@@ -5,6 +5,7 @@ using AzureDay.Rome.Client.Hubs;
 using AzureDay.Rome.Client.Hubs.Impl;
 using AzureDay.Rome.Client.Repositories;
 using AzureDay.Rome.Client.Repositories.Impl;
+using AzureDay.Rome.Remote.DataSources;
 using Bridge;
 using Bridge.Ioc;
 using Bridge.Messenger;
@@ -42,6 +43,8 @@ namespace Bridge.Spaf
             // register custom resource, services..
             Container.RegisterSingleInstance<IMoveItHub, MoveItHub>();
             Container.RegisterSingleInstance<IGameHub, GameHub>();
+            
+            Container.RegisterSingleInstance<ITeamsDataSource, TeamsDataSource>();
             
             
             Container.RegisterSingleInstance<ITeamRepository, TeamRepository>();

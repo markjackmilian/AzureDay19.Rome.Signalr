@@ -1,4 +1,5 @@
-﻿using AzureDay.Rome.Web.Hubs;
+﻿using AzureDay.Rome.Remote.DataSources;
+using AzureDay.Rome.Web.Hubs;
 using AzureDay.Rome.Web.Repositories;
 using AzureDay.Rome.Web.Repositories.Impl;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +23,7 @@ namespace AzureDay.Rome.Web
 
             services.AddSingleton<IGameStateRepository, InMemoryGameStateRepository>();
             services.AddSingleton<ITeamRepository, InMemoryTeamRepository>();
+            services.AddSingleton<ITeamsDataSource, TeamsDataSource>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

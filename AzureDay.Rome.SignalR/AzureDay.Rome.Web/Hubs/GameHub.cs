@@ -16,7 +16,7 @@ namespace AzureDay.Rome.Web.Hubs
         private readonly IGameStateRepository _gameStateRepository;
         private readonly ITeamRepository _teamRepository;
 
-        private IClientProxy _allPlayers =>
+        private IClientProxy AllPlayers =>
             this.Clients.Clients(this._teamRepository.GetAllPlayersConnections);
 
         public GameHub(IGameStateRepository gameStateRepository, ITeamRepository teamRepository)
@@ -100,7 +100,7 @@ namespace AzureDay.Rome.Web.Hubs
             
             // i notify only to all connections in game
             this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode", GameState.InRun);
-            this._allPlayers.SendAsync("gameStateMode",GameState.InRun);
+            this.AllPlayers.SendAsync("gameStateMode",GameState.InRun);
         }
         
         public void ReStart()
@@ -155,7 +155,7 @@ namespace AzureDay.Rome.Web.Hubs
             if (checkTeam.TeamScore < SharedConfiguration.FinishLine) return; // check max point
             
             this._gameStateRepository.FinishedGameMode();
-            this._allPlayers.SendAsync("gameStateMode",GameState.Finished);
+            this.AllPlayers.SendAsync("gameStateMode",GameState.Finished);
             this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode",GameState.Finished);
 
 

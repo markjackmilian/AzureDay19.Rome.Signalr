@@ -19,7 +19,7 @@ namespace AzureDay.Rome.Client.Hubs.Impl
         public GameHub()
         {
             this._connection =  new HubConnectionBuilder().WithUrl("/play").Build();
-            
+
             this._connection.On("gameStateMode",new Action<GameState>((gameState) =>
             {
                 this.OnGameStateReceived?.Invoke(this,gameState);
