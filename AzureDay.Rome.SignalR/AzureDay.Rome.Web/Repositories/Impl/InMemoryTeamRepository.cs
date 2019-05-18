@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using AzureDay.Rome.Remote.DataSources;
@@ -29,7 +30,7 @@ namespace AzureDay.Rome.Web.Repositories.Impl
 
         public void ClearPlayers()
         {
-            this._teams.ForEach(f => f.Players = new List<WebPlayer>());
+            this._teams.ForEach(f => f.Players = new ConcurrentBag<WebPlayer>());
         }
 
         public WebPlayer AddPlayer(string name, Guid teamId, string contextConnectionId)
@@ -72,9 +73,8 @@ namespace AzureDay.Rome.Web.Repositories.Impl
         {
             var team = this.GetTeamByPlayerConnection(connection);
             var player = team.Players.SingleOrDefault(s => s.ConnectionId == connection);
-            if(player != null) 
-                player.ClickCount++;
-            
+            player?.AddClick();
+
             return team.Players.Sum(s => s.ClickCount);
         }
 

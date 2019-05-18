@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using AzureDay.Rome.Shared;
@@ -14,13 +15,13 @@ namespace AzureDay.Rome.Web.Model
         public WebTeam(Guid guid)
         {
             this.Id = guid;
-            this.Players = new List<WebPlayer>();
+            this.Players = new ConcurrentBag<WebPlayer>();
         }
         
         public Guid Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<WebPlayer> Players { get; set; }
+        public ConcurrentBag<WebPlayer> Players { get; set; }
 
         public int TeamScore => this.Players.Sum(s => s.ClickCount);
 
