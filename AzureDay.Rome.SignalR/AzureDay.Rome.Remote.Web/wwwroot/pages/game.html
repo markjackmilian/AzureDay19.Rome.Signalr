@@ -3,9 +3,11 @@
         <p>
             Game
         </p>
-        <p>
-            <span style="font-size: 12pt; line-height: 20px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Clicca sull'astronave<br />per farla avanzare nel gioco!</span>
-            <button data-bind="click:Tap, visible: Game() == 2" class="btn" style="background: url('../img/team4.png'); width: 178px; height: 178px; border: none;"></button>
+        <p style="font-size: 12pt; line-height: 20px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            <span data-bind="click:Tap, visible: Game() == 1">ISTRUZIONI:<br />Non appena apparir&agrave; la tua astronave,<br /> cliccala ripetutamente per far vincere la tua squadra.</span>
+            <span data-bind="click:Tap, visible: Game() == 2">Clicca sull'astronave<br />per farla avanzare nel gioco!</span>
+            <button data-bind="click:Tap, visible: Game() == 2" class="btn astronave Falcon" ></button>
+            <!--Deve essere inserito il databind che cambia la classe del bottone-->
         </p>
     </div>
 </div>
