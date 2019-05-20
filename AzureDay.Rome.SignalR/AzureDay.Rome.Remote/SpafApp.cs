@@ -56,6 +56,11 @@ namespace Bridge.Spaf
                 }
             };
 
+            hub.OnConnectionLost += (sender, args) =>
+            {
+                Global.Alert("Disconnessione.. ricarica la pagina.");
+            };
+
         }
 
         private static void ContainerConfig()

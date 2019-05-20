@@ -14,10 +14,14 @@ namespace AzureDay.Rome.GameStresser
         static async Task Main(string[] args)
         {
             Console.WriteLine("Start stresser");
-            var ip = "localhost";
+//            var ip = "localhost";
+//            var ip = "";
+            
+            
 
             var hubConnection = new HubConnectionBuilder()
-                .WithUrl($"http://{ip}:5000/play")
+//                .WithUrl($"http://{ip}:5000/play")
+                .WithUrl($"https://ad-rome-admin.azurewebsites.net/play")
                 .Build();
 
             hubConnection.On<GameState>("gameStateMode", (state) =>
@@ -29,7 +33,7 @@ namespace AzureDay.Rome.GameStresser
             await hubConnection.StartAsync();
 
             var tasks = new List<Task>();
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 10; i++)
             {
                 var task = Stress(cancellation.Token, async () =>
                 {

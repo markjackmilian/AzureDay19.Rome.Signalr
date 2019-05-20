@@ -2,14 +2,12 @@ using System;
 using System.Threading.Tasks;
 using AzureDay.Rome.Remote.Classes;
 using AzureDay.Rome.Shared;
-using Bridge.AspNetCore.SignalR.Client;
-using Bridge.Html5;
 
 namespace AzureDay.Rome.Remote.Hubs.Impl
 {
-    public class GameHub : IGameHub
+    public class GameHub : BaseHub, IGameHub
     {
-        private readonly HubConnection _connection;
+        protected override string HubUrl { get; } = Configuration.GameServer;
 
         public event EventHandler<Player> OnNewPlayerInYourTeamJoined;
         public event EventHandler<bool> OnRegisterResult;
@@ -20,65 +18,49 @@ namespace AzureDay.Rome.Remote.Hubs.Impl
 
         public GameHub()
         {
-            this._connection =  new HubConnectionBuilder().WithUrl(Configuration.GameServer).Build();
-            
-            this._connection.On("registerResult",new Action<bool>((registered) =>
+            this.Connection.On("registerResult",new Action<bool>((registered) =>
             {
                 this.OnRegisterResult?.Invoke(this,registered);
             }));
             
-            this._connection.On("gameStateMode",new Action<GameState>((gameState) =>
+            this.Connection.On("gameStateMode",new Action<GameState>((gameState) =>
             {
                 this.OnGameStateReceived?.Invoke(this,gameState);
             }));
             
             
-            this._connection.On("newPlayerInThisGroup",new Action<Player>((player) =>
+            this.Connection.On("newPlayerInThisGroup",new Action<Player>((player) =>
             {
                 this.OnNewPlayerInYourTeamJoined?.Invoke(this,player);
             }));
             
-            this._connection.On("yourTeamWins",new Action(() =>
+            this.Connection.On("yourTeamWins",new Action(() =>
             {
                 this.OnYourTeamWins?.Invoke(this,null);
             }));
             
-            this._connection.On("yourTeamLost",new Action(() =>
+            this.Connection.On("yourTeamLost",new Action(() =>
             {
                 this.OnYourTeamLost?.Invoke(this,null);
             }));
-            
-          
-            
         }
 
-        public void Start(Action onStarted)
-        {
-            this._connection.Start().Then(() =>onStarted?.Invoke(),o => Global.Alert(o.ToString()));
-        }
-
-        public void Stop()
-        {
-            this._connection.Stop();
-        }
-
-      
         public void Tap()
         {
-            this._connection.Send("tap");
+            this.Connection.Send("tap");
         }
 
         public Task<bool> Register(string name, Guid team)
         {
             var waitForMe = new WaitForMe<IGameHub, bool>(this, hub => nameof(hub.OnRegisterResult));
-            this._connection.Send("register",name,team);
+            this.Connection.Send("register",name,team);
             return waitForMe.Task;
         }
 
         public Task<GameState> GetGameMode()
         {
             var waitForMe = new WaitForMe<IGameHub, GameState>(this, hub => nameof(hub.OnGameStateReceived));
-            this._connection.Send("getStateMode");
+            this.Connection.Send("getStateMode");
             return waitForMe.Task;
         }
     }

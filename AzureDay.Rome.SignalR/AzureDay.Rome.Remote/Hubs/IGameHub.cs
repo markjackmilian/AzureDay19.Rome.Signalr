@@ -40,7 +40,6 @@ namespace AzureDay.Rome.Remote.Hubs
 
         #endregion
         
-        
         #region COMMAND
 
         /// <summary>

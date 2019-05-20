@@ -15,7 +15,6 @@ namespace AzureDay.Rome.Client.Hubs.Impl
         public event EventHandler<Tuple<int, Guid>> OnTapCountReceived;
         public event EventHandler OnTooManyPlayers;
 
-
         public GameHub()
         {
             this._connection =  new HubConnectionBuilder().WithUrl("/play").Build();
@@ -44,11 +43,7 @@ namespace AzureDay.Rome.Client.Hubs.Impl
             {
                 this.OnTooManyPlayers?.Invoke(this,null);
             }));
-            
-            
-            
         }
-        
 
         public void Start(Action onConnected = null)
         {
@@ -60,8 +55,6 @@ namespace AzureDay.Rome.Client.Hubs.Impl
         {
             this._connection.Stop();
         }
-
-
 
         public void StartGame()
         {
