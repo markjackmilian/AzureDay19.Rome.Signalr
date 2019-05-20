@@ -85,7 +85,7 @@ Bridge.assembly("AzureDay.Rome.Remote", function ($asm, globals) {
             },
             ctors: {
                 init: function () {
-                    this.FinishLine = 1000;
+                    this.FinishLine = 20;
                     this.MaxPlayers = 3;
                 }
             }

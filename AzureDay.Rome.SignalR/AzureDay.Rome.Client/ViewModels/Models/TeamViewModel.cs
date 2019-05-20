@@ -9,7 +9,7 @@ namespace AzureDay.Rome.Client.ViewModels.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string CssClass { get; set; }
-        public knockout.KnockoutObservable<int> Score { get; set; }
+        public knockout.KnockoutObservable<double> Score { get; set; }
         public knockout.KnockoutObservable<int> HowMany { get; set; }
         
         public knockout.KnockoutObservable<string> ScreenPosition { get; set; }
@@ -22,7 +22,7 @@ namespace AzureDay.Rome.Client.ViewModels.Models
             this.Name = team.Name;
             this.CssClass = this.Name.Replace(" ", "_");
             
-            this.Score = knockout.ko.observable.Self<int>();
+            this.Score = knockout.ko.observable.Self<double>();
             this.HowMany = knockout.ko.observable.Self<int>();
             this.ScreenPosition = knockout.ko.observable.Self<string>();
             this.IsWinner = knockout.ko.observable.Self<bool>();

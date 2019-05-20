@@ -21,7 +21,7 @@ namespace AzureDay.Rome.Client.ViewModels
         
         private readonly IGameHub _gameHub;
         private readonly ITeamRepository _teamRepository;
-        private int _tapCount;
+        private double _tapCount;
         public override string ElementId() => SpafApp.StartGameId;
 
         public knockout.KnockoutObservable<GameState> State { get; set; }
@@ -73,6 +73,9 @@ namespace AzureDay.Rome.Client.ViewModels
                 case GameState.InRun:
                     var width = Global.Document.GetElementById("gameDiv").OffsetWidth-FinishLineOffset-SpaceShipWidth;
                     this._tapCount = width / SharedConfiguration.FinishLine;
+                    Console.WriteLine($"Width: {width}");
+                    Console.WriteLine($"FinishLine: { SharedConfiguration.FinishLine}");
+                    Console.WriteLine($"TapCount: {this._tapCount}");
                     break;
                 case GameState.Finished:
                     break;
