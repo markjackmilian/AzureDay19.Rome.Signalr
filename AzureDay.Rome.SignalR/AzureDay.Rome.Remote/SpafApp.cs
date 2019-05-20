@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AzureDay.Rome.Remote.Classes;
+using AzureDay.Rome.Remote.DataSources;
 using AzureDay.Rome.Remote.Hubs;
 using AzureDay.Rome.Remote.Hubs.Impl;
 using AzureDay.Rome.Remote.ViewModels;
@@ -13,6 +14,7 @@ using Bridge.Ioc;
 using Bridge.Messenger;
 using Bridge.Navigation;
 using Bridge.Spaf.Attributes;
+using System.Threading.Tasks;
 
 namespace Bridge.Spaf
 {
@@ -57,13 +59,15 @@ namespace Bridge.Spaf
                 }
             };
 
-            hub.OnConnectionLost += (sender, args) =>
+            hub.OnConnectionLost += async (sender, args) =>
             {
                 Global.Alert("Disconnessione.. ricarico la pagina.");
                 navigator.Navigate(SpafApp.WaitingId, new Dictionary<string, object>()
                 {
                     {"teamId",SpafApp.TeamId}
                 });
+                await Task.Delay(200);
+                Global.Location.Reload();
             };
 
         }
@@ -84,6 +88,8 @@ namespace Bridge.Spaf
 
             // register custom resource, services..
             Container.RegisterSingleInstance<IGameHub, GameHub>();
+            
+            Container.RegisterSingleInstance<ITeamsDataSource, TeamsDataSource>();
 
 
         }

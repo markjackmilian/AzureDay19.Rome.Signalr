@@ -1,9 +1,9 @@
 <div id="gameResult">
     <div style="width: 95%; margin: 0 auto; padding-top: 50px; text-align: center;">
         <!--in caso di vincita-->
-        <img src="https://media.giphy.com/media/9RXRLkzbQcpz4S5ZGk/giphy.gif" style="width: 60%; margin: 0 auto;" />
+        <img data-bind="visible:Winner()"  src="https://media.giphy.com/media/9RXRLkzbQcpz4S5ZGk/giphy.gif" style="width: 60%; margin: 0 auto;" />
 
         <!--in caso di perdita-->
-        <img src="https://media.giphy.com/media/AFuvqdSLGoaJGTE7Iy/giphy.gif" style="width: 60%; margin: 0 auto;" />
+        <img data-bind="visible:Winner() == false" src="https://media.giphy.com/media/AFuvqdSLGoaJGTE7Iy/giphy.gif" style="width: 60%; margin: 0 auto;" />
     </div>
 </div>
