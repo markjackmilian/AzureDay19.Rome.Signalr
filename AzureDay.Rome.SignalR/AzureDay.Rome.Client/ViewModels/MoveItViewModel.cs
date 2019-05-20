@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Bridge.Spaf.Hubs;
+using AzureDay.Rome.Client.Hubs;
+using Bridge.Spaf;
 using Retyped;
 
-namespace Bridge.Spaf.ViewModels
+namespace AzureDay.Rome.Client.ViewModels
 {
     public class MoveItViewModel : LoadableViewModel
     {

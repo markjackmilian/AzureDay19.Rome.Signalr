@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using AzureDay.Rome.Client.Hubs;
 using AzureDay.Rome.Client.Hubs.Impl;
+using AzureDay.Rome.Client.Repositories;
+using AzureDay.Rome.Client.Repositories.Impl;
+using AzureDay.Rome.Remote.DataSources;
 using Bridge;
 using Bridge.Ioc;
 using Bridge.Messenger;
 using Bridge.Navigation;
 using Bridge.Spaf.Attributes;
-using Bridge.Spaf.Hubs;
-using Bridge.Spaf.Hubs.Impl;
 
 namespace Bridge.Spaf
 {
@@ -39,10 +41,13 @@ namespace Bridge.Spaf
             RegisterAllViewModels();
 
             // register custom resource, services..
-            Container.RegisterSingleInstance<IChatHub, ChatHub>();
             Container.RegisterSingleInstance<IMoveItHub, MoveItHub>();
-
-
+            Container.RegisterSingleInstance<IGameHub, GameHub>();
+            
+            Container.RegisterSingleInstance<ITeamsDataSource, TeamsDataSource>();
+            
+            
+            Container.RegisterSingleInstance<ITeamRepository, TeamRepository>();
         }
 
         #region PAGES IDS
@@ -51,7 +56,7 @@ namespace Bridge.Spaf
 
         public static string HomeId => "home";
         public static string MoveItId => "moveIt";
-        public static string RunId => "run";
+        public static string StartGameId => "startGame";
 
         #endregion
 
@@ -64,7 +69,7 @@ namespace Bridge.Spaf
 
             public static GlobalSender Sender = new GlobalSender();
 
-            public static string LoginDone => "LoginDone";
+            //public static string LoginDone => "LoginDone";
 
         }
 

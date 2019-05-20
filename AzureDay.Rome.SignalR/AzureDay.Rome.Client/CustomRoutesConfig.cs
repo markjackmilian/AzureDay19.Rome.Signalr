@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using AzureDay.Rome.Client.ViewModels;
 using Bridge.jQuery2;
 using Bridge.Navigation;
-using Bridge.Spaf.ViewModels;
 
 namespace Bridge.Spaf
 {
@@ -11,13 +11,7 @@ namespace Bridge.Spaf
         {
             return new List<IPageDescriptor>
             {
-                new PageDescriptor
-                {
-                    CanBeDirectLoad = ()=>true,
-                    HtmlLocation = ()=>"pages/chat.html", 
-                    Key = SpafApp.HomeId,
-                    PageController = () => SpafApp.Container.Resolve<ChatViewModel>()
-                },
+               
                 new PageDescriptor
                 {
                     CanBeDirectLoad = ()=>true,
@@ -28,9 +22,9 @@ namespace Bridge.Spaf
                 new PageDescriptor
                 {
                     CanBeDirectLoad = ()=>true,
-                    HtmlLocation = ()=>"pages/run.html", 
-                    Key = SpafApp.RunId,
-                    PageController = () => SpafApp.Container.Resolve<RunViewModel>()
+                    HtmlLocation = ()=>"pages/startGame.html", 
+                    Key = SpafApp.StartGameId,
+                    PageController = () => SpafApp.Container.Resolve<StartGameViewModel>()
                 },
               
             };

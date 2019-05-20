@@ -21,6 +21,8 @@ namespace AzureDay.Rome.Xam.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            global::Xamarin.Forms.Forms.SetFlags("Shell_Experimental");
+
             Xamarin.Forms.Forms.Init();
             this.LoadApplication(new App());
 

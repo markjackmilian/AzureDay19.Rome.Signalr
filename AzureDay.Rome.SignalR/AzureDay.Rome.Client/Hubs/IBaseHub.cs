@@ -1,8 +1,10 @@
-namespace Bridge.Spaf.Hubs
+using System;
+
+namespace AzureDay.Rome.Client.Hubs
 {
     public interface IBaseHub
     {
-        void Start();
+        void Start(Action onConnected = null);
         void Stop();
     }
 }

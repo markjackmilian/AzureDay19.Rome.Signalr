@@ -1,0 +1,14 @@
+<div id="register">
+    <div class="message">
+        
+        <p> <span data-bind="visible:!TooManyPlayers()">Register</span> <br />
+        <p> <span data-bind="visible:TooManyPlayers()">Ci sono troppi giocatori.. dovevi essere piu veloce!</span> <br />
+
+        <div data-bind="visible:!TooManyPlayers()">
+            <input type="text" data-bind="textInput:Name" class="input"><br />
+            <button data-bind="click:Register" class="btn">Registrati</button>
+        </div>
+        
+        </p>
+    </div>
+</div>

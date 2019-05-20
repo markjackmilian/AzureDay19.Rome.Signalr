@@ -1,6 +1,5 @@
 using System;
 using Bridge.AspNetCore.SignalR.Client;
-using Bridge.Spaf.Hubs;
 
 namespace AzureDay.Rome.Client.Hubs.Impl
 {
@@ -24,7 +23,7 @@ namespace AzureDay.Rome.Client.Hubs.Impl
             }));
         }
         
-        public void Start()
+        public void Start(Action onConnected = null)
         {
             this._connection.Start();
         }

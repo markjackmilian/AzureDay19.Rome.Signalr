@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Gaming</title>
+    <link rel="stylesheet" href="lib/toast-master/css/jquery.toast.css">
+    <link href="https://fonts.googleapis.com/css?family=Slackey" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Slackey', cursive;
+        }
+
+        #pageBody {
+            background-image: url('img/space.jpg');
+            background-size: cover;
+            text-align: center;
+            color: #FFFFFF;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .message {
+            padding: 200px 20px 0 20px;
+            border-top: 5px solid #0094ff;
+            font-size: 7em;
+        }
+
+        .input {
+            width: 50%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 2px solid #006f8a;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: .25rem;
+        }
+
+        .btn {
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 2px solid #4791ae;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: .25rem;
+            background-color: #006f8a;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 992px) {
+            .message {
+                font-size: 3em;
+                padding-top: 100px;
+            }
+            .btn{
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="pageBody" style=""></div>
+
+
+<script src="lib/signalr/dist/browser/signalr.js"></script>
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@aspnet/signalr@1.1.0/dist/browser/signalr.min.js"></script>-->
+
+
+<script src="lib/knockout/knockout.js"></script>
+
+
+<script src="bridge/bridge.js"></script>
+<!--<script src="bridge/bridge.console.js"></script>-->
+<script src="bridge/bridge.meta.js"></script>
+<script src="bridge/bridge.ioc.js"></script>
+<script src="bridge/bridge.ioc.meta.js"></script>
+<script src="bridge/Bridge.Messenger.js"></script>
+<script src="bridge/Bridge.Messenger.meta.js"></script>
+<script src="bridge/jquery-2.2.4.js"></script>
+<script src="bridge/Bridge.Navigation.js"></script>
+<script src="bridge/Bridge.Navigation.meta.js"></script>
+<script src="bridge/Bridge.Spaf.js"></script>
+<script src="bridge/Bridge.Spaf.meta.js"></script>
+<script src="bridge/AzureDay.Rome.Remote.js"></script>
+<script src="bridge/AzureDay.Rome.Remote.meta.js"></script>
+
+<script src="lib/toast-master/js/jquery.toast.js"></script>
+
+
+</body>
+</html>
