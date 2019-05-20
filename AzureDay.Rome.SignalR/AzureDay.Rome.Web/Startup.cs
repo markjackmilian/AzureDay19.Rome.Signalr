@@ -17,6 +17,7 @@ namespace AzureDay.Rome.Web
             
             services.AddMvc();
             
+            
 //            services.AddSignalR().AddAzureSignalR("Endpoint=https://ad19rome.service.signalr.net;AccessKey=Bg10eic8ZTchRNePpKh9VSHI4uZFczpt5pHCq+QTdXg=;Version=1.0;");
             services.AddSignalR();
 

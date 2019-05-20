@@ -16,7 +16,7 @@ namespace AzureDay.Rome.Web.Hubs
         
         private readonly IGameStateRepository _gameStateRepository;
         private readonly ITeamRepository _teamRepository;
-        private Random _rand;
+        private readonly Random _rand;
 
         private IClientProxy AllPlayers =>
             this.Clients.Clients(this._teamRepository.GetAllPlayersConnections);
@@ -33,13 +33,13 @@ namespace AzureDay.Rome.Web.Hubs
         /// </summary>
         /// <param name="name"></param>
         /// <param name="team"></param>
-        public void Register(string name, string team)
+        public async Task Register(string name, string team)
         {
             // check max numbers of players
             if (this._teamRepository.GetAllPlayers().Count() >= SharedConfiguration.MaxPlayers)
             {
-                this.Clients.Caller.SendAsync("registerResult",false);
-                this.Clients.Client(AdminUser.Connection).SendAsync("tooManyPlayers");
+                await this.Clients.Caller.SendAsync("registerResult",false);
+                await this.Clients.Client(AdminUser.Connection).SendAsync("tooManyPlayers");
 
                 return;
             }
@@ -49,19 +49,19 @@ namespace AzureDay.Rome.Web.Hubs
             if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
 
             var player = this._teamRepository.AddPlayer(name, teamId, this.Context.ConnectionId);
-            this.Clients.Caller.SendAsync("registerResult",true);
+            await this.Clients.Caller.SendAsync("registerResult",true);
 
-            this.Groups.AddToGroupAsync(this.Context.ConnectionId, team.ToString());
-            this.Clients.OthersInGroup(team).SendAsync("newPlayerInThisGroup", player);
+            await this.Groups.AddToGroupAsync(this.Context.ConnectionId, team.ToString());
+            await this.Clients.OthersInGroup(team).SendAsync("newPlayerInThisGroup", player);
             
             if(!string.IsNullOrEmpty(AdminUser.Connection))
-                this.Clients.Client(AdminUser.Connection).SendAsync("newPlayerJoined",player,team);
+                await this.Clients.Client(AdminUser.Connection).SendAsync("newPlayerJoined",player,team);
         }
 
         /// <summary>
         /// Open state for registering
         /// </summary>
-        public void OpenRegistration()
+        public async Task OpenRegistration()
         {
             if (this._gameStateRepository.GetCurrentState() != GameState.Closed) return; // wrong state
 
@@ -72,7 +72,7 @@ namespace AzureDay.Rome.Web.Hubs
                 team.ClearTestScore();
                 foreach (var teamPlayer in team.Players)
                 {
-                    this.Groups.RemoveFromGroupAsync(teamPlayer.ConnectionId,team.Id.ToString());
+                    await this.Groups.RemoveFromGroupAsync(teamPlayer.ConnectionId,team.Id.ToString());
                 }
             }
             
@@ -83,61 +83,60 @@ namespace AzureDay.Rome.Web.Hubs
             this._gameStateRepository.OpenRegisterMode();
             
             // notify state
-            this.Clients.All.SendAsync("gameStateMode",GameState.Register);
+            await this.Clients.All.SendAsync("gameStateMode",GameState.Register);
         }
 
-        public void StopGame()
+        public async Task StopGame()
         {
             if (this._gameStateRepository.GetCurrentState() != GameState.InRun) return; // wrong state
             this._gameStateRepository.StopGame();
-            this.Clients.All.SendAsync("gameStateMode",GameState.Closed);
+            await this.Clients.All.SendAsync("gameStateMode",GameState.Closed);
         }
 
         /// <summary>
         /// Received command to change gamestate to InRun
         /// </summary>
-        public void StartGame()
+        public async Task StartGame()
         {
             if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
 
             this._gameStateRepository.StartGameMode();
             
             // i notify only to all connections in game
-            this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode", GameState.InRun);
-            this.AllPlayers.SendAsync("gameStateMode",GameState.InRun);
+            await this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode", GameState.InRun);
+            await this.AllPlayers.SendAsync("gameStateMode",GameState.InRun);
         }
         
-        public void ReStart()
+        public async Task ReStart()
         {
             if (this._gameStateRepository.GetCurrentState() != GameState.Finished) return; // wrong state
 
             this._gameStateRepository.StopGame();
-            this.Clients.All.SendAsync("gameStateMode",GameState.Closed);
+            await this.Clients.All.SendAsync("gameStateMode",GameState.Closed);
         }
-
 
         /// <summary>
         /// Recover actual state
         /// </summary>
-        public void GetStateMode()
+        public async Task GetStateMode()
         {
             var currentState = this._gameStateRepository.GetCurrentState();
-            this.Clients.Caller.SendAsync("gameStateMode", currentState);
+            await this.Clients.Caller.SendAsync("gameStateMode", currentState);
         }
 
         /// <summary>
         /// Set admin connection
         /// </summary>
-        public void SetUpAdmin()
+        public async Task SetUpAdmin()
         {
             AdminUser.Connection = this.Context.ConnectionId;
-            this.GetStateMode();
+            await this.GetStateMode();
         }
 
         /// <summary>
         /// Receive a tap
         /// </summary>
-        public void Tap()
+        public async Task Tap()
         {
             if (this._gameStateRepository.GetCurrentState() == GameState.Finished) return; // already finisched
             
@@ -146,43 +145,44 @@ namespace AzureDay.Rome.Web.Hubs
 
             if (team == null) return;
             
-            this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team.Id);
-            this.CheckWinner(team);
+            await this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", teamClick, team.Id);
+            await this.CheckWinner(team);
         }
 
-        public void AutoTap()
+        public async Task AutoTap()
         {
             if (this._gameStateRepository.GetCurrentState() == GameState.Finished) return; // already finisched
             var allTeams = this._teamRepository.GetAllTeams();
-            var team = allTeams.ElementAt(this._rand.Next(allTeams.Count()));
+            var webTeams = allTeams as WebTeam[] ?? allTeams.ToArray();
+            var team = webTeams.ElementAt(this._rand.Next(webTeams.Count()));
 
             team.AddTestClick();
 
             
-            this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", team.TestScore, team.Id);
+            await this.Clients.Client(AdminUser.Connection).SendAsync("tapCount", team.TestScore, team.Id);
             
             if (team.TestScore < SharedConfiguration.FinishLine) return; // check max point
             
             this._gameStateRepository.FinishedGameMode();
-            this.Clients.All.SendAsync("gameStateMode",GameState.Finished);
+            await this.Clients.All.SendAsync("gameStateMode",GameState.Finished);
         }
 
         /// <summary>
         /// Evaluate game for the passed team
         /// </summary>
         /// <param name="checkTeam"></param>
-        private void CheckWinner(WebTeam checkTeam)
+        private async Task CheckWinner(WebTeam checkTeam)
         {
             if (checkTeam.TeamScore < SharedConfiguration.FinishLine) return; // check max point
             
             this._gameStateRepository.FinishedGameMode();
-            this.AllPlayers.SendAsync("gameStateMode",GameState.Finished);
-            this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode",GameState.Finished);
+            await this.AllPlayers.SendAsync("gameStateMode",GameState.Finished);
+            await this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode",GameState.Finished);
 
 
             var teams = this._teamRepository.GetAllTeams();
             foreach (var team in teams)
-                this.Clients.Group(team.Id.ToString()).SendAsync(team.Id == checkTeam.Id ? "yourTeamWins" :"yourTeamLost");
+                await this.Clients.Group(team.Id.ToString()).SendAsync(team.Id == checkTeam.Id ? "yourTeamWins" :"yourTeamLost");
         }
 
         /// <summary>

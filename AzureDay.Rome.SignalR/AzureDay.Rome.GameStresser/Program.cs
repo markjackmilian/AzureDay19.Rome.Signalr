@@ -33,7 +33,7 @@ namespace AzureDay.Rome.GameStresser
             await hubConnection.StartAsync();
 
             var tasks = new List<Task>();
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 20; i++)
             {
                 var task = Stress(cancellation.Token, async () =>
                 {

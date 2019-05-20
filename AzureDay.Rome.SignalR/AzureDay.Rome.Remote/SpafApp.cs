@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AzureDay.Rome.Remote.Classes;
 using AzureDay.Rome.Remote.Hubs;
 using AzureDay.Rome.Remote.Hubs.Impl;
 using AzureDay.Rome.Remote.ViewModels;
@@ -36,7 +37,7 @@ namespace Bridge.Spaf
 
             hub.OnNewPlayerInYourTeamJoined += (sender, player) =>
             {
-                Global.Alert($"La tua squadra ha un nuovo player: {player.Name}");
+                Notification.Success($"La tua squadra ha un nuovo player: {player.Name}");
             };
 
             hub.OnGameStateReceived += (sender, state) =>
@@ -58,7 +59,11 @@ namespace Bridge.Spaf
 
             hub.OnConnectionLost += (sender, args) =>
             {
-                Global.Alert("Disconnessione.. ricarica la pagina.");
+                Global.Alert("Disconnessione.. ricarico la pagina.");
+                navigator.Navigate(SpafApp.WaitingId, new Dictionary<string, object>()
+                {
+                    {"teamId",SpafApp.TeamId}
+                });
             };
 
         }

@@ -6,7 +6,7 @@ namespace AzureDay.Rome.Remote
         public static int FinishLine = 20;
         public static int MaxPlayers = 3;
         #else
-        public static int FinishLine = 1000;
+        public static int FinishLine = 100;
         public static int MaxPlayers = 60;
         #endif
 
