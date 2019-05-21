@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AzureDay.Rome.Shared;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AzureDay.Rome.Web.Model
 {
@@ -25,7 +26,7 @@ namespace AzureDay.Rome.Web.Model
 
         public ConcurrentBag<WebPlayer> Players { get; set; }
 
-        public int TeamScore => this.Players.Sum(s => s.ClickCount);
+        public int TeamScore => this.Players.Sum(s => s.ClickCount)* this.Weight;
 
         public void AddTestClick()
         {
@@ -41,7 +42,9 @@ namespace AzureDay.Rome.Web.Model
         }
         
         public int TestScore { get; private set; }
-        
+        public int Weight { get; set; }
+
+
         public void RemovePlayerByConnectionId(string contextConnectionId)
         {
             var player = this.Players.SingleOrDefault(sd=>sd.ConnectionId == contextConnectionId);

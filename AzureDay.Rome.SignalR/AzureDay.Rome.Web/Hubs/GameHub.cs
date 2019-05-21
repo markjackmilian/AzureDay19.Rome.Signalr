@@ -70,6 +70,7 @@ namespace AzureDay.Rome.Web.Hubs
             foreach (var team in teams)
             {
                 team.ClearTestScore();
+                team.Weight = 1;
                 foreach (var teamPlayer in team.Players)
                 {
                     await this.Groups.RemoveFromGroupAsync(teamPlayer.ConnectionId,team.Id.ToString());
@@ -101,6 +102,7 @@ namespace AzureDay.Rome.Web.Hubs
             if (this._gameStateRepository.GetCurrentState() != GameState.Register) return; // wrong state
 
             this._gameStateRepository.StartGameMode();
+            this._teamRepository.SetupWeights();
             
             // i notify only to all connections in game
             await this.Clients.Client(AdminUser.Connection).SendAsync("gameStateMode", GameState.InRun);

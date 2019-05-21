@@ -23,5 +23,10 @@ namespace AzureDay.Rome.Web.Repositories
         /// </summary>
         /// <returns></returns>
         IReadOnlyList<string> GetAllPlayersConnections { get; }
+
+        /// <summary>
+        /// Setup teams weight for different number components
+        /// </summary>
+        void SetupWeights();
     }
 }

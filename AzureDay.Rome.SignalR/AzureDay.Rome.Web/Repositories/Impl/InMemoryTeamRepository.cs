@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using AzureDay.Rome.Remote;
 using AzureDay.Rome.Remote.DataSources;
 using AzureDay.Rome.Web.Model;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -75,9 +76,17 @@ namespace AzureDay.Rome.Web.Repositories.Impl
             var player = team.Players.SingleOrDefault(s => s.ConnectionId == connection);
             player?.AddClick();
 
-            return team.Players.Sum(s => s.ClickCount);
+            return team.TeamScore;
         }
 
         public IReadOnlyList<string> GetAllPlayersConnections => this._teams.SelectMany(s => s.Players).Select(s => s.ConnectionId).ToArray();
+        public void SetupWeights()
+        {
+            this._teams.ForEach(f =>
+            {
+                if (!f.Players.Any()) return;
+                f.Weight = SharedConfiguration.FinishLine / (f.Players.Count()*50);
+            });
+        }
     }
 }

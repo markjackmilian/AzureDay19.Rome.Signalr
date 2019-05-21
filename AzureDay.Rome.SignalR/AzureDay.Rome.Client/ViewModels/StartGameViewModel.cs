@@ -43,7 +43,7 @@ namespace AzureDay.Rome.Client.ViewModels
 
         private void GameHubOnOnPlayerLeaved(object sender, Tuple<Player, Guid> tuple)
         {
-            var localPlayer = this.ALlPlayers.SingleOrDefault(sd => sd.Id == tuple.Item1.Id);
+            var localPlayer = this.ALlPlayers.SingleOrDefault(sd => sd.Id.ToString() == tuple.Item1.Id.ToString());
             if (localPlayer == null) return;
 
             var team = this._teamRepository.GetTeamById(tuple.Item2);
