@@ -63,7 +63,7 @@ Bridge.assembly("AzureDay.Rome.Remote", function ($asm, globals) {
             },
             ctors: {
                 init: function () {
-                    this.GameServer = "http://localhost:5000/play";
+                    this.GameServer = "https://ad-rome-admin.azurewebsites.net/play";
                 }
             }
         }
@@ -86,7 +86,7 @@ Bridge.assembly("AzureDay.Rome.Remote", function ($asm, globals) {
             ctors: {
                 init: function () {
                     this.FinishLine = 1000;
-                    this.MaxPlayers = 3;
+                    this.MaxPlayers = 60;
                 }
             }
         }
