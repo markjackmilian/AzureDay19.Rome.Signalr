@@ -72,7 +72,7 @@ namespace AzureDay.Rome.Client.ViewModels
                     break;
                 case GameState.InRun:
                     var width = Global.Document.GetElementById("gameDiv").OffsetWidth-FinishLineOffset-SpaceShipWidth;
-                    this._tapCount = width / SharedConfiguration.FinishLine;
+                    this._tapCount = (double)width / (double)SharedConfiguration.FinishLine;
                     Console.WriteLine($"Width: {width}");
                     Console.WriteLine($"FinishLine: { SharedConfiguration.FinishLine}");
                     Console.WriteLine($"TapCount: {this._tapCount}");
