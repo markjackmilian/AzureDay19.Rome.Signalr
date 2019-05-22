@@ -99,7 +99,7 @@ namespace AzureDay.Rome.Client.ViewModels
         private void GameHubOnOnTapCountReceived(object sender, Tuple<int, Guid> e)
         {
             var team = this.GetTeamById(e.Item2);
-            team.Score.Self(e.Item1*this._tapCount);
+            team.Score.Self((int)(e.Item1*this._tapCount));
 
             this.TeamViewModels.Self().ForEach(f => f.IsWinner.Self(false));
             this.TeamViewModels.Self().OrderByDescending(o => o.Score.Self()).First().IsWinner.Self(true);

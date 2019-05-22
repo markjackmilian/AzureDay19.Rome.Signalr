@@ -22,7 +22,7 @@ namespace AzureDay.Rome.Remote.ViewModels
 
         private void GameHubOnOnGameStateReceived(object sender, GameState e)
         {
-            if(e == GameState.Register)
+            if (e == GameState.Register)
                 this._navigator.Navigate(SpafApp.RegiserId);
         }
 
@@ -39,13 +39,20 @@ namespace AzureDay.Rome.Remote.ViewModels
             try
             {
                 SpafApp.TeamId = parameters.GetParameter<string>("teamId");
+                Global.LocalStorage["teamId"] = SpafApp.TeamId;
             }
-            catch 
+            catch
             {
-                Global.Alert("Errore, non trovo il team id!");
-                throw;
+                // try get from storage
+                SpafApp.TeamId = (string) Global.LocalStorage["teamId"];
+
+                if (string.IsNullOrEmpty(SpafApp.TeamId))
+                {
+                    Global.Alert("Errore, non trovo il team id!");
+                    throw;
+                }
             }
-          
+
 
             var mode = await this._gameHub.GetGameMode();
 

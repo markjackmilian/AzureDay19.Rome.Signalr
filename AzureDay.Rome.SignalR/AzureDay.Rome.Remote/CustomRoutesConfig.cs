@@ -23,7 +23,7 @@ namespace Bridge.Spaf
                     CanBeDirectLoad = ()=>false,
                     HtmlLocation = ()=>"pages/register.html",
                     Key = SpafApp.RegiserId,
-                    PageController = () => SpafApp.Container.Resolve<RegisterViewModel>()
+                    PageController = () => SpafApp.Container.Resolve<RegisterViewModel>(),
                 },
                 new PageDescriptor
                 {
