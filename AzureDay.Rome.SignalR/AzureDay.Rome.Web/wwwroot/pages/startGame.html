@@ -36,7 +36,7 @@
                 <h2 data-bind="text:Name" style="text-transform: uppercase;"></h2>
                 <p>Avanzamento: <span data-bind="text:Score"></span></p>
                 <p>In squadra: <span data-bind="text:HowMany"></span></p>
-                <div data-bind="visible: $root.State() != 2">
+                <div data-bind="visible: $root.State() == 1">
                     <p >
                         Partecipanti:
                     <ul data-bind="foreach: Players" class="w3-ul w3-small" style="padding-bottom: 20px;">
